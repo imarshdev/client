@@ -11,7 +11,7 @@ function App() {
       <h1>WALAMIN GREEN</h1>
       <div className="card">
         <p>
-          Welcome To Walamin Travel
+          Go Green Go Walamin
         </p>
       </div>
       <PWABadge />
