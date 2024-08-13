@@ -5,8 +5,13 @@
   text-align: center;
 }
 
-
-
+@font-face {
+  font-family: sans;
+  src: url(./assets/JosefinSans-Regular.ttf);
+}
+p, h1{
+  font-family: sans;
+}
 .card {
   padding: 2em;
 }
