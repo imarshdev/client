@@ -12,7 +12,7 @@ export default defineConfig({
     injectRegister: false,
 
     manifest: {
-      name: 'Walamin',
+      name: 'Walamin Green',
       short_name: 'Walamin',
       description: 'Walamin Green Solutions Limited',
       theme_color: '#f0f2fa',

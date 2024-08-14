@@ -40,7 +40,7 @@ function SignIn() {
                 onclick="location.href='mainpage.html'"
                 class="form-btn primary-default-btn transparent-btn"
               >
-                <span> Sign in</span>
+                <span> Sign In</span>
               </button>
             </Link>
             <p>Or</p>
