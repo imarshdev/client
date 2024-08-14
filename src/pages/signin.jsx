@@ -30,15 +30,17 @@ function SignIn() {
           </a>
           <label class="form-checkbox-wrapper">
             <input class="form-checkbox" type="checkbox" required />
-            <span class="form-checkbox-label">Remember me next time</span>
+            <span class="form-checkbox-label">
+              <span>Remember me next time</span>
+            </span>
           </label>
-          <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <div>
             <Link to="/home">
               <button
                 onclick="location.href='mainpage.html'"
                 class="form-btn primary-default-btn transparent-btn"
               >
-                Sign in
+                <span> Sign in</span>
               </button>
             </Link>
             <p>Or</p>
@@ -47,7 +49,7 @@ function SignIn() {
                 onclick="location.href='mainpage.html'"
                 class="form-btn primary-default-btn transparent-btn"
               >
-                Sign Up
+                <span> Sign Up</span>
               </button>
             </Link>
           </div>

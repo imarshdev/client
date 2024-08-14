@@ -69,6 +69,8 @@ button {
   background-color: #1a1a1a;
   cursor: pointer;
   transition: border-color 0.25s;
+    width: 100%;
+    color: #fff;
 }
 button:hover {
   border-color: #646cff;
@@ -116,6 +118,6 @@ button, input, optgroup, select, textarea{
     color: #747bff;
   }
   button {
-    background-color: #f9f9f9;
+    background-color: #646cff;
   }
 }
