@@ -1,5 +1,5 @@
 import "../css/signin.css";
-function SignUP() {
+function SignUp() {
   return (
     <main class="page-center">
       <article class="sign-up">

@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import "../css/signin.css";
 function SignIn() {
   return (
@@ -31,25 +32,25 @@ function SignIn() {
             <input class="form-checkbox" type="checkbox" required />
             <span class="form-checkbox-label">Remember me next time</span>
           </label>
-          <button
-            onclick="location.href='mainpage.html'"
-            class="form-btn primary-default-btn transparent-btn"
-          >
-            Sign in
-          </button>
-          <br />
-          <br />
-          <a class="link-info forget-link" href="##">
-            Don't have an account?
-          </a>
-          <br />
-          <br />
-          <button
-            onclick="location.href='mainpage.html'"
-            class="form-btn primary-default-btn transparent-btn"
-          >
-            Sign Up
-          </button>
+          <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <Link to="/home">
+              <button
+                onclick="location.href='mainpage.html'"
+                class="form-btn primary-default-btn transparent-btn"
+              >
+                Sign in
+              </button>
+            </Link>
+            <p>Or</p>
+            <Link to="/signup">
+              <button
+                onclick="location.href='mainpage.html'"
+                class="form-btn primary-default-btn transparent-btn"
+              >
+                Sign Up
+              </button>
+            </Link>
+          </div>
         </form>
       </article>
     </main>
