@@ -11,28 +11,45 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  box-sizing: border-box;
 }
 
 a {
   font-weight: 500;
   color: #646cff;
   text-decoration: inherit;
+  -webkit-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
 }
 a:hover {
   color: #535bf2;
 }
-
+a, button, h1, h2, h3, h4, h5, h6, p, ul{
+      margin: 0;
+    padding: 0;
+    line-height: 1;
+}
 body {
   margin: 0;
   display: flex;
   place-items: center;
   min-width: 320px;
-  min-height: 100vh;
+  max-height: 100vh;
 }
 
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
+}
+p {
+  display: block;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  unicode-bidi: isolate;
 }
 
 button {
@@ -52,6 +69,34 @@ button:hover {
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
+}
+form {
+  -webkit-box-shadow: 0 5px 10px rgba(160, 163, 189, 0.1);
+  box-shadow: 0 5px 10px rgba(160, 163, 189, 0.1);
+  border-radius: 10px;
+  padding: 40px 40px 56px;
+  background-color: #fff;
+  text-align: left;
+}
+label{
+  width: -webkit-max-content;
+    width: -moz-max-content;
+    width: max-content;
+    cursor: pointer;
+        cursor: default;
+}
+
+input{
+      border-radius: 6px;
+    background-color: #eff0f6;
+    min-height: 40px;
+    border: solid transparent 2px !important;
+}
+button, input, optgroup, select, textarea{
+  font-family: inherit;
+    font-size: 100%;
+    line-height: 1.15;
+    margin: 0;
 }
 
 @media (prefers-color-scheme: light) {
