@@ -38,12 +38,13 @@ a, button, h1, h2, h3, h4, h5, h6, p, ul{
     line-height: 1;
 }
 body {
+  width: 100%;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   display: flex;
   place-items: center;
-  background-color: #f0f2fa;
+  background-image: linear-gradient(#f0f2fa, #acdfdd85);
 }
 
 h1 {
@@ -71,9 +72,6 @@ button {
   transition: border-color 0.25s;
     width: 100%;
     color: #fff;
-}
-button:hover {
-  border-color: #646cff;
 }
 button:focus,
 button:focus-visible {
@@ -118,6 +116,6 @@ button, input, optgroup, select, textarea{
     color: #747bff;
   }
   button {
-    background-color: #646cff;
+    background-color: #646cffce;
   }
 }

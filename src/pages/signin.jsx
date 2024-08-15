@@ -35,7 +35,7 @@ function SignIn() {
             </span>
           </label>
           <div>
-            <Link to="/home">
+            <Link to="/signup2">
               <button
                 onclick="location.href='mainpage.html'"
                 class="form-btn primary-default-btn transparent-btn"
