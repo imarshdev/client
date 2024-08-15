@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { TouchableOpacity } from "react-native-web";
 import "../css/signin.css";
 function SignIn() {
   return (
@@ -35,23 +36,27 @@ function SignIn() {
             </span>
           </label>
           <div>
-            <Link to="/signup2">
-              <button
-                onclick="location.href='mainpage.html'"
-                class="form-btn primary-default-btn transparent-btn"
-              >
-                <span> Sign In</span>
-              </button>
-            </Link>
+            <TouchableOpacity>
+              <Link to="/signup2">
+                <button
+                  onclick="location.href='mainpage.html'"
+                  class="form-btn primary-default-btn transparent-btn"
+                >
+                  <span> Sign In</span>
+                </button>
+              </Link>{" "}
+            </TouchableOpacity>
             <p>Or</p>
-            <Link to="/signup">
-              <button
-                onclick="location.href='mainpage.html'"
-                class="form-btn primary-default-btn transparent-btn"
-              >
-                <span> Sign Up</span>
-              </button>
-            </Link>
+            <TouchableOpacity>
+              <Link to="/signup">
+                <button
+                  onclick="location.href='mainpage.html'"
+                  class="form-btn primary-default-btn transparent-btn"
+                >
+                  <span> Sign Up</span>
+                </button>
+              </Link>
+            </TouchableOpacity>
           </div>
         </form>
       </article>

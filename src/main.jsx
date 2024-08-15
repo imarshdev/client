@@ -1,6 +1,7 @@
 import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { PrimeReactProvider, PrimeReactContext } from "primereact/api";
+import { Ripple } from "primereact/ripple";
 import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 import "./index.css";
@@ -30,10 +31,12 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage/>
   }
 ]);
-
+  const value = {
+    ripple: true,
+  };
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <PrimeReactProvider>
+    <PrimeReactProvider value={value}>
       <RouterProvider router={router} />
     </PrimeReactProvider>
   </React.StrictMode>
