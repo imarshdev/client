@@ -140,7 +140,7 @@ function Home() {
           onClick={() => setVisibleBottom4(true)}
         >
           <span>
-            <FaMotorcycle size={25} />
+            <FaMotorcycle size={20} />
           </span>
           <span>Open Services</span>
         </span>
@@ -150,7 +150,7 @@ function Home() {
           id="two"
         >
           <span>
-            <ImMenu4 size={25} />
+            <ImMenu4 size={20} />
           </span>
           <span>Open Services</span>
         </span>
@@ -160,7 +160,7 @@ function Home() {
           id="three"
         >
           <span>
-            <MdSportsMotorsports size={25} />
+            <MdSportsMotorsports size={20} />
           </span>
           <span>My Account</span>
         </span>
