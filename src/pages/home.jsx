@@ -119,15 +119,17 @@ function Home() {
       </KeyboardAvoidingView>
 
       <div className="top">
-        <p>Good Morning Mansur</p>
-        <div>
-          <span>11:29</span>
-          <br />
-          <span>Fri Aug 16</span>
-          <br />
-          <span>
-            23 <FaCloudSunRain />
-          </span>
+        <div className="topper">
+          <p>Good Morning Mansur</p>
+          <div>
+            <span>11:29</span>
+            <br />
+            <span>Fri Aug 16</span>
+            <br />
+            <span>
+              23 <FaCloudSunRain />
+            </span>
+          </div>
         </div>
       </div>
 
@@ -142,21 +144,21 @@ function Home() {
           <span>
             <FaMotorcycle size={20} />
           </span>
-          <p style={{ margin: 0 }}>Services</p>
+          <p style={{ margin: 0 }}>services</p>
         </span>
 
         <span className="bottom_button" id="two">
           <span>
             <ImMenu4 size={20} />
           </span>
-          <p style={{ margin: 0 }}>Walamin</p>
+          <p style={{ margin: 0 }}>walamin</p>
         </span>
 
         <span className="bottom_button" id="three">
           <span>
             <MdSportsMotorsports size={20} />
           </span>
-          <p style={{ margin: 0 }}>Account</p>
+          <p style={{ margin: 0 }}>account</p>
         </span>
       </div>
     </div>
