@@ -142,27 +142,21 @@ function Home() {
           <span>
             <FaMotorcycle size={20} />
           </span>
-          <span>Open Services</span>
+          <p style={{ margin: 0 }}>Services</p>
         </span>
 
-        <span
-          className="bottom_button"
-          id="two"
-        >
+        <span className="bottom_button" id="two">
           <span>
             <ImMenu4 size={20} />
           </span>
-          <span>Open Services</span>
+          <p style={{ margin: 0 }}>Walamin</p>
         </span>
 
-        <span
-          className="bottom_button"
-          id="three"
-        >
+        <span className="bottom_button" id="three">
           <span>
             <MdSportsMotorsports size={20} />
           </span>
-          <span>My Account</span>
+          <p style={{ margin: 0 }}>Account</p>
         </span>
       </div>
     </div>
