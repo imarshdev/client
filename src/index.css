@@ -78,8 +78,8 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 form {
-  -webkit-box-shadow: 0 5px 10px rgba(160, 163, 189, 0.1);
-  box-shadow: 0 5px 10px rgba(160, 163, 189, 0.1);
+  -webkit-box-shadow: 0 5px 10px rgba(160, 163, 189, 0.418);
+  box-shadow: 0 5px 10px rgba(160, 163, 189, 0.226);
   border-radius: 10px;
   padding: 40px 40px 56px;
   background-color: #fff;

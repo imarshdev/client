@@ -37,14 +37,14 @@ function SignIn() {
           </label>
           <div>
             <TouchableOpacity>
-              <Link to="/signup2">
+              <Link to="/home">
                 <button
                   onclick="location.href='mainpage.html'"
                   class="form-btn primary-default-btn transparent-btn"
                 >
                   <span> Sign In</span>
                 </button>
-              </Link>{" "}
+              </Link>
             </TouchableOpacity>
             <p>Or</p>
             <TouchableOpacity>
