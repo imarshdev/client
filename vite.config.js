@@ -24,6 +24,7 @@ export default defineConfig({
         short_name: "Walamin",
         description: "Walamin Green Solutions Limited",
         theme_color: "#11874b",
+        background_color: "#11874a",
         display: "browser",
 
         icons: [
