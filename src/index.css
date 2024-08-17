@@ -47,7 +47,7 @@ body {
   box-sizing: border-box;
   display: flex;
   place-items: center;
-  background-image: linear-gradient(#f0f2fa, #acdfdd85);
+  background-color: #fff;
 }
 
 h1 {

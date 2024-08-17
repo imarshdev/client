@@ -7,52 +7,60 @@ import path from "path"
 export default defineConfig({
   resolve: {
     alias: {
-      'react-native': 'react-native-web',
+      "react-native": "react-native-web",
     },
   },
-  plugins: [react(), VitePWA({
-    strategies: 'injectManifest',
-    srcDir: 'src',
-    filename: 'sw.js',
-    registerType: 'autoUpdate',
-    injectRegister: false,
+  plugins: [
+    react(),
+    VitePWA({
+      strategies: "injectManifest",
+      srcDir: "src",
+      filename: "sw.js",
+      registerType: "autoUpdate",
+      injectRegister: false,
 
-    manifest: {
-      name: 'Walamin Green',
-      short_name: 'Walamin',
-      description: 'Walamin Green Solutions Limited',
-      theme_color: '#f0f2fa',
-      display: "browser",
+      manifest: {
+        name: "Walamin Green",
+        short_name: "Walamin",
+        description: "Walamin Green Solutions Limited",
+        theme_color: "#11874b",
+        display: "browser",
 
-      icons: [{
-        src: 'pwa-64x64.png',
-        sizes: '64x64',
-        type: 'image/png',
-      }, {
-        src: 'pwa-192x192.png',
-        sizes: '192x192',
-        type: 'image/png',
-      }, {
-        src: 'pwa-512x512.png',
-        sizes: '512x512',
-        type: 'image/png',
-      }, {
-        src: 'maskable-icon-512x512.png',
-        sizes: '512x512',
-        type: 'image/png',
-        purpose: 'maskable',
-      }],
-    },
+        icons: [
+          {
+            src: "pwa-64x64.png",
+            sizes: "64x64",
+            type: "image/png",
+          },
+          {
+            src: "pwa-192x192.png",
+            sizes: "192x192",
+            type: "image/png",
+          },
+          {
+            src: "pwa-512x512.png",
+            sizes: "512x512",
+            type: "image/png",
+          },
+          {
+            src: "maskable-icon-512x512.png",
+            sizes: "512x512",
+            type: "image/png",
+            purpose: "maskable",
+          },
+        ],
+      },
 
-    injectManifest: {
-      globPatterns: ['**/*.{js,css,html,svg,png,ico}'],
-    },
+      injectManifest: {
+        globPatterns: ["**/*.{js,css,html,svg,png,ico}"],
+      },
 
-    devOptions: {
-      enabled: false,
-      navigateFallback: 'index.html',
-      suppressWarnings: true,
-      type: 'module',
-    },
-  })],
-})
+      devOptions: {
+        enabled: false,
+        navigateFallback: "index.html",
+        suppressWarnings: true,
+        type: "module",
+      },
+    }),
+  ],
+});
