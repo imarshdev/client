@@ -63,7 +63,7 @@
   padding: 10px;
 }
 .mid_details_upper {
-  height: 50%;
+  height: 40%;
   width: 100%;
   display: flex;
   justify-content: space-around;
@@ -87,7 +87,7 @@
   flex-direction: column;
 }
 .mid_details_lower {
-  height: 50%;
+  height: 60%;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -143,22 +143,6 @@
   background-color: #fff;
 }
 
-.order_ride {
-  background-color: #f2f2f2;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  box-sizing: border-box;
-}
-.ride_content {
-  height: 100%;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: start;
-  align-items: center;
-}
 .input_area {
   width: 100%;
   padding-left: 10px;

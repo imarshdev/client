@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { FaCloudSunRain, FaMotorcycle } from "react-icons/fa";
-import { Sidebar } from "primereact/sidebar";
 import { FaHome } from "react-icons/fa";
 import { GrSchedule } from "react-icons/gr";
 import { MdAccountBalanceWallet } from "react-icons/md";
@@ -22,39 +21,13 @@ import {
 
 function Home() {
   function play() {
-    const audio = new Audio(Sound)
-    audio.volume = 0.03
+    const audio = new Audio(Sound);
+    audio.volume = 0.5;
     audio.play();
   }
-  const [visible, setVisible] = useState(false);
-  const [visible2, setVisible2] = useState(false);
-  const [visible3, setVisible3] = useState(false);
+
   return (
     <SafeAreaView>
-      <Sidebar
-        className="order_ride"
-        visible={visible}
-        onHide={() => setVisible(false)}
-        fullScreen
-      >
-        <Delivery />
-      </Sidebar>
-      <Sidebar
-        className="order_ride"
-        visible={visible2}
-        onHide={() => setVisible2(false)}
-        fullScreen
-      >
-        <OrderRide />
-      </Sidebar>
-      <Sidebar
-        className="order_ride"
-        visible={visible3}
-        onHide={() => setVisible3(false)}
-        fullScreen
-      >
-        <Schedule />
-      </Sidebar>
 
       <div className="home">
         <div className="top">
@@ -63,11 +36,6 @@ function Home() {
               <TouchableOpacity id="user_icon">
                 <div onClick={play} className="user_icon one">
                   <FaUserAstronaut color="green" size={24} />
-                </div>
-              </TouchableOpacity>
-              <TouchableOpacity id="user_icon">
-                <div onClick={play} className="user_icon two">
-                  <CiMenuFries color="green" size={24} />
                 </div>
               </TouchableOpacity>
             </div>
@@ -87,31 +55,37 @@ function Home() {
         <div className="mid_details">
           <div className="mid_details_upper">
             <TouchableOpacity id="items_wrapper">
-              <div className="items" onClick={() => setVisible(true)}>
-                <MdOutlineDeliveryDining color="green" size={30} />
+              <div onClick={play} className="items">
+                <MdOutlineDeliveryDining color="green" size={26} />
                 <span>Delivery</span>
               </div>
             </TouchableOpacity>
             <TouchableOpacity id="items_wrapper">
-              <div className="items" onClick={() => setVisible2(true)}>
-                <FaMotorcycle color="green" size={30} />
+              <div onClick={play} className="items">
+                <FaMotorcycle color="green" size={26} />
                 <span>Order Ride</span>
               </div>
             </TouchableOpacity>
             <TouchableOpacity id="items_wrapper">
-              <div className="items" onClick={() => setVisible3(true)}>
-                <GrSchedule color="green" size={30} />
+              <div onClick={play} className="items">
+                <GrSchedule color="green" size={26} />
                 <span>Schedule</span>
               </div>
             </TouchableOpacity>
             <TouchableOpacity id="items_wrapper">
-              <div onClick={play} className="items">???</div>
+              <div onClick={play} className="items">
+                ???
+              </div>
             </TouchableOpacity>
             <TouchableOpacity id="items_wrapper">
-              <div onClick={play} className="items">???</div>
+              <div onClick={play} className="items">
+                ???
+              </div>
             </TouchableOpacity>
             <TouchableOpacity id="items_wrapper">
-              <div onClick={play} className="items">???</div>
+              <div onClick={play} className="items">
+                ???
+              </div>
             </TouchableOpacity>
           </div>
           <div className="mid_details_lower">
@@ -152,7 +126,7 @@ export default Home;
 
 function Delivery() {
   return (
-    <div className="ride_content">
+    <div className="home">
       <div className="map"></div>
       <div className="ride_details">
         <h2>Delivery</h2>
@@ -168,7 +142,7 @@ function Delivery() {
 
 function OrderRide() {
   return (
-    <div className="ride_content">
+    <div className="home">
       <div className="map"></div>
       <div className="ride_details">
         <h2>Order Ride</h2>
@@ -184,7 +158,7 @@ function OrderRide() {
 
 function Schedule() {
   return (
-    <div className="ride_content">
+    <div className="home">
       <div className="map"></div>
       <div className="ride_details">
         <h2>Schedule Ride</h2>

@@ -9,11 +9,11 @@ function SignIn() {
         <p class="sign-up__subtitle">Sign in to your account to continue</p>
         <form class="sign-up-form form" action="" method="">
           <label class="form-label-wrapper">
-            <p class="form-label">Email</p>
+            <p class="form-label">Name</p>
             <input
               class="form-input"
-              type="email"
-              placeholder="Enter your email"
+              type="text"
+              placeholder="Enter your name"
               required
             />
           </label>

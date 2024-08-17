@@ -1,5 +1,5 @@
 .page-center {
-  width: 90vw;
+  width: 100vw;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -9,33 +9,8 @@
   -ms-flex-direction: column;
   flex-direction: column;
   text-align: center;
+  box-sizing: border-box;
   padding: 0px 15px;
-}
-.page-center1{
-    width: 100vw;
-    display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  min-height: 90vh;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  text-align: center;
-  padding: 0 15px;
-}
-.signup_page-center{
-    width: 90vw;
-    display: flex;
-  flex-direction: column;
-  justify-content: center;
-  min-height: 100vh;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  text-align: center;
-  padding: 30px 15px;
 }
 .sign-up {
   -webkit-tap-highlight-color: transparent;
