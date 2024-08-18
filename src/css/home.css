@@ -72,6 +72,7 @@
 #items_wrapper {
   width: 30%;
   min-height: 5dvh;
+  color: gray;
   background-color: #f2f2f2;
   border-radius: 10px;
   margin: 5px 0;
@@ -139,10 +140,6 @@
   align-items: center;
   border-radius: 30px;
 }
-.home_icon {
-  background-color: #fff;
-}
-
 .input_area {
   width: 100%;
   padding-left: 10px;

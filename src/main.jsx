@@ -6,7 +6,10 @@ import App from "./App.jsx";
 import "./index.css";
 import ErrorPage from "./pages/error.jsx";
 import SignUp from "./pages/signup.jsx";
-import Home from "./pages/home.jsx";
+import Home, { Delivery, OrderRide, Schedule } from "./pages/home.jsx";
+import Account from "./pages/account.jsx";
+import Services from "./pages/services.jsx";
+import Wallet from "./pages/wallet.jsx";
 
 const router = createBrowserRouter([
   {
@@ -23,11 +26,42 @@ const router = createBrowserRouter([
     path: "/home",
     element: <Home />,
     errorElement: <ErrorPage />,
-  }
+  },
+  {
+    path: "/delivery",
+    element: <Delivery />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/ride",
+    element: <OrderRide />,
+    errorElement: <ErrorPage />,
+  },
+  ,
+  {
+    path: "/schedule",
+    element: <Schedule />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/account",
+    element: <Account />,
+    errorElement: <ErrorPage/>
+  },
+  {
+    path: "/wallet",
+    element: <Wallet />,
+    errorElement: <ErrorPage/>
+  },
+  {
+    path: "/services",
+    element: <Services />,
+    errorElement: <ErrorPage/>
+  },
 ]);
-  const value = {
-    ripple: true,
-  };
+const value = {
+  ripple: true,
+};
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <PrimeReactProvider value={value}>

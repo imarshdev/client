@@ -9,7 +9,7 @@ import { MdOutlineDeliveryDining } from "react-icons/md";
 import { FaUserAstronaut } from "react-icons/fa";
 import { CiMenuFries } from "react-icons/ci";
 import { InputText } from "primereact/inputtext";
-import Sound from "../../public/click_sound.mp3";
+import Sound from "../click_sound.mp3";
 import "../css/home.css";
 import {
   KeyboardAvoidingView,
@@ -18,17 +18,17 @@ import {
   View,
   StyleSheet,
 } from "react-native-web";
+import { Link, useLocation } from "react-router-dom";
+
+function play() {
+  const audio = new Audio(Sound);
+  audio.volume = 0.5;
+  audio.play();
+}
 
 function Home() {
-  function play() {
-    const audio = new Audio(Sound);
-    audio.volume = 0.5;
-    audio.play();
-  }
-
   return (
     <SafeAreaView>
-
       <div className="home">
         <div className="top">
           <div className="topper">
@@ -54,24 +54,39 @@ function Home() {
 
         <div className="mid_details">
           <div className="mid_details_upper">
-            <TouchableOpacity id="items_wrapper">
-              <div onClick={play} className="items">
-                <MdOutlineDeliveryDining color="green" size={26} />
-                <span>Delivery</span>
-              </div>
-            </TouchableOpacity>
-            <TouchableOpacity id="items_wrapper">
-              <div onClick={play} className="items">
-                <FaMotorcycle color="green" size={26} />
-                <span>Order Ride</span>
-              </div>
-            </TouchableOpacity>
-            <TouchableOpacity id="items_wrapper">
-              <div onClick={play} className="items">
-                <GrSchedule color="green" size={26} />
-                <span>Schedule</span>
-              </div>
-            </TouchableOpacity>
+            <Link
+              style={{ display: "contents", color: "black" }}
+              to="/delivery"
+            >
+              <TouchableOpacity id="items_wrapper">
+                <div onClick={play} className="items">
+                  <MdOutlineDeliveryDining color="green" size={26} />
+                  <br />
+                  <span>Delivery</span>
+                </div>
+              </TouchableOpacity>
+            </Link>
+            <Link style={{ display: "contents", color: "black" }} to="/ride">
+              <TouchableOpacity id="items_wrapper">
+                <div onClick={play} className="items">
+                  <FaMotorcycle color="green" size={26} />
+                  <br />
+                  <span>Order Ride</span>
+                </div>
+              </TouchableOpacity>
+            </Link>
+            <Link
+              style={{ display: "contents", color: "black" }}
+              to="/schedule"
+            >
+              <TouchableOpacity id="items_wrapper">
+                <div onClick={play} className="items">
+                  <GrSchedule color="green" size={26} />
+                  <br />
+                  <span>Schedule</span>
+                </div>
+              </TouchableOpacity>
+            </Link>
             <TouchableOpacity id="items_wrapper">
               <div onClick={play} className="items">
                 ???
@@ -94,28 +109,7 @@ function Home() {
         </div>
 
         <div className="bottom_drawer">
-          <div className="navigator">
-            <TouchableOpacity id="nav_icon">
-              <div onClick={play} className="icon_div home_icon">
-                <FaHome size={24} />
-              </div>
-            </TouchableOpacity>
-            <TouchableOpacity id="nav_icon">
-              <div onClick={play} className="icon_div services">
-                <FaServicestack size={24} />
-              </div>
-            </TouchableOpacity>
-            <TouchableOpacity id="nav_icon">
-              <div onClick={play} className="icon_div wallet">
-                <MdAccountBalanceWallet size={24} />
-              </div>
-            </TouchableOpacity>
-            <TouchableOpacity id="nav_icon">
-              <div onClick={play} className="icon_div account">
-                <GiFullMotorcycleHelmet size={24} />
-              </div>
-            </TouchableOpacity>
-          </div>
+          <Navigator page="home" />
         </div>
       </div>
     </SafeAreaView>
@@ -124,7 +118,68 @@ function Home() {
 
 export default Home;
 
-function Delivery() {
+export function Navigator() {
+  const location = useLocation();
+
+  return (
+    <div className="navigator">
+      <Link style={{ display: "contents", color: "black" }} to="/home">
+        <TouchableOpacity id="nav_icon">
+          <div
+            onClick={play}
+            className="icon_div"
+            style={{
+              backgroundColor: location.pathname === "/home" ? "#fff" : "",
+            }}
+          >
+            <FaHome size={24} />
+          </div>
+        </TouchableOpacity>
+      </Link>
+      <Link style={{ display: "contents", color: "black" }} to="/services">
+      <TouchableOpacity id="nav_icon">
+        <div
+          onClick={play}
+          className="icon_div"
+          style={{
+            backgroundColor: location.pathname === "/services" ? "#fff" : "",
+          }}
+        >
+          <FaServicestack size={24} />
+        </div>
+      </TouchableOpacity>
+            </Link>
+      <Link style={{ display: "contents", color: "black" }} to="/wallet">
+        <TouchableOpacity id="nav_icon">
+          <div
+            onClick={play}
+            className="icon_div"
+            style={{
+              backgroundColor: location.pathname === "/wallet" ? "#fff" : "",
+            }}
+          >
+            <MdAccountBalanceWallet size={24} />
+          </div>
+        </TouchableOpacity>
+      </Link>
+      <Link style={{ display: "contents", color: "black" }} to="/account">
+        <TouchableOpacity id="nav_icon">
+          <div
+            onClick={play}
+            className="icon_div"
+            style={{
+              backgroundColor: location.pathname === "/account" ? "#fff" : "",
+            }}
+          >
+            <GiFullMotorcycleHelmet size={24} />
+          </div>
+        </TouchableOpacity>
+      </Link>
+    </div>
+  );
+}
+
+export function Delivery() {
   return (
     <div className="home">
       <div className="map"></div>
@@ -140,7 +195,7 @@ function Delivery() {
   );
 }
 
-function OrderRide() {
+export function OrderRide() {
   return (
     <div className="home">
       <div className="map"></div>
@@ -156,7 +211,7 @@ function OrderRide() {
   );
 }
 
-function Schedule() {
+export function Schedule() {
   return (
     <div className="home">
       <div className="map"></div>
