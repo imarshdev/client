@@ -1,13 +1,13 @@
 .home {
   width: 100vw;
-  min-height: 100dvh;
+  max-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
 }
 .top {
-  height: 25dvh;
+  height: 25vh;
   width: 100vw;
   display: flex;
   flex-direction: column;
@@ -57,7 +57,7 @@
   align-items: center;
 }
 .mid_details {
-  height: 65dvh;
+  height: 65vh;
   width: 100%;
   box-sizing: border-box;
   padding: 10px;
@@ -71,7 +71,7 @@
 }
 #items_wrapper {
   width: 30%;
-  min-height: 5dvh;
+  min-height: 5vh;
   color: gray;
   background-color: #f2f2f2;
   border-radius: 10px;
@@ -105,7 +105,7 @@
   box-shadow: 0 5px 10px rgba(160, 163, 189, 0.801);
 }
 .bottom_drawer {
-  height: 10dvh;
+  height: 10vh;
   width: 100vw;
   display: flex;
   flex-direction: column;
