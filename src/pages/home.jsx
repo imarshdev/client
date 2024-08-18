@@ -140,6 +140,13 @@ export function Navigator() {
           </div>
         </TouchableOpacity>
       </Link>
+      <Link style={{ display: "contents", color: "black" }} to="/signup">
+        <TouchableOpacity id="nav_icon">
+          <div onClick={play} className="icon_div">
+            <GiFullMotorcycleHelmet size={24} />
+          </div>
+        </TouchableOpacity>
+      </Link>
     </div>
   );
 }
