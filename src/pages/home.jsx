@@ -7,18 +7,11 @@ import { GiFullMotorcycleHelmet } from "react-icons/gi";
 import { FaServicestack } from "react-icons/fa";
 import { MdOutlineDeliveryDining } from "react-icons/md";
 import { FaUserAstronaut } from "react-icons/fa";
-import { CiMenuFries } from "react-icons/ci";
 import { InputText } from "primereact/inputtext";
 import Sound from "../click_sound.mp3";
 import "../css/home.css";
-import {
-  KeyboardAvoidingView,
-  SafeAreaView,
-  TouchableOpacity,
-  View,
-  StyleSheet,
-} from "react-native-web";
-import { Link, useLocation } from "react-router-dom";
+import { TouchableOpacity } from "react-native-web";
+import { Link } from "react-router-dom";
 
 function play() {
   const audio = new Audio(Sound);
@@ -119,8 +112,6 @@ function Home() {
 export default Home;
 
 export function Navigator() {
-  const location = useLocation();
-
   return (
     <div className="navigator">
       <Link style={{ display: "contents", color: "black" }} to="/home">
@@ -129,7 +120,7 @@ export function Navigator() {
             onClick={play}
             className="icon_div"
             style={{
-              backgroundColor: location.pathname === "/home" ? "#fff" : "",
+              backgroundColor: "#fff",
             }}
           >
             <FaHome size={24} />
@@ -137,40 +128,22 @@ export function Navigator() {
         </TouchableOpacity>
       </Link>
       <Link style={{ display: "contents", color: "black" }} to="/services">
-      <TouchableOpacity id="nav_icon">
-        <div
-          onClick={play}
-          className="icon_div"
-          style={{
-            backgroundColor: location.pathname === "/services" ? "#fff" : "",
-          }}
-        >
-          <FaServicestack size={24} />
-        </div>
-      </TouchableOpacity>
-            </Link>
+        <TouchableOpacity id="nav_icon">
+          <div onClick={play} className="icon_div">
+            <FaServicestack size={24} />
+          </div>
+        </TouchableOpacity>
+      </Link>
       <Link style={{ display: "contents", color: "black" }} to="/wallet">
         <TouchableOpacity id="nav_icon">
-          <div
-            onClick={play}
-            className="icon_div"
-            style={{
-              backgroundColor: location.pathname === "/wallet" ? "#fff" : "",
-            }}
-          >
+          <div onClick={play} className="icon_div">
             <MdAccountBalanceWallet size={24} />
           </div>
         </TouchableOpacity>
       </Link>
       <Link style={{ display: "contents", color: "black" }} to="/account">
         <TouchableOpacity id="nav_icon">
-          <div
-            onClick={play}
-            className="icon_div"
-            style={{
-              backgroundColor: location.pathname === "/account" ? "#fff" : "",
-            }}
-          >
+          <div onClick={play} className="icon_div">
             <GiFullMotorcycleHelmet size={24} />
           </div>
         </TouchableOpacity>
