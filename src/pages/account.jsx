@@ -15,19 +15,17 @@ function play() {
 
 export default function Account() {
   return (
-    <>
-      <div className="home">
-        <div className="top">
-          <div className="topper">
-            <p>Account</p>
-          </div>
-        </div>
-        <div className="mid_details"></div>
-        <div className="bottom_drawer">
-          <Navigator />
+    <main className="home">
+      <div className="top">
+        <div className="topper">
+          <p>Account</p>
         </div>
       </div>
-    </>
+      <div className="mid_details"></div>
+      <div className="bottom_drawer">
+        <Navigator />
+      </div>
+    </main>
   );
 }
 

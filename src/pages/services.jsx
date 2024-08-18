@@ -14,8 +14,7 @@ function play() {
 }
 export default function Services() {
   return (
-    <>
-      <div className="home">
+      <main className="home">
         <div className="top">
           <div className="topper">
             <p>Services</p>
@@ -25,8 +24,7 @@ export default function Services() {
         <div className="bottom_drawer">
           <Navigator />
         </div>
-      </div>
-    </>
+      </main>
   );
 }
 

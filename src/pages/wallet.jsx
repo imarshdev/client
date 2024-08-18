@@ -15,8 +15,7 @@ function play() {
 
 export default function Wallet() {
   return (
-    <>
-      <div className="home">
+      <main className="home">
         <div className="top">
           <div className="topper">
             <p>Wallet</p>
@@ -26,8 +25,7 @@ export default function Wallet() {
         <div className="bottom_drawer">
           <Navigator />
         </div>
-      </div>
-    </>
+      </main>
   );
 }
 

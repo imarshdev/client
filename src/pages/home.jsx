@@ -21,91 +21,83 @@ function play() {
 
 function Home() {
   return (
-    <>
-      <div className="home">
-        <div className="top">
-          <div className="topper">
-            <div className="upper_topper">
-              <TouchableOpacity id="user_icon">
-                <div onClick={play} className="user_icon one">
-                  <FaUserAstronaut color="green" size={24} />
-                </div>
-              </TouchableOpacity>
-            </div>
-            <p>Good Morning Mansur</p>
-            <div>
-              <span>11:29</span>
-              <br />
-              <span>Fri Aug 16</span>
-              <br />
-              <span>
-                23 <FaCloudSunRain />
-              </span>
-            </div>
-          </div>
-        </div>
-
-        <div className="mid_details">
-          <div className="mid_details_upper">
-            <Link
-              style={{ display: "contents", color: "black" }}
-              to="/delivery"
-            >
-              <TouchableOpacity id="items_wrapper">
-                <div onClick={play} className="items">
-                  <MdOutlineDeliveryDining color="green" size={26} />
-                  <br />
-                  <span>Delivery</span>
-                </div>
-              </TouchableOpacity>
-            </Link>
-            <Link style={{ display: "contents", color: "black" }} to="/ride">
-              <TouchableOpacity id="items_wrapper">
-                <div onClick={play} className="items">
-                  <FaMotorcycle color="green" size={26} />
-                  <br />
-                  <span>Order Ride</span>
-                </div>
-              </TouchableOpacity>
-            </Link>
-            <Link
-              style={{ display: "contents", color: "black" }}
-              to="/schedule"
-            >
-              <TouchableOpacity id="items_wrapper">
-                <div onClick={play} className="items">
-                  <GrSchedule color="green" size={26} />
-                  <br />
-                  <span>Schedule</span>
-                </div>
-              </TouchableOpacity>
-            </Link>
-            <TouchableOpacity id="items_wrapper">
-              <div onClick={play} className="items">
-                ???
-              </div>
-            </TouchableOpacity>
-            <TouchableOpacity id="items_wrapper">
-              <div onClick={play} className="items">
-                ???
-              </div>
-            </TouchableOpacity>
-            <TouchableOpacity id="items_wrapper">
-              <div onClick={play} className="items">
-                ???
+    <main className="home">
+      <div className="top">
+        <div className="topper">
+          <div className="upper_topper">
+            <TouchableOpacity id="user_icon">
+              <div onClick={play} className="user_icon one">
+                <FaUserAstronaut color="green" size={24} />
               </div>
             </TouchableOpacity>
           </div>
-          <div className="mid_details_lower">
-            <div className="image"></div>
+          <p>Good Morning Mansur</p>
+          <div>
+            <span>11:29</span>
+            <br />
+            <span>Fri Aug 16</span>
+            <br />
+            <span>
+              23 <FaCloudSunRain />
+            </span>
           </div>
-        </div>
-
-        <div className="bottom_drawer">
-          <Navigator page="home" />
         </div>
       </div>
-    </>
+
+      <div className="mid_details">
+        <div className="mid_details_upper">
+          <Link style={{ display: "contents", color: "black" }} to="/delivery">
+            <TouchableOpacity id="items_wrapper">
+              <div onClick={play} className="items">
+                <MdOutlineDeliveryDining color="green" size={26} />
+                <br />
+                <span>Delivery</span>
+              </div>
+            </TouchableOpacity>
+          </Link>
+          <Link style={{ display: "contents", color: "black" }} to="/ride">
+            <TouchableOpacity id="items_wrapper">
+              <div onClick={play} className="items">
+                <FaMotorcycle color="green" size={26} />
+                <br />
+                <span>Order Ride</span>
+              </div>
+            </TouchableOpacity>
+          </Link>
+          <Link style={{ display: "contents", color: "black" }} to="/schedule">
+            <TouchableOpacity id="items_wrapper">
+              <div onClick={play} className="items">
+                <GrSchedule color="green" size={26} />
+                <br />
+                <span>Schedule</span>
+              </div>
+            </TouchableOpacity>
+          </Link>
+          <TouchableOpacity id="items_wrapper">
+            <div onClick={play} className="items">
+              ???
+            </div>
+          </TouchableOpacity>
+          <TouchableOpacity id="items_wrapper">
+            <div onClick={play} className="items">
+              ???
+            </div>
+          </TouchableOpacity>
+          <TouchableOpacity id="items_wrapper">
+            <div onClick={play} className="items">
+              ???
+            </div>
+          </TouchableOpacity>
+        </div>
+        <div className="mid_details_lower">
+          <div className="image"></div>
+        </div>
+      </div>
+
+      <div className="bottom_drawer">
+        <Navigator page="home" />
+      </div>
+    </main>
   );
 }
 
