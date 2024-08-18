@@ -53,7 +53,8 @@ export function Navigator() {
       <TouchableOpacity>
         <Link to="/account">
           <span class="icon_button">
-            <GiFullMotorcycleHelmet color="#fff" size={28} />
+            <GiFullMotorcycleHelmet color="#fff" size={24} />
+            <span style={{ fontSize: 12 }}>account</span>
           </span>
         </Link>
       </TouchableOpacity>

@@ -45,7 +45,8 @@ export function Navigator() {
       <TouchableOpacity>
         <Link to="/wallet">
           <span class="icon_button">
-            <MdAccountBalanceWallet color="#fff" size={28} />
+            <MdAccountBalanceWallet color="#fff" size={24} />
+            <span style={{ fontSize: 12 }}>wallet</span>
           </span>
         </Link>
       </TouchableOpacity>

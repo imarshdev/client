@@ -37,7 +37,8 @@ export function Navigator() {
       <TouchableOpacity>
         <Link to="/services">
           <span class="icon_button">
-            <FaServicestack color="#fff" size={28} />
+            <FaServicestack color="#fff" size={24} />
+            <span style={{ fontSize: 12 }}>services</span>
           </span>
         </Link>
       </TouchableOpacity>
