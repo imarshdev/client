@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import "../css/signin.css";
-import { useState } from "react";
-import { KeyboardAvoidingView, TouchableOpacity } from "react-native-web";
+import {  TouchableOpacity } from "react-native-web";
 function SignUp() {
   return (
     <main class="page-center">
