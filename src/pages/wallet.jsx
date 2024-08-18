@@ -5,7 +5,7 @@ import { Navigator } from "./home";
 
 export default function Wallet() {
   return (
-    <SafeAreaView>
+    <>
       <div className="home">
         <div className="top">
           <div className="topper"></div>
@@ -15,6 +15,6 @@ export default function Wallet() {
           <Navigator />
         </div>
       </div>
-    </SafeAreaView>
+    </>
   );
 }

@@ -28,7 +28,7 @@ function play() {
 
 function Home() {
   return (
-    <SafeAreaView>
+    <>
       <div className="home">
         <div className="top">
           <div className="topper">
@@ -112,7 +112,7 @@ function Home() {
           <Navigator page="home" />
         </div>
       </div>
-    </SafeAreaView>
+    </>
   );
 }
 

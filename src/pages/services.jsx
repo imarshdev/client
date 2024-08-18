@@ -5,7 +5,7 @@ import { Navigator } from "./home";
 
 export default function Services() {
   return (
-    <SafeAreaView>
+    <>
       <div className="home">
         <div className="top">
           <div className="topper"></div>
@@ -15,6 +15,6 @@ export default function Services() {
           <Navigator />
         </div>
       </div>
-    </SafeAreaView>
+    </>
   );
 }

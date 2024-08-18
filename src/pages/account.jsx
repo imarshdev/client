@@ -5,7 +5,7 @@ import { Navigator } from "./home";
 
 export default function Account() {
   return (
-    <SafeAreaView>
+    <>
       <div className="home">
         <div className="top">
           <div className="topper">
@@ -16,6 +16,6 @@ export default function Account() {
           <Navigator />
         </div>
       </div>
-    </SafeAreaView>
+    </>
   );
 }
