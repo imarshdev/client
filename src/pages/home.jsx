@@ -41,47 +41,41 @@ function Home() {
 
       <div className="mid_details">
         <div className="mid_details_upper">
-          <Link style={{ display: "contents", color: "black" }} to="/delivery">
-            <TouchableOpacity id="items_wrapper">
-              <div className="items">
-                <MdOutlineDeliveryDining color="green" size={26} />
-                <br />
-                <span>Delivery</span>
-              </div>
-            </TouchableOpacity>
-          </Link>
-          <Link style={{ display: "contents", color: "black" }} to="/ride">
-            <TouchableOpacity id="items_wrapper">
-              <div className="items">
-                <FaMotorcycle color="green" size={26} />
-                <br />
-                <span>Order Ride</span>
-              </div>
-            </TouchableOpacity>
-          </Link>
-          <Link style={{ display: "contents", color: "black" }} to="/schedule">
-            <TouchableOpacity id="items_wrapper">
-              <div className="items">
-                <GrSchedule color="green" size={26} />
-                <br />
-                <span>Schedule</span>
-              </div>
-            </TouchableOpacity>
-          </Link>
           <TouchableOpacity id="items_wrapper">
-            <div className="items">
-              ???
-            </div>
+            <Link to="/delivery">
+              <div className="items">
+                <MdOutlineDeliveryDining color="#0a542e" size={30} />
+                <span style={{ color: "#0a542e", paddingTop: "5px" }}>Delivery</span>
+              </div>
+            </Link>
+          </TouchableOpacity>
+
+          <TouchableOpacity id="items_wrapper">
+            <Link to="/ride">
+              <div className="items">
+                <FaMotorcycle color="#0a542e" size={30} />
+                <span style={{ color: "#0a542e", paddingTop: "5px" }}>OrderRide</span>
+              </div>
+            </Link>
+          </TouchableOpacity>
+
+          <TouchableOpacity id="items_wrapper">
+            <Link to="/schedule">
+              <div className="items">
+                <GrSchedule color="#0a542e" size={30} />
+                <span style={{ color: "#0a542e", paddingTop: "5px" }}>Schedule</span>
+              </div>
+            </Link>
+          </TouchableOpacity>
+
+          <TouchableOpacity id="items_wrapper">
+            <div className="items">???</div>
           </TouchableOpacity>
           <TouchableOpacity id="items_wrapper">
-            <div className="items">
-              ???
-            </div>
+            <div className="items">???</div>
           </TouchableOpacity>
           <TouchableOpacity id="items_wrapper">
-            <div className="items">
-              ???
-            </div>
+            <div className="items">???</div>
           </TouchableOpacity>
         </div>
         <div className="mid_details_lower">
@@ -105,7 +99,7 @@ export function Navigator() {
         <Link to="/home">
           <span class="icon_button">
             <FaHome color="#fff" size={24} />
-            <span style={{fontSize: 12}}>home</span>
+            <span style={{ fontSize: 12, color: "#fff" }}>home</span>
           </span>
         </Link>
       </TouchableOpacity>
@@ -114,6 +108,7 @@ export function Navigator() {
         <Link to="/services">
           <span class="icon_button">
             <FaServicestack color="#fff" size={24} />
+            <span style={{ fontSize: 12 }}>services</span>
           </span>
         </Link>
       </TouchableOpacity>
@@ -122,6 +117,7 @@ export function Navigator() {
         <Link to="/wallet">
           <span class="icon_button">
             <MdAccountBalanceWallet color="#fff" size={24} />
+            <span style={{ fontSize: 12 }}>wallet</span>
           </span>
         </Link>
       </TouchableOpacity>
@@ -130,6 +126,7 @@ export function Navigator() {
         <Link to="/account">
           <span class="icon_button">
             <GiFullMotorcycleHelmet color="#fff" size={24} />
+            <span style={{ fontSize: 12 }}>account</span>
           </span>
         </Link>
       </TouchableOpacity>

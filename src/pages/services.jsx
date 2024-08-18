@@ -30,6 +30,7 @@ export function Navigator() {
         <Link to="/home">
           <span class="icon_button">
             <FaHome color="#fff" size={24} />
+            <span style={{ fontSize: 12 }}>home</span>
           </span>
         </Link>
       </TouchableOpacity>
@@ -38,7 +39,7 @@ export function Navigator() {
         <Link to="/services">
           <span class="icon_button">
             <FaServicestack color="#fff" size={24} />
-            <span style={{ fontSize: 12 }}>services</span>
+            <span style={{ fontSize: 12, color: "#fff" }}>services</span>
           </span>
         </Link>
       </TouchableOpacity>
@@ -47,6 +48,7 @@ export function Navigator() {
         <Link to="/wallet">
           <span class="icon_button">
             <MdAccountBalanceWallet color="#fff" size={24} />
+            <span style={{ fontSize: 12 }}>wallet</span>
           </span>
         </Link>
       </TouchableOpacity>
@@ -55,6 +57,7 @@ export function Navigator() {
         <Link to="/account">
           <span class="icon_button">
             <GiFullMotorcycleHelmet color="#fff" size={24} />
+            <span style={{ fontSize: 12 }}>account</span>
           </span>
         </Link>
       </TouchableOpacity>
