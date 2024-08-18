@@ -8,7 +8,7 @@ export default function Wallet() {
     <SafeAreaView>
       <div className="home">
         <div className="top">
-          <div className="topper"><h2>Wallet</h2></div>
+          <div className="topper"></div>
         </div>
         <div className="mid_details"></div>
         <div className="bottom_drawer">
