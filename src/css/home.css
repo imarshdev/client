@@ -126,21 +126,8 @@
   -webkit-box-shadow: 0 5px 10px rgba(160, 163, 189, 0.918);
   box-shadow: 0 5px 10px rgba(160, 163, 189, 0.801);
 }
-#nav_icon {
-  height: 90%;
-  width: 18%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 30px;
-}
-.icon_div {
-  height: 90%;
-  width: 90%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 30px;
+.icon_button{
+  width: 20%;
 }
 .input_area {
   width: 100%;

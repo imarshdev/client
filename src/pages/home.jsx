@@ -10,7 +10,7 @@ import { FaUserAstronaut } from "react-icons/fa";
 import { InputText } from "primereact/inputtext";
 import Sound from "../click_sound.mp3";
 import "../css/home.css";
-import { TouchableOpacity } from "react-native-web";
+import { Button, TouchableOpacity } from "react-native-web";
 import { Link } from "react-router-dom";
 
 function play() {
@@ -106,47 +106,37 @@ export default Home;
 export function Navigator() {
   return (
     <div className="navigator">
-      <Link style={{ display: "contents", color: "black" }} to="/home">
-        <TouchableOpacity id="nav_icon">
-          <div
-            onClick={play}
-            className="icon_div"
-            style={{
-              backgroundColor: "#fff",
-            }}
-          >
-            <FaHome size={24} />
-          </div>
-        </TouchableOpacity>
-      </Link>
-      <Link style={{ display: "contents", color: "black" }} to="/services">
-        <TouchableOpacity id="nav_icon">
-          <div onClick={play} className="icon_div">
-            <FaServicestack size={24} />
-          </div>
-        </TouchableOpacity>
-      </Link>
-      <Link style={{ display: "contents", color: "black" }} to="/wallet">
-        <TouchableOpacity id="nav_icon">
-          <div onClick={play} className="icon_div">
-            <MdAccountBalanceWallet size={24} />
-          </div>
-        </TouchableOpacity>
-      </Link>
-      <Link style={{ display: "contents", color: "black" }} to="/account">
-        <TouchableOpacity id="nav_icon">
-          <div onClick={play} className="icon_div">
-            <GiFullMotorcycleHelmet size={24} />
-          </div>
-        </TouchableOpacity>
-      </Link>
-      <Link style={{ display: "contents", color: "black" }} to="/signup">
-        <TouchableOpacity id="nav_icon">
-          <div onClick={play} className="icon_div">
-            <GiFullMotorcycleHelmet size={24} />
-          </div>
-        </TouchableOpacity>
-      </Link>
+      <TouchableOpacity>
+        <Link to="/home">
+          <span class="icon_button">
+            <FaHome color="#fff" size={24} />
+          </span>
+        </Link>
+      </TouchableOpacity>
+
+      <TouchableOpacity>
+        <Link to="/services">
+          <span class="icon_button">
+            <FaServicestack color="#fff" size={24} />
+          </span>
+        </Link>
+      </TouchableOpacity>
+
+      <TouchableOpacity>
+        <Link to="/wallet">
+          <span class="icon_button">
+            <MdAccountBalanceWallet color="#fff" size={24} />
+          </span>
+        </Link>
+      </TouchableOpacity>
+
+      <TouchableOpacity>
+        <Link to="/account">
+          <span class="icon_button">
+            <GiFullMotorcycleHelmet color="#fff" size={24} />
+          </span>
+        </Link>
+      </TouchableOpacity>
     </div>
   );
 }
