@@ -5,13 +5,7 @@ import { FaHome, FaServicestack } from "react-icons/fa";
 import { MdAccountBalanceWallet } from "react-icons/md";
 import { GiFullMotorcycleHelmet } from "react-icons/gi";
 import { Link } from "react-router-dom";
-import Sound from "../click_sound.mp3";
 
-function play() {
-  const audio = new Audio(Sound);
-  audio.volume = 0.5;
-  audio.play();
-}
 
 export default function Account() {
   return (
@@ -59,7 +53,7 @@ export function Navigator() {
       <TouchableOpacity>
         <Link to="/account">
           <span class="icon_button">
-            <GiFullMotorcycleHelmet color="#fff" size={26} />
+            <GiFullMotorcycleHelmet color="#fff" size={28} />
           </span>
         </Link>
       </TouchableOpacity>

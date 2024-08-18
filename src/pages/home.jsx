@@ -8,16 +8,11 @@ import { FaServicestack } from "react-icons/fa";
 import { MdOutlineDeliveryDining } from "react-icons/md";
 import { FaUserAstronaut } from "react-icons/fa";
 import { InputText } from "primereact/inputtext";
-import Sound from "../click_sound.mp3";
 import "../css/home.css";
 import { Button, TouchableOpacity } from "react-native-web";
 import { Link } from "react-router-dom";
 
-function play() {
-  const audio = new Audio(Sound);
-  audio.volume = 0.5;
-  audio.play();
-}
+
 
 function Home() {
   return (
@@ -26,7 +21,7 @@ function Home() {
         <div className="topper">
           <div className="upper_topper">
             <TouchableOpacity id="user_icon">
-              <div onClick={play} className="user_icon one">
+              <div className="user_icon one">
                 <FaUserAstronaut color="green" size={24} />
               </div>
             </TouchableOpacity>
@@ -48,7 +43,7 @@ function Home() {
         <div className="mid_details_upper">
           <Link style={{ display: "contents", color: "black" }} to="/delivery">
             <TouchableOpacity id="items_wrapper">
-              <div onClick={play} className="items">
+              <div className="items">
                 <MdOutlineDeliveryDining color="green" size={26} />
                 <br />
                 <span>Delivery</span>
@@ -57,7 +52,7 @@ function Home() {
           </Link>
           <Link style={{ display: "contents", color: "black" }} to="/ride">
             <TouchableOpacity id="items_wrapper">
-              <div onClick={play} className="items">
+              <div className="items">
                 <FaMotorcycle color="green" size={26} />
                 <br />
                 <span>Order Ride</span>
@@ -66,7 +61,7 @@ function Home() {
           </Link>
           <Link style={{ display: "contents", color: "black" }} to="/schedule">
             <TouchableOpacity id="items_wrapper">
-              <div onClick={play} className="items">
+              <div className="items">
                 <GrSchedule color="green" size={26} />
                 <br />
                 <span>Schedule</span>
@@ -74,17 +69,17 @@ function Home() {
             </TouchableOpacity>
           </Link>
           <TouchableOpacity id="items_wrapper">
-            <div onClick={play} className="items">
+            <div className="items">
               ???
             </div>
           </TouchableOpacity>
           <TouchableOpacity id="items_wrapper">
-            <div onClick={play} className="items">
+            <div className="items">
               ???
             </div>
           </TouchableOpacity>
           <TouchableOpacity id="items_wrapper">
-            <div onClick={play} className="items">
+            <div className="items">
               ???
             </div>
           </TouchableOpacity>
@@ -109,7 +104,7 @@ export function Navigator() {
       <TouchableOpacity>
         <Link to="/home">
           <span class="icon_button">
-            <FaHome color="#fff" size={26} />
+            <FaHome color="#fff" size={28} />
           </span>
         </Link>
       </TouchableOpacity>
