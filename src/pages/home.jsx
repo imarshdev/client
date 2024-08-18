@@ -109,7 +109,7 @@ export function Navigator() {
       <TouchableOpacity>
         <Link to="/home">
           <span class="icon_button">
-            <FaHome color="#fff" size={24} />
+            <FaHome color="#fff" size={26} />
           </span>
         </Link>
       </TouchableOpacity>

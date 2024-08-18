@@ -51,7 +51,7 @@ export function Navigator() {
       <TouchableOpacity>
         <Link to="/wallet">
           <span class="icon_button">
-            <MdAccountBalanceWallet color="#fff" size={24} />
+            <MdAccountBalanceWallet color="#fff" size={26} />
           </span>
         </Link>
       </TouchableOpacity>
