@@ -1,6 +1,6 @@
 .home {
   width: 100vw;
-  max-height: 100vh;
+  min-height: 95vh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -57,7 +57,7 @@
   align-items: center;
 }
 .mid_details {
-  height: 65vh;
+  height: 60vh;
   width: 100%;
   box-sizing: border-box;
   padding: 10px;

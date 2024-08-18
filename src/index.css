@@ -42,13 +42,16 @@ a, button, h1, h2, h3, h4, h5, h6, p, ul{
 }
 body {
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   display: flex;
   place-items: center;
   background-color: #fff;
+  display: flex;
+  justify-content: start;
+  flex-direction: column;
 }
 
 h1 {
