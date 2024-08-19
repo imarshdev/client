@@ -1,5 +1,6 @@
 .home {
   width: 100vw;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -141,15 +142,27 @@
   width: 100%;
   padding-left: 10px;
 }
+.order{
+  background-color: #11874a;
+}
 .map {
-  height: 50%;
+  height: 60%;
   width: 100%;
 }
 .ride_details {
   background-color: #fff;
-  height: 50%;
+  height: 40%;
   width: 100vw;
   box-sizing: border-box;
   padding: 20px;
   border-radius: 20px 20px 0 0;
+}
+
+.schedule{
+  height: 100%;
+  border-radius: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
 }

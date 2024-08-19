@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { FaCloudSunRain, FaMotorcycle } from "react-icons/fa";
 import { FaHome } from "react-icons/fa";
 import { GrSchedule } from "react-icons/gr";
+import { IoIosArrowRoundBack } from "react-icons/io";
 import { MdAccountBalanceWallet } from "react-icons/md";
 import { GiFullMotorcycleHelmet } from "react-icons/gi";
 import { FaServicestack } from "react-icons/fa";
@@ -11,8 +12,6 @@ import { InputText } from "primereact/inputtext";
 import "../css/home.css";
 import { Button, TouchableOpacity } from "react-native-web";
 import { Link } from "react-router-dom";
-
-
 
 function Home() {
   return (
@@ -45,7 +44,9 @@ function Home() {
             <Link to="/delivery">
               <div className="items">
                 <MdOutlineDeliveryDining color="#0a542e" size={30} />
-                <span style={{ color: "#0a542e", paddingTop: "5px" }}>Delivery</span>
+                <span style={{ color: "#0a542e", paddingTop: "5px" }}>
+                  Delivery
+                </span>
               </div>
             </Link>
           </TouchableOpacity>
@@ -54,7 +55,9 @@ function Home() {
             <Link to="/ride">
               <div className="items">
                 <FaMotorcycle color="#0a542e" size={30} />
-                <span style={{ color: "#0a542e", paddingTop: "5px" }}>OrderRide</span>
+                <span style={{ color: "#0a542e", paddingTop: "5px" }}>
+                  OrderRide
+                </span>
               </div>
             </Link>
           </TouchableOpacity>
@@ -63,7 +66,9 @@ function Home() {
             <Link to="/schedule">
               <div className="items">
                 <GrSchedule color="#0a542e" size={30} />
-                <span style={{ color: "#0a542e", paddingTop: "5px" }}>Schedule</span>
+                <span style={{ color: "#0a542e", paddingTop: "5px" }}>
+                  Schedule
+                </span>
               </div>
             </Link>
           </TouchableOpacity>
@@ -135,49 +140,215 @@ export function Navigator() {
 }
 
 export function Delivery() {
+  const [step, setStep] = useState(1);
+  const nextStep = () => {
+    setStep(step + 1);
+  };
+  const prevStep = () => {
+    setStep(step - 1);
+  };
   return (
-    <div className="home">
+    <div className="home order">
       <div className="map"></div>
-      <div className="ride_details">
-        <h2>Delivery</h2>
-        <p>Destination</p>
-        <InputText className="input_area"></InputText>
-        <br />
-        <br />
-        <button>Next</button>
-      </div>
+      {step === 1 && (
+        <div className="ride_details">
+          <p>Enter Destination</p>
+          <InputText className="input_area"></InputText>
+          <br />
+          <br />
+          <button onClick={nextStep}>Next</button>
+        </div>
+      )}
+      {step === 2 && (
+        <div className="ride_details">
+          <p>Confirm Pickup Location</p>
+          <InputText className="input_area"></InputText>
+          <br />
+          <br />
+          <button style={{ width: "45%", margin: "0 2.5%" }} onClick={prevStep}>
+            Back
+          </button>
+          <button style={{ width: "45%", margin: "0 2.5%" }}>
+            Confirm
+          </button>
+        </div>
+      )}
     </div>
   );
 }
 
 export function OrderRide() {
+    const [step, setStep] = useState(1);
+    const nextStep = () => {
+      setStep(step + 1);
+    };
+    const prevStep = () => {
+      setStep(step - 1);
+    };
   return (
-    <div className="home">
+    <div className="home order">
       <div className="map"></div>
-      <div className="ride_details">
-        <h2>Order Ride</h2>
-        <p>Destination</p>
-        <InputText className="input_area"></InputText>
-        <br />
-        <br />
-        <button>Next</button>
-      </div>
+      {step === 1 && (
+        <div className="ride_details">
+          <p>Enter Destination</p>
+          <InputText className="input_area"></InputText>
+          <br />
+          <br />
+          <button onClick={nextStep}>Next</button>
+        </div>
+      )}
+      {step === 2 && (
+        <div className="ride_details">
+          <p>Confirm Pickup Location</p>
+          <InputText className="input_area"></InputText>
+          <br />
+          <br />
+          <button style={{ width: "45%", margin: "0 2.5%" }} onClick={prevStep}>
+            Back
+          </button>
+          <button style={{ width: "45%", margin: "0 2.5%" }}>Confirm</button>
+        </div>
+      )}
     </div>
   );
 }
 
 export function Schedule() {
+    const [step, setStep] = useState(1);
+    const nextStep = () => {
+      setStep(step + 1);
+    };
+    const prevStep = () => {
+      setStep(step - 1);
+    };
   return (
-    <div className="home">
-      <div className="map"></div>
-      <div className="ride_details">
-        <h2>Schedule Ride</h2>
-        <p>Destination</p>
-        <InputText className="input_area"></InputText>
-        <br />
-        <br />
-        <button>Next</button>
-      </div>
+    <div className="home order">
+      {step === 1 && (
+        <div className="ride_details schedule">
+          <h2>Schedule Ride</h2>
+          <p>Name: </p>
+          <InputText
+            placeholder="work / school / fun?"
+            className="input_area"
+          ></InputText>
+          <br />
+          <div style={{ width: "100%" }}>
+            <Link to="/home">
+              {" "}
+              <button style={{ width: "45%", margin: "0 2.5%" }}>Cancel</button>
+            </Link>
+            <button
+              style={{ width: "45%", margin: "0 2.5%" }}
+              onClick={nextStep}
+            >
+              Next
+            </button>
+          </div>
+        </div>
+      )}
+      {step === 2 && (
+        <div className="ride_details schedule">
+          <p>Destination: </p>
+          <InputText className="input_area"></InputText>
+          <br />
+          <div style={{ width: "100%" }}>
+            <button
+              style={{ width: "25%", margin: "0 2.5%" }}
+              onClick={prevStep}
+            >
+              <IoIosArrowRoundBack />
+            </button>
+            <button
+              style={{ width: "65%", margin: "0 2.5%" }}
+              onClick={nextStep}
+            >
+              Next
+            </button>
+          </div>
+        </div>
+      )}
+      {step === 3 && (
+        <div className="ride_details schedule">
+          <p>Preffered Pickup Location: </p>
+          <InputText className="input_area"></InputText>
+          <br />
+          <div style={{ width: "100%" }}>
+            <button
+              style={{ width: "25%", margin: "0 2.5%" }}
+              onClick={prevStep}
+            >
+              <IoIosArrowRoundBack />
+            </button>
+            <button
+              style={{ width: "65%", margin: "0 2.5%" }}
+              onClick={nextStep}
+            >
+              Next
+            </button>
+          </div>
+        </div>
+      )}
+      {step === 4 && (
+        <div className="ride_details schedule">
+          <p>Preffered Days for Ride: </p>
+          <InputText className="input_area"></InputText>
+          <br />
+          <div style={{ width: "100%" }}>
+            <button
+              style={{ width: "25%", margin: "0 2.5%" }}
+              onClick={prevStep}
+            >
+              <IoIosArrowRoundBack />
+            </button>
+            <button
+              style={{ width: "65%", margin: "0 2.5%" }}
+              onClick={nextStep}
+            >
+              Next
+            </button>
+          </div>
+        </div>
+      )}
+      {step === 5 && (
+        <div className="ride_details schedule">
+          <p>Time of Pickup: </p>
+          <InputText className="input_area"></InputText>
+          <br />
+          <div style={{ width: "100%" }}>
+            <button
+              style={{ width: "25%", margin: "0 2.5%" }}
+              onClick={prevStep}
+            >
+              <IoIosArrowRoundBack />
+            </button>
+            <button
+              style={{ width: "65%", margin: "0 2.5%" }}
+              onClick={nextStep}
+            >
+              Next
+            </button>
+          </div>
+        </div>
+      )}
+      {step === 6 && (
+        <div className="ride_details schedule">
+          <span>Name:</span>
+          <span>Destination:</span>
+          <span>Pick-Up Location:</span>
+          <span>Repeate:</span>
+          <span>Time:</span>
+          <br />
+          <div style={{ width: "100%" }}>
+            <button
+              style={{ width: "25%", margin: "0 2.5%" }}
+              onClick={prevStep}
+            >
+              <IoIosArrowRoundBack />
+            </button>
+            <button style={{ width: "65%", margin: "0 2.5%" }}>Confirm</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

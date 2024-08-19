@@ -52,13 +52,6 @@
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.801);
 }
 
-#history_scroll{
-    width: 100%;
-    height: 80%;
-    text-align: center;
-    padding: 10px;
-    box-sizing: border-box;
-}
 .history_item{
     width: 100%;
     height: 15vh;
@@ -67,4 +60,9 @@
     border-radius: 10px;
   -webkit-box-shadow: 0 2px 3px rgba(0, 0, 0, 0.918);
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.801);
+}
+
+.wallet_bottom_drawer{
+  position: fixed;
+  bottom: 0;
 }

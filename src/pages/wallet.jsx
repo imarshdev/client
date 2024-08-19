@@ -63,10 +63,9 @@ export default function Wallet() {
       </div>
       <div
         className="mid_details"
-        style={{ height: "40vh", textAlign: "start", boxSizing: "border-box", padding: "10px" }}
+        style={{ height: "50vh", textAlign: "start", boxSizing: "border-box", padding: "10px" }}
       >
         <p style={{boxSizing: "border-box", padding: "0 10px"}}>Transaction History</p>
-        <ScrollView id="history_scroll">
           <div className="history_item"></div>
           <div className="history_item"></div>
           <div className="history_item"></div>
@@ -77,9 +76,8 @@ export default function Wallet() {
           <div className="history_item"></div>
           <div className="history_item"></div>
           <div className="history_item"></div>
-        </ScrollView>
       </div>
-      <div className="bottom_drawer">
+      <div className="bottom_drawer wallet_bottom_drawer">
         <Navigator />
       </div>
     </main>
