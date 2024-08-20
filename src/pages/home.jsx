@@ -237,7 +237,7 @@ export function OrderRide() {
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
-          {/* Additional map layers or components can be added here */}
+          <LocationMarker />
         </MapContainer>
       </div>
       {step === 1 && (
