@@ -10,8 +10,12 @@ import { MdOutlineDeliveryDining } from "react-icons/md";
 import { FaUserAstronaut } from "react-icons/fa";
 import { InputText } from "primereact/inputtext";
 import "../css/home.css";
-import { Button, TouchableOpacity } from "react-native-web";
+import { TouchableOpacity } from "react-native-web";
 import { Link } from "react-router-dom";
+import { TimePicker } from "@vaadin/react-components";
+import "leaflet/dist/leaflet.css"
+import { MapContainer, Marker, Popup, TileLayer, useMap } from "react-leaflet";
+
 
 function Home() {
   return (
@@ -140,6 +144,7 @@ export function Navigator() {
 }
 
 export function Delivery() {
+  const position = [51.505, -0.09];
   const [step, setStep] = useState(1);
   const nextStep = () => {
     setStep(step + 1);
@@ -149,7 +154,23 @@ export function Delivery() {
   };
   return (
     <div className="home order">
-      <div className="map"></div>
+      <div className="map">
+        <MapContainer style={{ height: "60vh", width: "100vw" }}
+          position={position}
+          zoom={13}
+          scrollWheelZoom={false}
+        >
+          <TileLayer
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          />
+          <Marker position={position}>
+            <Popup>
+              A pretty CSS3 popup. <br /> Easily customizable.
+            </Popup>
+          </Marker>
+        </MapContainer>
+      </div>
       {step === 1 && (
         <div className="ride_details">
           <p>Enter Destination</p>
@@ -168,9 +189,7 @@ export function Delivery() {
           <button style={{ width: "45%", margin: "0 2.5%" }} onClick={prevStep}>
             Back
           </button>
-          <button style={{ width: "45%", margin: "0 2.5%" }}>
-            Confirm
-          </button>
+          <button style={{ width: "45%", margin: "0 2.5%" }}>Confirm</button>
         </div>
       )}
     </div>
@@ -178,13 +197,13 @@ export function Delivery() {
 }
 
 export function OrderRide() {
-    const [step, setStep] = useState(1);
-    const nextStep = () => {
-      setStep(step + 1);
-    };
-    const prevStep = () => {
-      setStep(step - 1);
-    };
+  const [step, setStep] = useState(1);
+  const nextStep = () => {
+    setStep(step + 1);
+  };
+  const prevStep = () => {
+    setStep(step - 1);
+  };
   return (
     <div className="home order">
       <div className="map"></div>
@@ -214,13 +233,17 @@ export function OrderRide() {
 }
 
 export function Schedule() {
-    const [step, setStep] = useState(1);
-    const nextStep = () => {
-      setStep(step + 1);
-    };
-    const prevStep = () => {
-      setStep(step - 1);
-    };
+  const [step, setStep] = useState(1);
+  const nextStep = () => {
+    setStep(step + 1);
+  };
+  const prevStep = () => {
+    setStep(step - 1);
+  };
+  const [time, setTime] = useState("10:00 AM");
+  const handleChange = (timeValue) => {
+    setTime(timeValue);
+  };
   return (
     <div className="home order">
       {step === 1 && (
@@ -311,8 +334,8 @@ export function Schedule() {
       )}
       {step === 5 && (
         <div className="ride_details schedule">
-          <p>Time of Pickup: </p>
-          <InputText className="input_area"></InputText>
+          <p>Time of Pickup:</p>
+          <TimePicker color="black" value="07:00" />
           <br />
           <div style={{ width: "100%" }}>
             <button
@@ -352,3 +375,6 @@ export function Schedule() {
     </div>
   );
 }
+
+
+

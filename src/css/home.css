@@ -149,6 +149,9 @@
   height: 60%;
   width: 100%;
 }
+.map_container{
+  height: 100%;
+}
 .ride_details {
   background-color: #fff;
   height: 40%;
