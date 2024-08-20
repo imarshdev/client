@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { FaCloudSunRain, FaMotorcycle } from "react-icons/fa";
 import { FaHome } from "react-icons/fa";
 import { GrSchedule } from "react-icons/gr";
@@ -14,7 +14,7 @@ import { TouchableOpacity } from "react-native-web";
 import { Link } from "react-router-dom";
 import { TimePicker } from "@vaadin/react-components";
 import "leaflet/dist/leaflet.css"
-import { MapContainer, Marker, Popup, TileLayer, useMap } from "react-leaflet";
+import { MapContainer, Marker, Popup, TileLayer, useMap, useMapEvents } from "react-leaflet";
 
 
 function Home() {
@@ -143,8 +143,28 @@ export function Navigator() {
   );
 }
 
+function LocationMarker() {
+  const [position, setPosition] = useState(null);
+  const map = useMapEvents({
+    click() {
+      map.locate()
+    },
+    locationfound(e) {
+      setPosition(e.latlng);
+      map.flyTo(e.latlng, map.getZoom());
+    },
+  });
+
+  return position === null ? null : (
+    <Marker position={position}>
+      <Popup>You are here</Popup>
+    </Marker>
+  );
+}
 export function Delivery() {
-  const position = [51.505, -0.09];
+  const mapRef = useRef(null);
+  const latitude = 51.505;
+  const longitude = -0.09;
   const [step, setStep] = useState(1);
   const nextStep = () => {
     setStep(step + 1);
@@ -155,20 +175,17 @@ export function Delivery() {
   return (
     <div className="home order">
       <div className="map">
-        <MapContainer style={{ height: "60vh", width: "100vw" }}
-          position={position}
+        <MapContainer
+          center={[latitude, longitude]}
           zoom={13}
-          scrollWheelZoom={false}
+          ref={mapRef}
+          style={{ height: "70vh", width: "100vw" }}
         >
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
-          <Marker position={position}>
-            <Popup>
-              A pretty CSS3 popup. <br /> Easily customizable.
-            </Popup>
-          </Marker>
+          <LocationMarker />
         </MapContainer>
       </div>
       {step === 1 && (
@@ -197,6 +214,9 @@ export function Delivery() {
 }
 
 export function OrderRide() {
+    const mapRef = useRef(null);
+    const latitude = 51.505;
+    const longitude = -0.09;
   const [step, setStep] = useState(1);
   const nextStep = () => {
     setStep(step + 1);
@@ -206,7 +226,20 @@ export function OrderRide() {
   };
   return (
     <div className="home order">
-      <div className="map"></div>
+      <div className="map">
+        <MapContainer
+          center={[latitude, longitude]}
+          zoom={13}
+          ref={mapRef}
+          style={{ height: "70vh", width: "100vw" }}
+        >
+          <TileLayer
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          />
+          {/* Additional map layers or components can be added here */}
+        </MapContainer>
+      </div>
       {step === 1 && (
         <div className="ride_details">
           <p>Enter Destination</p>
