@@ -76,7 +76,6 @@
   width: 30%;
   min-height: 5vh;
   color: gray;
-  background-color: #f2f2f2;
   border-radius: 10px;
   margin: 5px 0;
   -webkit-box-shadow: 0 5px 10px rgba(160, 163, 189, 0.918);
@@ -106,7 +105,6 @@
   width: 100%;
   height: 70%;
   border-radius: 20px;
-  background-color: #f2f2f2;
   margin: 5px;
   -webkit-box-shadow: 0 5px 10px rgba(160, 163, 189, 0.918);
   box-shadow: 0 5px 10px rgba(160, 163, 189, 0.801);
@@ -169,4 +167,29 @@
   flex-direction: column;
   justify-content: center;
   align-items: start;
+}
+.services_container{
+  width: 100%;
+  height: auto;
+  box-sizing: border-box;
+  padding: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+#service_item{
+  width: 40%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  box-sizing: border-box;
+  margin: 3% 6% 3% 0;
+  padding: 5px 0;
+  -webkit-box-shadow: 0 5px 10px rgba(160, 163, 189, 0.918);
+  box-shadow: 0 5px 10px rgba(160, 163, 189, 0.801);
 }

@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import { FaCloudSunRain, FaMotorcycle } from "react-icons/fa";
 import { FaHome } from "react-icons/fa";
-import { GrSchedule } from "react-icons/gr";
+import { GrFormSchedule, GrSchedule } from "react-icons/gr";
 import { IoIosArrowRoundBack } from "react-icons/io";
 import { MdAccountBalanceWallet } from "react-icons/md";
 import { GiFullMotorcycleHelmet } from "react-icons/gi";
@@ -15,6 +15,7 @@ import { Link } from "react-router-dom";
 import { TimePicker } from "@vaadin/react-components";
 import "leaflet/dist/leaflet.css"
 import { MapContainer, Marker, Popup, TileLayer, useMap, useMapEvents } from "react-leaflet";
+import { RiCalendarScheduleFill } from "react-icons/ri";
 
 
 function Home() {
@@ -45,7 +46,7 @@ function Home() {
       <div className="mid_details">
         <div className="mid_details_upper">
           <TouchableOpacity id="items_wrapper">
-            <Link to="/delivery">
+            <Link to="/map">
               <div className="items">
                 <MdOutlineDeliveryDining color="#0a542e" size={30} />
                 <span style={{ color: "#0a542e", paddingTop: "5px" }}>
@@ -69,7 +70,7 @@ function Home() {
           <TouchableOpacity id="items_wrapper">
             <Link to="/schedule">
               <div className="items">
-                <GrSchedule color="#0a542e" size={30} />
+                <GrFormSchedule color="#0a542e" size={30} />
                 <span style={{ color: "#0a542e", paddingTop: "5px" }}>
                   Schedule
                 </span>

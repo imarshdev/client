@@ -14,7 +14,7 @@
 .uppercard {
   width: 100%;
   height: 65%;
-  background-color: #98cc9f;
+  border-bottom: 1px solid #98cc9f;
   padding: 10px;
   box-sizing: border-box;
   color: black;
@@ -82,8 +82,8 @@
   height: 15vh;
   width: 100%;
   background-color: #0d8a491c;
-  -webkit-box-shadow: 0 2px 3px rgba(0, 0, 0, 0.219);
-  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.171);
+  -webkit-box-shadow: 0 2px 3px rgba(0, 0, 0, 0.411);
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.322);
   border-radius: 10px;
   display: flex;
   flex-direction: column;
@@ -95,12 +95,12 @@
   overflow: hidden;
   margin-bottom: 10px;
 }
-.scheduled_ride span{
+.scheduled_ride span {
   display: flex;
   align-items: center;
 }
 
-#action{
+#action {
   width: 40%;
   height: 30%;
   background-color: #0a542e;
@@ -112,4 +112,25 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+#account_item {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 10px;
+}
+#personal_item {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 10px;
+  border-bottom: 1px solid #0a542e23;
 }

@@ -10,6 +10,7 @@ import Home, { Delivery, OrderRide, Schedule } from "./pages/home.jsx";
 import Account from "./pages/account.jsx";
 import Services from "./pages/services.jsx";
 import Wallet from "./pages/wallet.jsx";
+import GeoSearchExample from "./pages/map.jsx";
 
 const router = createBrowserRouter([
   {
@@ -46,17 +47,22 @@ const router = createBrowserRouter([
   {
     path: "/account",
     element: <Account />,
-    errorElement: <ErrorPage/>
+    errorElement: <ErrorPage />,
   },
   {
     path: "/wallet",
     element: <Wallet />,
-    errorElement: <ErrorPage/>
+    errorElement: <ErrorPage />,
   },
   {
     path: "/services",
     element: <Services />,
-    errorElement: <ErrorPage/>
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/map",
+    element: <GeoSearchExample />,
+    errorElement: <ErrorPage />,
   },
 ]);
 const value = {

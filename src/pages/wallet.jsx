@@ -13,8 +13,8 @@ import { BiHide } from "react-icons/bi";
 export default function Wallet() {
   return (
     <main className="home">
-      <div className="top" style={{ height: "40vh" }}>
-        <div className="topper">
+      <div className="top" style={{ height: "40vh", }}>
+        <div className="topper" style={{borderRadius: 0}}>
           <p>Wallet</p>
           <div className="card">
             <div className="uppercard">
@@ -73,55 +73,7 @@ export default function Wallet() {
           padding: "10px",
         }}
       >
-        <div className="history_item">
-          <div className="history_icon"></div>
-          <div style={{ display: "flex", flexDirection: "column" }}>
-            <span>5HDG76SHFDBHVDGFD23</span>
-            <span>UICT - The Acacia Mall</span>
-          </div>
-        </div>
-        <div className="history_item">
-          <div className="history_icon"></div>
-          <div style={{ display: "flex", flexDirection: "column" }}>
-            <span>JE77BXCHCMVCJVNV</span>
-            <span>Lugogo Mall - Ntinda Stretcher</span>
-          </div>
-        </div>
-        <div className="history_item">
-          <div className="history_icon"></div>
-          <div style={{ display: "flex", flexDirection: "column" }}>
-            <span>92CURBVUUR9993</span>
-            <span>UICT - Sai Pali Institute</span>
-          </div>
-        </div>
-        <div className="history_item">
-          <div className="history_icon"></div>
-          <div style={{ display: "flex", flexDirection: "column" }}>
-            <span>87RHDHVBVCVJHDH66</span>
-            <span>Mapeera House - Arena Mall</span>
-          </div>
-        </div>
-        <div className="history_item">
-          <div className="history_icon"></div>
-          <div style={{ display: "flex", flexDirection: "column" }}>
-            <span>6JHSHD67DNCDI23</span>
-            <span>Ntinda Stretcher - CC Metroplex Mall</span>
-          </div>
-        </div>
-        <div className="history_item">
-          <div className="history_icon"></div>
-          <div style={{ display: "flex", flexDirection: "column" }}>
-            <span>5HDG76SHFDBHVDGFD23</span>
-            <span>UICT - The Acacia Mall</span>
-          </div>
-        </div>
-        <div className="history_item">
-          <div className="history_icon"></div>
-          <div style={{ display: "flex", flexDirection: "column" }}>
-            <span>5HDG76SHFDBHVDGFD23</span>
-            <span>UICT - The Acacia Mall</span>
-          </div>
-        </div>
+
       </ScrollView>
       <div className="bottom_drawer wallet_bottom_drawer">
         <Navigator />
