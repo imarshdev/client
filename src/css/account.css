@@ -52,9 +52,17 @@
   -webkit-box-shadow: 0 2px 3px #0a542e;
   box-shadow: 0 2px 3px #0a542e;
 }
-
-#pressed{
-    width: 30%;
+#amount_item:focus {
+  border: solid 1px #0d8a49;
+}
+#option_item:focus {
+  border: solid 1px #0d8a49;
+}
+#finish:focus {
+  border: solid 1px #0d8a49;
+}
+#pressed {
+  width: 30%;
   height: 40%;
   border-radius: 10px;
   display: flex;
@@ -82,8 +90,8 @@
   -webkit-box-shadow: 0 2px 3px #0a542e;
   box-shadow: 0 2px 3px #0a542e;
 }
-#finish{
-    width: 100%;
+#finish {
+  width: 100%;
   height: 15%;
   display: flex;
   justify-content: center;
