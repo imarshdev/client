@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { SafeAreaView, ScrollView, TouchableOpacity } from "react-native-web";
 import "../css/home.css";
 import "../css/account.css";
@@ -8,49 +8,29 @@ import { CiSquareChevUp, CiSquareChevDown } from "react-icons/ci";
 import { MdAccountBalanceWallet, MdOutlineArrowRightAlt } from "react-icons/md";
 import { GiFullMotorcycleHelmet } from "react-icons/gi";
 import { Link } from "react-router-dom";
-import { BiHide } from "react-icons/bi";
+import { BottomSheet } from "react-spring-bottom-sheet";
+import "react-spring-bottom-sheet/dist/style.css";
+import { InputText } from "primereact/inputtext";
 
 export default function Wallet() {
+  const [open, setOpen] = useState(false);
+  const dismis = () => {
+    setOpen(false);
+  };
   return (
     <main className="home">
-      <div className="top" style={{ height: "40vh", }}>
-        <div className="topper" style={{borderRadius: 0}}>
+      <div className="top" style={{ height: "40vh" }}>
+        <div className="topper" style={{ borderRadius: 0 }}>
           <p>Wallet</p>
           <div className="card">
-            <div className="uppercard">
-              <div>
-                <span style={{ fontSize: 12 }}>Main Card</span>
-                <br />
-                <span style={{ fontSize: 20 }}>$28.896</span>
-              </div>
-              <TouchableOpacity>
-                <BiHide size={20} />
-              </TouchableOpacity>
-            </div>
-            <div className="lowercard">
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <FaCreditCard color="black" />
-                <span
-                  style={{ color: "black", fontSize: 14, paddingLeft: "10px" }}
-                >
-                  ●●●● ●●●● ●●●● 784
-                </span>
-              </div>
-              <MdOutlineArrowRightAlt color="black" />
-            </div>
+            <span style={{ fontSize: "12px" }}>Your balance</span>
+            <br />
+            <span style={{ fontSize: "30px" }}>
+              sh.17,000 <span>.00</span>
+            </span>
           </div>
           <div className="action_buttons">
-            <TouchableOpacity id="action_button">
-              <CiSquareChevUp size={24} />
-              <span style={{ fontSize: 12, color: "#fff" }}>transfer</span>
-            </TouchableOpacity>
-            <TouchableOpacity id="action_button">
+            <TouchableOpacity onPress={() => setOpen(true)} id="action_button">
               <IoMdAdd size={24} />
               <span style={{ fontSize: 12, color: "#fff" }}>top up</span>
             </TouchableOpacity>
@@ -72,12 +52,50 @@ export default function Wallet() {
           boxSizing: "border-box",
           padding: "10px",
         }}
-      >
-
-      </ScrollView>
+      ></ScrollView>
       <div className="bottom_drawer wallet_bottom_drawer">
         <Navigator />
       </div>
+      <BottomSheet onDismiss={dismis} open={open}>
+        <div
+          style={{ height: "70vh", boxSizing: "border-box", padding: "20px" }}
+        >
+          <p>Choose Amount</p>
+          <div className="amount_container">
+            <TouchableOpacity id="amount_item">
+              <span>sh.1,000</span>
+            </TouchableOpacity>
+            <TouchableOpacity id="amount_item">
+              <span>sh.2,000</span>
+            </TouchableOpacity>
+            <TouchableOpacity id="amount_item">
+              <span>sh.5,000</span>
+            </TouchableOpacity>
+            <TouchableOpacity id="amount_item">
+              <span>sh.10,000</span>
+            </TouchableOpacity>
+            <TouchableOpacity id="amount_item">
+              <span>sh.20,000</span>
+            </TouchableOpacity>
+            <TouchableOpacity id="amount_item">
+              <span>Custom</span>
+            </TouchableOpacity>
+          </div>
+          <p>Options</p>
+          <div className="options">
+            <TouchableOpacity id="option_item">
+              <span>MTN</span>
+            </TouchableOpacity>
+            <TouchableOpacity id="option_item">
+              <span>Airtel</span>
+            </TouchableOpacity>
+          </div>
+          <br />
+          <TouchableOpacity id="finish">
+            <span>Next</span>
+          </TouchableOpacity>
+        </div>
+      </BottomSheet>
     </main>
   );
 }
@@ -89,16 +107,7 @@ export function Navigator() {
         <Link to="/home">
           <span class="icon_button">
             <FaHome color="#fff" size={24} />
-            <span style={{ fontSize: 12 }}>home</span>
-          </span>
-        </Link>
-      </TouchableOpacity>
-
-      <TouchableOpacity>
-        <Link to="/services">
-          <span class="icon_button">
-            <FaServicestack color="#fff" size={24} />
-            <span style={{ fontSize: 12 }}>services</span>
+            <span style={{ fontSize: 12 }}>Home</span>
           </span>
         </Link>
       </TouchableOpacity>
@@ -107,7 +116,7 @@ export function Navigator() {
         <Link to="/wallet">
           <span class="icon_button">
             <MdAccountBalanceWallet color="#fff" size={24} />
-            <span style={{ fontSize: 12, color: "#fff" }}>wallet</span>
+            <span style={{ fontSize: 12, color: "#fff" }}>Wallet</span>
           </span>
         </Link>
       </TouchableOpacity>
@@ -116,7 +125,7 @@ export function Navigator() {
         <Link to="/account">
           <span class="icon_button">
             <GiFullMotorcycleHelmet color="#fff" size={24} />
-            <span style={{ fontSize: 12 }}>account</span>
+            <span style={{ fontSize: 12 }}>Profile</span>
           </span>
         </Link>
       </TouchableOpacity>

@@ -25,34 +25,15 @@ export default function Services() {
       </div>
       <div className="mid_details" style={{ height: "80vh" }}>
         <div className="services_container">
-          <TouchableOpacity id="service_item">
-            <FaMotorcycle size={34} />
-            <p style={{ fontSize: 12 }}>Order Ride</p>
-          </TouchableOpacity>
+
           <TouchableOpacity id="service_item">
             <MdDirectionsBike size={34} />
             <p style={{ fontSize: 12 }}>Bike</p>
           </TouchableOpacity>
-          <TouchableOpacity id="service_item">
-            <MdOutlineDeliveryDining size={34} />
-            <p style={{ fontSize: 12 }}>Delivery</p>
-          </TouchableOpacity>
-          <TouchableOpacity id="service_item">
-            <GrFormSchedule size={34} />
-            <p style={{ fontSize: 12 }}>Schedule ride</p>
-          </TouchableOpacity>
-          <TouchableOpacity id="service_item">
-            <MdDining size={34} />
-            <p style={{ fontSize: 12 }}>Dine</p>
-          </TouchableOpacity>
-          <TouchableOpacity id="service_item">
-            <IoIosSend size={34} />
-            <p style={{ fontSize: 12 }}>Send Money</p>
-          </TouchableOpacity>
-          <TouchableOpacity id="service_item">
-            <PiHandWithdraw size={34} />
-            <p style={{ fontSize: 12 }}>Withdraw</p>
-          </TouchableOpacity>
+
+
+
+
         </div>
         <div className="services_container">
           <p style={{ textAlign: "start" }}>More to Come !!</p>

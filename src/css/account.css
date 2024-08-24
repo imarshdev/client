@@ -1,49 +1,29 @@
 .card {
   width: 100%;
-  height: 40%;
+  height: 45%;
   background-color: #fff;
-  border: solid 1px #0a542e;
+  color: black;
   box-sizing: border-box;
   border-radius: 10px;
-  padding: 0;
+  padding: 10px;
   overflow: hidden;
   margin-bottom: 10px;
   -webkit-box-shadow: 0 2px 3px rgba(0, 0, 0, 0.918);
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.801);
 }
-.uppercard {
-  width: 100%;
-  height: 65%;
-  border-bottom: 1px solid #98cc9f;
-  padding: 10px;
-  box-sizing: border-box;
-  color: black;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-}
-.lowercard {
-  width: 100%;
-  height: 35%;
-  display: flex;
-  box-sizing: border-box;
-  padding: 10px;
-  justify-content: space-between;
-  align-items: center;
-}
+
 .action_buttons {
-  height: 20%;
+  height: 30%;
   width: 100%;
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
 }
 #action_button {
   background-color: #0d8a49;
   height: 80%;
-  width: 30%;
+  width: 45%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -52,25 +32,65 @@
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.801);
 }
 
-.history_item {
+.amount_container {
   width: 100%;
-  height: 10vh;
-  margin-bottom: 10px;
-  border-radius: 10px;
-  -webkit-box-shadow: 0 2px 3px rgba(0, 0, 0, 0.219);
-  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.171);
+  height: 40%;
   display: flex;
-  align-items: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: start;
 }
-.history_icon {
-  height: 80%;
-  aspect-ratio: 1/1;
-  background-color: #0d8a494b;
+
+#amount_item {
+  width: 30%;
+  height: 40%;
   border-radius: 10px;
-  margin-left: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  -webkit-box-shadow: 0 2px 3px #0a542e;
+  box-shadow: 0 2px 3px #0a542e;
 }
-.history_item span {
-  margin-left: 20px;
+
+#pressed{
+    width: 30%;
+  height: 40%;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  -webkit-box-shadow: 0 2px 3px #0a542e;
+  box-shadow: 0 2px 3px #0a542e;
+}
+.options {
+  width: 100%;
+  height: 20%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: start;
+}
+#option_item {
+  width: 45%;
+  height: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  -webkit-box-shadow: 0 2px 3px #0a542e;
+  box-shadow: 0 2px 3px #0a542e;
+}
+#finish{
+    width: 100%;
+  height: 15%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  -webkit-box-shadow: 0 2px 3px #0a542e;
+  box-shadow: 0 2px 3px #0a542e;
 }
 
 .wallet_bottom_drawer {
@@ -122,6 +142,16 @@
   align-items: center;
   box-sizing: border-box;
   padding: 10px;
+}
+#inner_account_item {
+  padding: 0;
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
 }
 #personal_item {
   width: 100%;

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import mapboxgl from "mapbox-gl/dist/mapbox-gl";
+import { SearchBox } from "@mapbox/search-js-react";
 
 mapboxgl.accessToken =
   "pk.eyJ1IjoiaW1hcnNoIiwiYSI6ImNtMDZiZDB2azB4eDUyanM0YnVhN3FtZzYifQ.gU1K02oIfZLWJRGwnjGgCg";
@@ -31,15 +32,10 @@ export default function GeoSearchExample() {
       zoom: 15,
     });
 
+
+
     const marker = new mapboxgl.Marker().setLngLat([lon, lat]).addTo(map);
     map.addControl(new mapboxgl.NavigationControl()); // Add zoom controls
-    map.addControl(
-      new MapboxDirections({
-        accessToken: mapboxgl.accessToken,
-        unit: "metric",
-      }),
-      "top-left"
-    );
 
     map.on("load", () => {
       map.addLayer({
@@ -59,31 +55,29 @@ export default function GeoSearchExample() {
         filter: ["==", "$type", "Point"],
       });
 
-          map.addLayer({
-            id: "place-labels",
-            type: "symbol",
-            source: {
-              type: "vector",
-              url: "mapbox://mapbox.04m9x1xg",
-            },
-            "source-layer": "poi_label",
-            layout: {
-              "text-field": ["get", "name"],
-              "text-variable-anchor": ["top", "bottom", "left", "right"],
-              "text-radial-offset": 0.5,
-              "text-justify": "auto",
-            },
-            paint: {
-              "text-color": "#333333",
-              "text-halo-color": "#ffffff",
-              "text-halo-width": 1,
-            },
-            filter: ["==", "$type", "Point"],
-          });
+      map.addLayer({
+        id: "place-labels",
+        type: "symbol",
+        source: {
+          type: "vector",
+          url: "mapbox://mapbox.04m9x1xg",
+        },
+        "source-layer": "poi_label",
+        layout: {
+          "text-field": ["get", "name"],
+          "text-variable-anchor": ["top", "bottom", "left", "right"],
+          "text-radial-offset": 0.5,
+          "text-justify": "auto",
+        },
+        paint: {
+          "text-color": "#333333",
+          "text-halo-color": "#ffffff",
+          "text-halo-width": 1,
+        },
+        filter: ["==", "$type", "Point"],
+      });
     });
 
-
-    
     return () => {
       map.remove();
     };

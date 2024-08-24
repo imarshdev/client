@@ -69,9 +69,7 @@ const value = {
   ripple: true,
 };
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
     <PrimeReactProvider value={value}>
       <RouterProvider router={router} />
     </PrimeReactProvider>
-  </React.StrictMode>
 );

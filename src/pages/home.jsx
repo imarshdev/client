@@ -2,8 +2,8 @@ import React, { useRef, useState } from "react";
 import { FaCloudSunRain, FaMotorcycle } from "react-icons/fa";
 import { FaHome } from "react-icons/fa";
 import { GrFormSchedule, GrSchedule } from "react-icons/gr";
-import { IoIosArrowRoundBack } from "react-icons/io";
-import { MdAccountBalanceWallet } from "react-icons/md";
+import { IoIosArrowRoundBack, IoIosSend } from "react-icons/io";
+import { MdAccountBalanceWallet, MdDining } from "react-icons/md";
 import { GiFullMotorcycleHelmet } from "react-icons/gi";
 import { FaServicestack } from "react-icons/fa";
 import { MdOutlineDeliveryDining } from "react-icons/md";
@@ -13,10 +13,17 @@ import "../css/home.css";
 import { TouchableOpacity } from "react-native-web";
 import { Link } from "react-router-dom";
 import { TimePicker } from "@vaadin/react-components";
-import "leaflet/dist/leaflet.css"
-import { MapContainer, Marker, Popup, TileLayer, useMap, useMapEvents } from "react-leaflet";
+import "leaflet/dist/leaflet.css";
+import {
+  MapContainer,
+  Marker,
+  Popup,
+  TileLayer,
+  useMap,
+  useMapEvents,
+} from "react-leaflet";
 import { RiCalendarScheduleFill } from "react-icons/ri";
-
+import { PiHandWithdraw } from "react-icons/pi";
 
 function Home() {
   return (
@@ -45,47 +52,46 @@ function Home() {
 
       <div className="mid_details">
         <div className="mid_details_upper">
-          <TouchableOpacity id="items_wrapper">
-            <Link to="/map">
-              <div className="items">
-                <MdOutlineDeliveryDining color="#0a542e" size={30} />
-                <span style={{ color: "#0a542e", paddingTop: "5px" }}>
-                  Delivery
-                </span>
-              </div>
+          <TouchableOpacity id="service_item">
+            <Link to="/map" id="link_item">
+              <MdOutlineDeliveryDining size={34} />
+              <p style={{ fontSize: 12 }}>Delivery</p>{" "}
             </Link>
           </TouchableOpacity>
 
-          <TouchableOpacity id="items_wrapper">
-            <Link to="/ride">
-              <div className="items">
-                <FaMotorcycle color="#0a542e" size={30} />
-                <span style={{ color: "#0a542e", paddingTop: "5px" }}>
-                  OrderRide
-                </span>
-              </div>
+          <TouchableOpacity id="service_item">
+            <Link to="/map" id="link_item">
+              <FaMotorcycle size={34} />
+              <p style={{ fontSize: 12 }}>Order Ride</p>
             </Link>
           </TouchableOpacity>
 
-          <TouchableOpacity id="items_wrapper">
-            <Link to="/schedule">
-              <div className="items">
-                <GrFormSchedule color="#0a542e" size={30} />
-                <span style={{ color: "#0a542e", paddingTop: "5px" }}>
-                  Schedule
-                </span>
-              </div>
+          <TouchableOpacity id="service_item">
+            <Link to="/map" id="link_item">
+              <GrFormSchedule size={34} />
+              <p style={{ fontSize: 12 }}>Schedule ride</p>{" "}
             </Link>
           </TouchableOpacity>
 
-          <TouchableOpacity id="items_wrapper">
-            <div className="items">???</div>
+          <TouchableOpacity id="service_item">
+            <Link id="link_item">
+              <MdDining size={34} />
+              <p style={{ fontSize: 12 }}>Dine</p>{" "}
+            </Link>
           </TouchableOpacity>
-          <TouchableOpacity id="items_wrapper">
-            <div className="items">???</div>
+
+          <TouchableOpacity id="service_item">
+            <Link id="link_item">
+              <IoIosSend size={34} />
+              <p style={{ fontSize: 12 }}>Send Money</p>{" "}
+            </Link>
           </TouchableOpacity>
-          <TouchableOpacity id="items_wrapper">
-            <div className="items">???</div>
+
+          <TouchableOpacity id="service_item">
+            <Link id="link_item">
+              <PiHandWithdraw size={34} />
+              <p style={{ fontSize: 12 }}>Withdraw</p>{" "}
+            </Link>
           </TouchableOpacity>
         </div>
         <div className="mid_details_lower">
@@ -109,25 +115,18 @@ export function Navigator() {
         <Link to="/home">
           <span class="icon_button">
             <FaHome color="#fff" size={24} />
-            <span style={{ fontSize: 12, color: "#fff" }}>home</span>
+            <span style={{ fontSize: 12, color: "#fff" }}>Home</span>
           </span>
         </Link>
       </TouchableOpacity>
 
-      <TouchableOpacity>
-        <Link to="/services">
-          <span class="icon_button">
-            <FaServicestack color="#fff" size={24} />
-            <span style={{ fontSize: 12 }}>services</span>
-          </span>
-        </Link>
-      </TouchableOpacity>
+
 
       <TouchableOpacity>
         <Link to="/wallet">
           <span class="icon_button">
             <MdAccountBalanceWallet color="#fff" size={24} />
-            <span style={{ fontSize: 12 }}>wallet</span>
+            <span style={{ fontSize: 12 }}>Wallet</span>
           </span>
         </Link>
       </TouchableOpacity>
@@ -136,7 +135,7 @@ export function Navigator() {
         <Link to="/account">
           <span class="icon_button">
             <GiFullMotorcycleHelmet color="#fff" size={24} />
-            <span style={{ fontSize: 12 }}>account</span>
+            <span style={{ fontSize: 12 }}>Profile</span>
           </span>
         </Link>
       </TouchableOpacity>
@@ -148,7 +147,7 @@ function LocationMarker() {
   const [position, setPosition] = useState(null);
   const map = useMapEvents({
     click() {
-      map.locate()
+      map.locate();
     },
     locationfound(e) {
       setPosition(e.latlng);
@@ -215,9 +214,9 @@ export function Delivery() {
 }
 
 export function OrderRide() {
-    const mapRef = useRef(null);
-    const latitude = 51.505;
-    const longitude = -0.09;
+  const mapRef = useRef(null);
+  const latitude = 51.505;
+  const longitude = -0.09;
   const [step, setStep] = useState(1);
   const nextStep = () => {
     setStep(step + 1);
@@ -409,6 +408,3 @@ export function Schedule() {
     </div>
   );
 }
-
-
-

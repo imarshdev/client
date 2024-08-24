@@ -31,11 +31,12 @@ export default function Account() {
   const [visible2, setVisible2] = useState(false);
   const [visible3, setVisible3] = useState(false);
   const [visible4, setVisible4] = useState(false);
+  const [visible5, setVisible5] = useState(false);
   return (
     <main className="home">
       <Sidebar
         visible={visible}
-        position="left"
+        position="right"
         onHide={() => setVisible(false)}
         className="home"
         style={{ backgroundColor: "#fff" }}
@@ -44,7 +45,7 @@ export default function Account() {
       </Sidebar>
       <Sidebar
         visible={visible2}
-        position="left"
+        position="right"
         onHide={() => setVisible2(false)}
         className="home"
         style={{ backgroundColor: "#fff" }}
@@ -53,7 +54,7 @@ export default function Account() {
       </Sidebar>
       <Sidebar
         visible={visible3}
-        position="left"
+        position="right"
         onHide={() => setVisible3(false)}
         className="home"
         style={{ backgroundColor: "#fff" }}
@@ -62,12 +63,21 @@ export default function Account() {
       </Sidebar>
       <Sidebar
         visible={visible4}
-        position="left"
+        position="right"
         onHide={() => setVisible4(false)}
         className="home"
         style={{ backgroundColor: "#fff" }}
       >
         <ScheduledRides />
+      </Sidebar>
+      <Sidebar
+        visible={visible5}
+        position="right"
+        onHide={() => setVisible5(false)}
+        className="home"
+        style={{ backgroundColor: "#fff" }}
+      >
+        <DeleteAccount />
       </Sidebar>
       <div className="top" style={{ height: "15vh" }}>
         <div
@@ -86,7 +96,9 @@ export default function Account() {
           </span>
           <div>
             <TouchableOpacity>
-              <RiListSettingsLine size={20} />
+              <div onClick={() => setVisible5(true)}>
+                <RiListSettingsLine size={20} />
+              </div>
             </TouchableOpacity>
           </div>
         </div>
@@ -94,76 +106,79 @@ export default function Account() {
       <div className="mid_details" style={{ height: "75vh" }}>
         <br />
         <p style={{ textAlign: "start", fontWeight: "bolder" }}>Your account</p>
+
         <TouchableOpacity id="account_item">
-          <div
-            onClick={() => setVisible(true)}
-            style={{ display: "flex", alignItems: "center" }}
-          >
-            <FiUser size={20} style={{ marginRight: "10px" }} />
-            <span>Personal Information</span>
+          <div id="inner_account_item" onClick={() => setVisible(true)}>
+            <div style={{ display: "flex", alignItems: "center" }}>
+              <FiUser size={20} style={{ marginRight: "10px" }} />
+              <span>Personal Information</span>
+            </div>
+            <FaAngleRight />
           </div>
-          <FaAngleRight onClick={() => setVisible(true)} />
         </TouchableOpacity>
 
         <TouchableOpacity id="account_item">
-          <div
-            onClick={() => setVisible2(true)}
-            style={{ display: "flex", alignItems: "center" }}
-          >
-            <FaCreditCard size={20} style={{ marginRight: "10px" }} />
-            <span>Card and Accounts</span>
+          <div id="inner_account_item" onClick={() => setVisible2(true)}>
+            <div id="inner_account_item">
+              <div style={{ display: "flex", alignItems: "center" }}>
+                <FaCreditCard size={20} style={{ marginRight: "10px" }} />
+                <span>Card and Accounts</span>
+              </div>
+            </div>
+            <FaAngleRight />
           </div>
-          <FaAngleRight onClick={() => setVisible2(true)} />
         </TouchableOpacity>
 
         <TouchableOpacity id="account_item">
-          <div
-            onClick={() => setVisible3(true)}
-            style={{ display: "flex", alignItems: "center" }}
-          >
-            <CiLocationOn size={20} style={{ marginRight: "10px" }} />
-            <span>Saved Addresses</span>
+          <div id="inner_account_item" onClick={() => setVisible3(true)}>
+            <div style={{ display: "flex", alignItems: "center" }}>
+              <CiLocationOn size={20} style={{ marginRight: "10px" }} />
+              <span>Saved Addresses</span>
+            </div>
+            <FaAngleRight />
           </div>
-          <FaAngleRight onClick={() => setVisible3(true)} />
         </TouchableOpacity>
 
         <TouchableOpacity id="account_item">
-          <div
-            onClick={() => setVisible4(true)}
-            style={{ display: "flex", alignItems: "center" }}
-          >
-            <FaStickyNote size={20} style={{ marginRight: "10px" }} />
-            <span>Scheduled Rides</span>
+          <div id="inner_account_item" onClick={() => setVisible4(true)}>
+            <div style={{ display: "flex", alignItems: "center" }}>
+              <FaStickyNote size={20} style={{ marginRight: "10px" }} />
+              <span>Scheduled Rides</span>
+            </div>
+            <FaAngleRight />
           </div>
-          <FaAngleRight onClick={() => setVisible4(true)} />
         </TouchableOpacity>
 
         <p style={{ textAlign: "start", fontWeight: "bolder" }}>Support</p>
         <TouchableOpacity id="account_item">
-          <div style={{ display: "flex", alignItems: "center" }}>
-            <LuHelpCircle size={20} style={{ marginRight: "10px" }} />
-            <span>Help</span>
+          <div id="inner_account_item">
+            <div style={{ display: "flex", alignItems: "center" }}>
+              <LuHelpCircle size={20} style={{ marginRight: "10px" }} />
+              <span>Help</span>
+            </div>
+            <FaAngleRight />
           </div>
-          <FaAngleRight />
         </TouchableOpacity>
 
         <TouchableOpacity id="account_item">
-          <div style={{ display: "flex", alignItems: "center" }}>
-            <CiStar size={20} style={{ marginRight: "10px" }} />
-            <span>Rate this app</span>
+          <div id="inner_account_item">
+            <div style={{ display: "flex", alignItems: "center" }}>
+              <CiStar size={20} style={{ marginRight: "10px" }} />
+              <span>Rate this app</span>
+            </div>
+            <FaAngleRight />
           </div>
-          <FaAngleRight />
         </TouchableOpacity>
 
         <TouchableOpacity id="account_item">
-          <div style={{ display: "flex", alignItems: "center" }}>
-            <MdTwoWheeler size={20} style={{ marginRight: "10px" }} />
-            <span>Become a Captain</span>
+          <div id="inner_account_item">
+            <div style={{ display: "flex", alignItems: "center" }}>
+              <MdTwoWheeler size={20} style={{ marginRight: "10px" }} />
+              <span>Become a Captain</span>
+            </div>
+            <FaAngleRight />
           </div>
-          <FaAngleRight />
         </TouchableOpacity>
-
-
       </div>
       <div className="bottom_drawer">
         <Navigator />
@@ -179,16 +194,7 @@ export function Navigator() {
         <Link to="/home">
           <span class="icon_button">
             <FaHome color="#fff" size={24} />
-            <span style={{ fontSize: 12 }}>home</span>
-          </span>
-        </Link>
-      </TouchableOpacity>
-
-      <TouchableOpacity>
-        <Link to="/services">
-          <span class="icon_button">
-            <FaServicestack color="#fff" size={24} />
-            <span style={{ fontSize: 12 }}>services</span>
+            <span style={{ fontSize: 12 }}>Home</span>
           </span>
         </Link>
       </TouchableOpacity>
@@ -197,7 +203,7 @@ export function Navigator() {
         <Link to="/wallet">
           <span class="icon_button">
             <MdAccountBalanceWallet color="#fff" size={24} />
-            <span style={{ fontSize: 12 }}>wallet</span>
+            <span style={{ fontSize: 12 }}>Wallet</span>
           </span>
         </Link>
       </TouchableOpacity>
@@ -206,7 +212,7 @@ export function Navigator() {
         <Link to="/account">
           <span class="icon_button">
             <GiFullMotorcycleHelmet color="#fff" size={24} />
-            <span style={{ fontSize: 12, color: "#fff" }}>account</span>
+            <span style={{ fontSize: 12, color: "#fff" }}>Profile</span>
           </span>
         </Link>
       </TouchableOpacity>
@@ -216,7 +222,10 @@ export function Navigator() {
 
 function ScheduledRides() {
   return (
-    <div className="mid_details" style={{ height: "90vh", justifyContent: "center" }}>
+    <div
+      className="mid_details"
+      style={{ height: "90vh", justifyContent: "center" }}
+    >
       <p style={{ textAlign: "start" }}>Scheduled Rides</p>
       <div className="scheduled_ride">
         <span style={{ fontSize: 18 }}>School</span>
@@ -291,7 +300,9 @@ function PersonalInformation() {
           <MdOutlineEmail size={30} style={{ marginRight: "15px" }} />
           <span style={{ padding: 0 }}>
             Email <br />
-            <span style={{ fontSize: "12px", padding: 0 }}>forevermarsh004@gmail.com</span>
+            <span style={{ fontSize: "12px", padding: 0 }}>
+              forevermarsh004@gmail.com
+            </span>
           </span>
         </div>
         <MdKeyboardDoubleArrowRight />
@@ -312,6 +323,14 @@ function CardsAndAccounts() {
   return (
     <div className="mid_details" style={{ height: "90vh" }}>
       <p>Cards And Accounts</p>
+    </div>
+  );
+}
+
+function DeleteAccount() {
+  return (
+    <div className="mid_details">
+      <p> Delete Account</p>
     </div>
   );
 }
