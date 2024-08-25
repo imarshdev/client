@@ -19,6 +19,10 @@ export default function Wallet() {
   const dismis = () => {
     setOpen(false);
   };
+  const [open1, setOpen1] = useState(false);
+  const dismis1 = () => {
+    setOpen1(false);
+  };
   const custom = () => {
     setStep('custom')
   }
@@ -42,7 +46,7 @@ export default function Wallet() {
               <IoMdAdd size={24} />
               <span style={{ fontSize: 12, color: "#fff" }}>top up</span>
             </TouchableOpacity>
-            <TouchableOpacity id="action_button">
+            <TouchableOpacity onPress={() => setOpen1(true)} id="action_button">
               <CiSquareChevDown size={24} />
               <span style={{ fontSize: 12, color: "#fff" }}>withdraw</span>
             </TouchableOpacity>
@@ -68,7 +72,9 @@ export default function Wallet() {
         <div
           style={{ height: "70vh", boxSizing: "border-box", padding: "20px" }}
         >
-          <p>Choose Amount: {amount}</p>
+          <p>
+            Choose Amount: <span style={{ fontSize: "20px" }}>{amount}</span>
+          </p>
           <div className="amount_container">
             <TouchableOpacity
               onPress={() => setAmount("1,000")}
@@ -113,12 +119,107 @@ export default function Wallet() {
                 alignItems: "center",
               }}
             >
-              <InputText
-                style={{ width: "75%" }}
-                type="number"
-                inputMode="numeric"
-                onChange={(e)=>setAmount(e.target.value)}
-              />
+              <div
+                style={{
+                  borderBottom: "solid 1px #0a542e",
+                  width: "75%",
+                }}
+              >
+                <input
+                  className="input_amount"
+                  style={{ width: "100%", border: "solid 1px black" }}
+                  type="number"
+                  inputMode="numeric"
+                  onChange={(e) => setAmount(e.target.value)}
+                />
+              </div>
+              <TouchableOpacity onPress={pay} id="pay">
+                <span>Next</span>
+              </TouchableOpacity>
+            </div>
+          )}
+          <p>Options</p>
+          {step === "pay" && (
+            <div className="options">
+              <TouchableOpacity id="option_item">
+                <span>MTN</span>
+              </TouchableOpacity>
+              <TouchableOpacity id="option_item">
+                <span>Airtel</span>
+              </TouchableOpacity>
+            </div>
+          )}
+          <br />
+          <TouchableOpacity id="finish">
+            <span>Next</span>
+          </TouchableOpacity>
+        </div>
+      </BottomSheet>
+      <BottomSheet onDismiss={dismis1} open={open1}>
+        <div
+          style={{ height: "70vh", boxSizing: "border-box", padding: "20px" }}
+        >
+          <p>
+            Choose Amount: <span style={{ fontSize: "20px" }}>{amount}</span>
+          </p>
+          <div className="amount_container">
+            <TouchableOpacity
+              onPress={() => setAmount("1,000")}
+              id="amount_item"
+            >
+              <span>sh.1,000</span>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => setAmount("2,000")}
+              id="amount_item"
+            >
+              <span>sh.2,000</span>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => setAmount("5,000")}
+              id="amount_item"
+            >
+              <span>sh.5,000</span>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => setAmount("10,000")}
+              id="amount_item"
+            >
+              <span>sh.10,000</span>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => setAmount("20,000")}
+              id="amount_item"
+            >
+              <span style={{textDecoration: 'line-through'}}>sh.20,000</span>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={custom} id="amount_item">
+              <span>Custom</span>
+            </TouchableOpacity>
+          </div>
+          {step === "custom" && (
+            <div
+              className="options"
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+              }}
+            >
+              <div
+                style={{
+                  borderBottom: "solid 1px #0a542e",
+                  width: "75%",
+                }}
+              >
+                <input
+                  className="input_amount"
+                  style={{ width: "100%", border: "solid 1px black" }}
+                  type="number"
+                  inputMode="numeric"
+                  onChange={(e) => setAmount(e.target.value)}
+                />
+              </div>
               <TouchableOpacity onPress={pay} id="pay">
                 <span>Next</span>
               </TouchableOpacity>
