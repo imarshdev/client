@@ -10,7 +10,7 @@ import {
   FaServicestack,
   FaStickyNote,
 } from "react-icons/fa";
-import { IoPhonePortraitOutline } from "react-icons/io5";
+import { IoCaretBackSharp, IoPhonePortraitOutline } from "react-icons/io5";
 import { LuHelpCircle } from "react-icons/lu";
 import {
   MdAccessTime,
@@ -62,7 +62,6 @@ export default function Account() {
         </div>
       </Sidebar>
 
-
       <Sidebar
         visible={visible2}
         position="right"
@@ -74,7 +73,6 @@ export default function Account() {
           <CardsAndAccounts />
         </div>
       </Sidebar>
-
 
       <Sidebar
         visible={visible3}
@@ -88,7 +86,6 @@ export default function Account() {
         </div>
       </Sidebar>
 
-
       <Sidebar
         visible={visible4}
         position="right"
@@ -101,7 +98,6 @@ export default function Account() {
         </div>
       </Sidebar>
 
-
       <Sidebar
         visible={visible5}
         position="right"
@@ -113,7 +109,6 @@ export default function Account() {
           <DeleteAccount />
         </div>
       </Sidebar>
-
 
       <div className="top" style={{ height: "15vh" }}>
         <div
