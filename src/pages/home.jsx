@@ -113,7 +113,7 @@ export function Navigator() {
     <div className="navigator">
       <TouchableOpacity>
         <Link to="/home">
-          <span class="icon_button">
+          <span className="icon_button">
             <FaHome color="#fff" size={24} />
             <span style={{ fontSize: 12, color: "#fff" }}>Home</span>
           </span>
@@ -124,7 +124,7 @@ export function Navigator() {
 
       <TouchableOpacity>
         <Link to="/wallet">
-          <span class="icon_button">
+          <span className="icon_button">
             <MdAccountBalanceWallet color="#fff" size={24} />
             <span style={{ fontSize: 12 }}>Wallet</span>
           </span>
@@ -133,7 +133,7 @@ export function Navigator() {
 
       <TouchableOpacity>
         <Link to="/account">
-          <span class="icon_button">
+          <span className="icon_button">
             <GiFullMotorcycleHelmet color="#fff" size={24} />
             <span style={{ fontSize: 12 }}>Profile</span>
           </span>

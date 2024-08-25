@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { TouchableOpacity } from "react-native-web";
 import "../css/home.css";
+import { useSwipeable } from "react-swipeable";
 import {
   FaAngleLeft,
   FaAngleRight,
@@ -27,6 +28,21 @@ import { Link } from "react-router-dom";
 import { Sidebar } from "primereact/sidebar";
 
 export default function Account() {
+  const handlers = useSwipeable({
+    onSwipedRight: () => setVisible(false),
+  });
+  const handlers2 = useSwipeable({
+    onSwipedRight: () => setVisible2(false),
+  });
+  const handlers3 = useSwipeable({
+    onSwipedRight: () => setVisible3(false),
+  });
+  const handlers4 = useSwipeable({
+    onSwipedRight: () => setVisible4(false),
+  });
+  const handlers5 = useSwipeable({
+    onSwipedRight: () => setVisible5(false),
+  });
   const [visible, setVisible] = useState(false);
   const [visible2, setVisible2] = useState(false);
   const [visible3, setVisible3] = useState(false);
@@ -41,8 +57,12 @@ export default function Account() {
         className="home"
         style={{ backgroundColor: "#fff" }}
       >
-        <PersonalInformation />
+        <div {...handlers} style={{ width: "100%", height: "100%" }}>
+          <PersonalInformation />
+        </div>
       </Sidebar>
+
+
       <Sidebar
         visible={visible2}
         position="right"
@@ -50,8 +70,12 @@ export default function Account() {
         className="home"
         style={{ backgroundColor: "#fff" }}
       >
-        <CardsAndAccounts />
+        <div {...handlers2} style={{ width: "100%", height: "100%" }}>
+          <CardsAndAccounts />
+        </div>
       </Sidebar>
+
+
       <Sidebar
         visible={visible3}
         position="right"
@@ -59,8 +83,12 @@ export default function Account() {
         className="home"
         style={{ backgroundColor: "#fff" }}
       >
-        <Saved />
+        <div {...handlers3} style={{ width: "100%", height: "100%" }}>
+          <Saved />
+        </div>
       </Sidebar>
+
+
       <Sidebar
         visible={visible4}
         position="right"
@@ -68,8 +96,12 @@ export default function Account() {
         className="home"
         style={{ backgroundColor: "#fff" }}
       >
-        <ScheduledRides />
+        <div {...handlers4} style={{ width: "100%", height: "100%" }}>
+          <ScheduledRides />
+        </div>
       </Sidebar>
+
+
       <Sidebar
         visible={visible5}
         position="right"
@@ -77,8 +109,12 @@ export default function Account() {
         className="home"
         style={{ backgroundColor: "#fff" }}
       >
-        <DeleteAccount />
+        <div {...handlers5} style={{ width: "100%", height: "100%" }}>
+          <DeleteAccount />
+        </div>
       </Sidebar>
+
+
       <div className="top" style={{ height: "15vh" }}>
         <div
           className="topper"
@@ -192,7 +228,7 @@ export function Navigator() {
     <div className="navigator">
       <TouchableOpacity>
         <Link to="/home">
-          <span class="icon_button">
+          <span className="icon_button">
             <FaHome color="#fff" size={24} />
             <span style={{ fontSize: 12 }}>Home</span>
           </span>
@@ -201,7 +237,7 @@ export function Navigator() {
 
       <TouchableOpacity>
         <Link to="/wallet">
-          <span class="icon_button">
+          <span className="icon_button">
             <MdAccountBalanceWallet color="#fff" size={24} />
             <span style={{ fontSize: 12 }}>Wallet</span>
           </span>
@@ -210,7 +246,7 @@ export function Navigator() {
 
       <TouchableOpacity>
         <Link to="/account">
-          <span class="icon_button">
+          <span className="icon_button">
             <GiFullMotorcycleHelmet color="#fff" size={24} />
             <span style={{ fontSize: 12, color: "#fff" }}>Profile</span>
           </span>

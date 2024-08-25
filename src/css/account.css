@@ -61,6 +61,16 @@
 #finish:focus {
   border: solid 1px #0d8a49;
 }
+#pay{
+    width: 20%;
+  height: 40%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  -webkit-box-shadow: 0 2px 3px #0a542e;
+  box-shadow: 0 2px 3px #0a542e;
+}
 #pressed {
   width: 30%;
   height: 40%;
