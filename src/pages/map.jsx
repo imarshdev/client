@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import mapboxgl from "mapbox-gl/dist/mapbox-gl";
 import { SearchBox } from "@mapbox/search-js-react";
+import "mapbox-gl/dist/mapbox-gl.css";
 
 mapboxgl.accessToken =
   "pk.eyJ1IjoiaW1hcnNoIiwiYSI6ImNtMDZiZDB2azB4eDUyanM0YnVhN3FtZzYifQ.gU1K02oIfZLWJRGwnjGgCg";
@@ -31,6 +32,13 @@ export default function GeoSearchExample() {
       center: [lon, lat],
       zoom: 15,
     });
+
+        map.addControl(
+          new MapboxDirections({
+            accessToken: mapboxgl.accessToken,
+          }),
+          "top-left"
+        );
 
 
 
