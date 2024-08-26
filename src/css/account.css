@@ -21,7 +21,7 @@
   align-items: center;
 }
 #action_button {
-  background-color: #0d8a49;
+  background-color: limegreen;
   height: 80%;
   width: 45%;
   display: flex;
@@ -148,7 +148,7 @@
 #action {
   width: 40%;
   height: 30%;
-  background-color: #0a542e;
+  background-color: limegreen;
   color: #fff;
   position: absolute;
   right: 0;

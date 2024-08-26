@@ -20,7 +20,7 @@
   box-sizing: border-box;
 }
 .topper {
-  background-color: #11874a;
+  background-color:limegreen;
   color: #fff;
   width: 100%;
   height: 100%;
@@ -51,7 +51,7 @@
 }
 .user_icon {
   background-color: #f2f2f2;
-  border: solid 1px #0a542e;
+  border: solid 1px limegreen;
   width: 100%;
   height: 100%;
   border-radius: 50%;
@@ -124,7 +124,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-around;
-  background-color: #11874b;
+  background-color: limegreen;
   border-radius: 30px;
   -webkit-box-shadow: 0 5px 10px rgba(160, 163, 189, 0.918);
   box-shadow: 0 5px 10px rgba(160, 163, 189, 0.801);
@@ -141,7 +141,7 @@
   padding-left: 10px;
 }
 .order{
-  background-color: #11874a;
+  background-color: limegreen;
 }
 .map {
   height: 60%;
