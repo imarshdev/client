@@ -14,7 +14,7 @@ function SignIn() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.post("http://localhost:3000/users/login", {
+      const response = await axios.post("https://walamin-server.onrender.com/users/login", {
         name,
         password,
       });
