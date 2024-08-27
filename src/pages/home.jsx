@@ -1,4 +1,5 @@
-import React, { useRef, useState } from "react";
+import React, { useContext } from "react";
+import { UserContext } from "../userContext";
 import { FaCloudSunRain, FaMotorcycle } from "react-icons/fa";
 import { FaHome } from "react-icons/fa";
 import { GrFormSchedule, GrSchedule } from "react-icons/gr";
@@ -16,6 +17,7 @@ import { RiCalendarScheduleFill } from "react-icons/ri";
 import { PiHandWithdraw } from "react-icons/pi";
 
 function Home() {
+  const { userName } = useContext(UserContext);
   return (
     <main className="home">
       <div className="top">
@@ -27,7 +29,7 @@ function Home() {
               </div>
             </TouchableOpacity>
           </div>
-          <p>Good Morning Mansur</p>
+          <p>Good Morning {userName}</p>
           <div>
             <span>11:29</span>
             <br />

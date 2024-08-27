@@ -10,7 +10,7 @@ import Home from "./pages/home.jsx";
 import Account from "./pages/account.jsx";
 import Services from "./pages/services.jsx";
 import Wallet from "./pages/wallet.jsx";
-import GeoSearchExample from "./pages/map.jsx";
+import { UserProvider } from "./userContext.jsx";
 
 const router = createBrowserRouter([
   {
@@ -48,7 +48,9 @@ const value = {
   ripple: true,
 };
 ReactDOM.createRoot(document.getElementById("root")).render(
-    <PrimeReactProvider value={value}>
-      <RouterProvider router={router} />
-    </PrimeReactProvider>
+  <PrimeReactProvider value={value}>
+    <UserProvider>
+      <RouterProvider router={router} />{" "}
+    </UserProvider>
+  </PrimeReactProvider>
 );
