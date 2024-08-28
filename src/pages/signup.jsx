@@ -13,10 +13,13 @@ function SignUp() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.post("http://localhost:3000/users", {
-        name,
-        password,
-      });
+      const response = await axios.post(
+        "https://walamin-server.onrender.com/users",
+        {
+          name,
+          password,
+        }
+      );
       console.log(response.data);
       setUserName(name);
       history("/home");
