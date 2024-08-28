@@ -7,7 +7,7 @@ import { UserContext } from "../userContext";
 function SignIn() {
   const { setUserName } = useContext(UserContext);
   const [name, setName] = useState("");
-  const [password, setPassword] = useState("");
+  const [token, setToken] = useState("");
   const [error, setError] = useState(false);
   const navigate = useNavigate();
 
@@ -18,7 +18,7 @@ function SignIn() {
         "https://walamin-server.onrender.com/users/login",
         {
           name,
-          password,
+          token,
         }
       );
       if (response.data.success) {
@@ -37,28 +37,29 @@ function SignIn() {
     <main class="page-center">
       <article class="sign-up">
         <h2 class="sign-up__title">Go Walamin Go Green!</h2>
-        <p class="sign-up__subtitle">Sign in to your account to continue</p>
+        <p class="sign-up__subtitle">Enter entry token</p>
         <form class="sign-up-form form" onSubmit={handleSubmit}>
           <label class="form-label-wrapper">
-            <p class="form-label">Name</p>
+            <p class="form-label">Token</p>
             <input
               class="form-input"
               type="text"
-              placeholder="Enter your name"
+              placeholder="Six Digit Token"
               required
               value={name}
               onChange={(event) => setName(event.target.value)}
             />
           </label>
           <label class="form-label-wrapper">
-            <p class="form-label">Password</p>
+            <p class="form-label">6 Digit token</p>
             <input
               class="form-input"
-              type="password"
-              placeholder="Enter your password"
+              type="number"
+              inputMode="numeric"
+              placeholder="Enter your 6 digit token"
               required
-              value={password}
-              onChange={(event) => setPassword(event.target.value)}
+              value={token}
+              onChange={(event) => setToken(event.target.value)}
             />
           </label>
           <a class="link-info forget-link" href="##">

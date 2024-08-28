@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { UserContext } from "../userContext";
 import { FaCloudSunRain, FaMotorcycle } from "react-icons/fa";
 import { FaHome } from "react-icons/fa";
@@ -15,8 +15,39 @@ import { TouchableOpacity } from "react-native-web";
 import { Link } from "react-router-dom";
 import { RiCalendarScheduleFill } from "react-icons/ri";
 import { PiHandWithdraw } from "react-icons/pi";
+import { minutesToHours } from "date-fns";
 
 function Home() {
+  const [time, setTime] = useState("");
+  const [currentTimeString, setCurrentTimeString] = useState(new Date());
+  useEffect(() => {
+    const currentTime = new Date().getHours();
+    let time;
+
+    if (currentTime < 12) {
+      time = "Good morning, ";
+    } else if (currentTime < 18) {
+      time = "Good afternoon, ";
+    } else {
+      time = "Good evening, ";
+    }
+    setTime(time);
+  });
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentTimeString(new Date());
+    }, 1000);
+    return () => clearInterval(timer);
+  });
+
+  const timeOptions = { hour: "2-digit", minute: "2-digit" };
+  const dateOptions = { weekday: "short", month: "short", day: "2-digit" };
+
+  const formattedTime = currentTimeString.toLocaleTimeString('en-US', timeOptions)
+  const formattedDate = currentTimeString.toLocaleDateString('en-US', dateOptions)
+
+
   const { userName } = useContext(UserContext);
   return (
     <main className="home">
@@ -29,15 +60,14 @@ function Home() {
               </div>
             </TouchableOpacity>
           </div>
-          <p>Good Morning {userName}</p>
+          <p>
+            {time} {userName}
+          </p>
           <div>
-            <span>11:29</span>
+            <span>{formattedTime}</span>
             <br />
-            <span>Fri Aug 16</span>
+            <span>{formattedDate}</span>
             <br />
-            <span>
-              23 <FaCloudSunRain />
-            </span>
           </div>
         </div>
       </div>
@@ -111,8 +141,6 @@ export function Navigator() {
           </span>
         </Link>
       </TouchableOpacity>
-
-
 
       <TouchableOpacity>
         <Link to="/wallet">

@@ -8,6 +8,7 @@ function SignUp() {
   const { setUserName } = useContext(UserContext);
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
+  const [token, setToken] = useState("");
   const history = useNavigate();
 
   const handleSubmit = async (event) => {
@@ -18,6 +19,7 @@ function SignUp() {
         {
           name,
           password,
+          token,
         }
       );
       console.log(response.data);
@@ -55,6 +57,18 @@ function SignUp() {
               required
               value={password}
               onChange={(event) => setPassword(event.target.value)}
+            />
+          </label>
+          <label className="form-label-wrapper">
+            <p className="form-label">Six Digit Token</p>
+            <input
+              className="form-input"
+              type="number"
+              inputMode="numeric"
+              placeholder="Enter your login Token"
+              required
+              value={token}
+              onChange={(event) => setToken(event.target.value)}
             />
           </label>
           <label className="form-checkbox-wrapper">

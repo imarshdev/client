@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { UserContext } from "../userContext";
 import { TouchableOpacity } from "react-native-web";
 import "../css/home.css";
 import { useSwipeable } from "react-swipeable";
@@ -28,6 +29,7 @@ import { Link } from "react-router-dom";
 import { Sidebar } from "primereact/sidebar";
 
 export default function Account() {
+  const { userName } = useContext(UserContext);
   const handlers = useSwipeable({
     onSwipedRight: () => setVisible(false),
   });
@@ -121,7 +123,7 @@ export default function Account() {
           }}
         >
           <span>
-            <span>Mansur, Chelangat</span>
+            <span>{userName}</span>
             <br />
             <span style={{ fontSize: 12, padding: 0 }}>0767116290</span>
           </span>
