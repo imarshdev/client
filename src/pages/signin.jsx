@@ -19,10 +19,13 @@ function SignIn() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.post("http://localhost:3000/users/login", {
-        username,
-        token,
-      });
+      const response = await axios.post(
+        "https://walamin-server.onrender.com/users/login",
+        {
+          username,
+          token,
+        }
+      );
       if (response.data.success) {
         console.log(response.data);
         setUser({ ...user, username: username });
@@ -102,13 +105,16 @@ export function SignUP() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.post("http://localhost:3000/users", {
-        firstName,
-        lastName,
-        username,
-        password,
-        token,
-      });
+      const response = await axios.post(
+        "https://walamin-server.onrender.com/users",
+        {
+          firstName,
+          lastName,
+          username,
+          password,
+          token,
+        }
+      );
       console.log(response.data);
       setUser({ ...user, username: username });
       setUser({ ...user, firstName: firstName });
