@@ -48,7 +48,7 @@ function Home() {
   const formattedDate = currentTimeString.toLocaleDateString('en-US', dateOptions)
 
 
-  const { userName } = useContext(UserContext);
+  const { user } = useContext(UserContext);
   return (
     <main className="home">
       <div className="top">
@@ -61,7 +61,7 @@ function Home() {
             </TouchableOpacity>
           </div>
           <p>
-            {time} {userName}
+            {time} {user.firstname}
           </p>
           <div>
             <span>{formattedTime}</span>

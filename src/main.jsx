@@ -5,7 +5,6 @@ import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 import "./index.css";
 import ErrorPage from "./pages/error.jsx";
-import SignUp from "./pages/signup.jsx";
 import Home from "./pages/home.jsx";
 import Account from "./pages/account.jsx";
 import Services from "./pages/services.jsx";
@@ -16,11 +15,6 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
-    errorElement: <ErrorPage />,
-  },
-  {
-    path: "signup",
-    element: <SignUp />,
     errorElement: <ErrorPage />,
   },
   {
@@ -42,7 +36,7 @@ const router = createBrowserRouter([
     path: "/services",
     element: <Services />,
     errorElement: <ErrorPage />,
-  },
+  }
 ]);
 const value = {
   ripple: true,

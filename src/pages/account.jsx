@@ -29,7 +29,7 @@ import { Link } from "react-router-dom";
 import { Sidebar } from "primereact/sidebar";
 
 export default function Account() {
-  const { userName } = useContext(UserContext);
+  const { user } = useContext(UserContext);
   const handlers = useSwipeable({
     onSwipedRight: () => setVisible(false),
   });
@@ -123,7 +123,7 @@ export default function Account() {
           }}
         >
           <span>
-            <span>{userName}</span>
+            <span>{user.firstname}</span>
             <br />
             <span style={{ fontSize: 12, padding: 0 }}>0767116290</span>
           </span>
