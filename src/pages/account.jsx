@@ -123,7 +123,7 @@ export default function Account() {
           }}
         >
           <span>
-            <span>{user.firstname}</span>
+            <span>{user.firstName}</span>
             <br />
             <span style={{ fontSize: 12, padding: 0 }}>0767116290</span>
           </span>

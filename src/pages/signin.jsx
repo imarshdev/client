@@ -7,13 +7,10 @@ import { UserContext } from "../userContext";
 import { BottomSheet } from "react-spring-bottom-sheet";
 function SignIn() {
   const [open, setOpen] = useState(false);
-  const dismis = () => {
-    setOpen(false);
-  };
   const { user, setUser } = useContext(UserContext);
-  const [username, setusername] = useState("");
+  const [username, setUsername] = useState("");
   const [token, setToken] = useState("");
-  const [error, setError] = useState(false);
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
@@ -27,52 +24,51 @@ function SignIn() {
         }
       );
       if (response.data.success) {
-        console.log(response.data);
-        setUser({ ...user, username: username });
+        setUser({ ...user, username });
+        const userDataResponse = await axios.get(
+          `https://walamin-server.onrender.com/users/${username}`
+        );
+        const { firstName, lastName } = userDataResponse.data;
+        setUser({ ...user, firstName, lastName });
         navigate("/home");
       } else {
         setError(response.data.error);
-        console.log(response.data);
       }
     } catch (error) {
       console.error(error);
     }
   };
+
   return (
     <form
       onSubmit={handleSubmit}
       className="home"
-      style={{
-        boxSizing: "border-box",
-        padding: "20px",
-      }}
+      style={{ boxSizing: "border-box", padding: "20px" }}
     >
       <h2>Signin</h2>
-      <label class="form-label-wrapper">
-        <p class="form-label">UserName:</p>
+      <label className="form-label-wrapper">
+        <p className="form-label">Username:</p>
         <input
-          class="form-input"
+          className="form-input"
           type="text"
           value={username}
-          onChange={(event) => setusername(event.target.value)}
+          onChange={(event) => setUsername(event.target.value)}
           placeholder="Enter your name"
           required
         />
       </label>
-      <label class="form-label-wrapper">
-        <p class="form-label">6 digit token:</p>
+      <label className="form-label-wrapper">
+        <p className="form-label">6 digit token:</p>
         <input
-          class="form-input"
+          className="form-input"
           type="text"
-          placeholder="Enter 6 digit token"
-          required
           value={token}
           onChange={(event) => setToken(event.target.value)}
+          placeholder="Enter 6 digit token"
+          required
         />
       </label>
-      <label class="form-checkbox-wrapper">
-        {error && <p style={{ color: "red" }}>{error}</p>}
-      </label>
+      {error && <p style={{ color: "red" }}>{error}</p>}
       <button id="signup">
         <span style={{ padding: "6px", color: "black" }}>Sign in</span>
       </button>
@@ -80,7 +76,7 @@ function SignIn() {
       <TouchableOpacity onPress={() => setOpen(true)} id="signup">
         <p>Sign up</p>
       </TouchableOpacity>
-      <BottomSheet onDismiss={dismis} open={open}>
+      <BottomSheet onDismiss={() => setOpen(false)} open={open}>
         <SignUP />
       </BottomSheet>
     </form>
@@ -93,11 +89,12 @@ export function SignUP() {
   const { user, setUser } = useContext(UserContext);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [username, setuserName] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [token, setToken] = useState("");
-  const history = useNavigate();
+  const navigate = useNavigate();
   const [step, setStep] = useState(1);
+
   const nextStep = () => {
     setStep(step + 1);
   };
@@ -116,54 +113,53 @@ export function SignUP() {
         }
       );
       console.log(response.data);
-      setUser({ ...user, username: username });
-      setUser({ ...user, firstName: firstName });
-      setUser({ ...user, lastName: lastName });
-      history("/home");
+      setUser({ ...user, username, firstName, lastName });
+      navigate("/home");
     } catch (error) {
       console.error(error);
     }
   };
+
   return (
     <form
       onSubmit={handleSubmit}
       className="home"
       style={{ height: "80vh", boxSizing: "border-box", padding: "20px" }}
     >
-      <h2>Signin</h2>
+      <h2>Sign up</h2>
       {step === 1 && (
         <>
-          <label class="form-label-wrapper">
-            <p class="form-label">First Name:</p>
+          <label className="form-label-wrapper">
+            <p className="form-label">First Name:</p>
             <input
-              class="form-input"
+              className="form-input"
               type="text"
-              placeholder="Enter your first name"
-              required
               value={firstName}
               onChange={(event) => setFirstName(event.target.value)}
+              placeholder="Enter your first name"
+              required
             />
           </label>
-          <label class="form-label-wrapper">
-            <p class="form-label">Last Name:</p>
+          <label className="form-label-wrapper">
+            <p className="form-label">Last Name:</p>
             <input
-              class="form-input"
+              className="form-input"
               type="text"
-              placeholder="Enter your last name"
-              required
               value={lastName}
               onChange={(event) => setLastName(event.target.value)}
+              placeholder="Enter your last name"
+              required
             />
           </label>
-          <label class="form-label-wrapper">
-            <p class="form-label">Preferred Username:</p>
+          <label className="form-label-wrapper">
+            <p className="form-label">Preferred Username:</p>
             <input
-              class="form-input"
+              className="form-input"
               type="text"
+              value={username}
+              onChange={(event) => setUsername(event.target.value)}
               placeholder="Enter username"
               required
-              value={username}
-              onChange={(event) => setuserName(event.target.value)}
             />
           </label>
           <br />
@@ -174,29 +170,29 @@ export function SignUP() {
       )}
       {step === 2 && (
         <>
-          <label class="form-label-wrapper">
-            <p class="form-label">Password:</p>
+          <label className="form-label-wrapper">
+            <p className="form-label">Password:</p>
             <input
-              class="form-input"
-              type="text"
-              placeholder="Enter password"
-              required
+              className="form-input"
+              type="password"
               value={password}
               onChange={(event) => setPassword(event.target.value)}
+              placeholder="Enter password"
+              required
             />
           </label>
-          <label class="form-label-wrapper">
-            <p class="form-label">6 digit login token:</p>
+          <label className="form-label-wrapper">
+            <p className="form-label">6 digit login token:</p>
             <input
-              class="form-input"
+              className="form-input"
               type="text"
-              placeholder="Enter 6 digit token"
-              required
               value={token}
               onChange={(event) => setToken(event.target.value)}
+              placeholder="Enter 6 digit token"
+              required
             />
             <span style={{ textAlign: "end" }}>
-              be sure to remeber your token !!
+              Be sure to remember your token!!
             </span>
           </label>
           <br />

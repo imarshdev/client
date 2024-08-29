@@ -1,51 +1,70 @@
+// Import necessary libraries and components
 import React, { useState } from "react";
-import { SafeAreaView, ScrollView, TouchableOpacity } from "react-native-web";
+import { ScrollView, TouchableOpacity } from "react-native-web";
 import "../css/home.css";
 import "../css/account.css";
-import { FaCreditCard, FaHome, FaServicestack } from "react-icons/fa";
+import { FaHome } from "react-icons/fa";
 import { IoMdAdd } from "react-icons/io";
-import { CiSquareChevUp, CiSquareChevDown } from "react-icons/ci";
-import { MdAccountBalanceWallet, MdOutlineArrowRightAlt } from "react-icons/md";
+import { CiSquareChevDown } from "react-icons/ci";
+import { MdAccountBalanceWallet } from "react-icons/md";
 import { GiFullMotorcycleHelmet } from "react-icons/gi";
 import { Link } from "react-router-dom";
 import { BottomSheet } from "react-spring-bottom-sheet";
 import "react-spring-bottom-sheet/dist/style.css";
-import { InputText } from "primereact/inputtext";
-
+// Define the Wallet component
 export default function Wallet() {
-  const [amount, setAmount] = useState('')
-  const [step, setStep] = useState("pay")
+  // State variables for amount, step, and bottom sheet open state
+  const [amount, setAmount] = useState("");
+  const [step, setStep] = useState("pay");
   const [open, setOpen] = useState(false);
+  const [open1, setOpen1] = useState(false);
+
+  // Function to dismiss the bottom sheet
   const dismis = () => {
     setOpen(false);
   };
-  const [open1, setOpen1] = useState(false);
+
+  // Function to dismiss the second bottom sheet
   const dismis1 = () => {
     setOpen1(false);
   };
+
+  // Function to set the step to custom
   const custom = () => {
-    setStep('custom')
-  }
+    setStep("custom");
+  };
+
+  // Function to set the step to pay
   const pay = () => {
-    setStep("pay")
-  }
+    setStep("pay");
+  };
   return (
+    // Main container
     <main className="home">
+      {/* Top section */}
       <div className="top" style={{ height: "40vh" }}>
+          {/* Topper container */}
         <div className="topper" style={{ borderRadius: 0 }}>
+          {/* Wallet title */}
           <p>Wallet</p>
+          {/* card container */}
           <div className="card">
+            {/* account ballance text */}
             <span style={{ fontSize: "12px" }}>Your balance</span>
             <br />
             <span style={{ fontSize: "30px" }}>
-              sh.17,000 <span>.00</span>
+              {/* account ballance amount */}
+              sh.17,000<span>.00</span>
             </span>
           </div>
+          {/* action buttons container */}
           <div className="action_buttons">
+            {/* top-up button */}
             <TouchableOpacity onPress={() => setOpen(true)} id="action_button">
               <IoMdAdd size={24} />
               <span style={{ fontSize: 12, color: "#fff" }}>top up</span>
             </TouchableOpacity>
+            {/* withdrawal button */}
             <TouchableOpacity onPress={() => setOpen1(true)} id="action_button">
               <CiSquareChevDown size={24} />
               <span style={{ fontSize: 12, color: "#fff" }}>withdraw</span>
@@ -53,9 +72,11 @@ export default function Wallet() {
           </div>
         </div>
       </div>
+      {/* transaction history */}
       <p style={{ boxSizing: "border-box", padding: "0 10px" }}>
         Transaction History
       </p>
+      {/* scrollview for transaction history */}
       <ScrollView
         className="mid_details"
         style={{
@@ -191,7 +212,7 @@ export default function Wallet() {
               onPress={() => setAmount("20,000")}
               id="amount_item"
             >
-              <span style={{textDecoration: 'line-through'}}>sh.20,000</span>
+              <span style={{ textDecoration: "line-through" }}>sh.20,000</span>
             </TouchableOpacity>
             <TouchableOpacity onPress={custom} id="amount_item">
               <span>Custom</span>
@@ -251,25 +272,23 @@ export function Navigator() {
     <div className="navigator">
       <TouchableOpacity>
         <Link to="/home">
-          <span class="icon_button">
+          <span className="icon_button">
             <FaHome color="#fff" size={24} />
             <span style={{ fontSize: 12 }}>Home</span>
           </span>
         </Link>
       </TouchableOpacity>
-
       <TouchableOpacity>
         <Link to="/wallet">
-          <span class="icon_button">
+          <span className="icon_button">
             <MdAccountBalanceWallet color="#fff" size={24} />
             <span style={{ fontSize: 12, color: "#fff" }}>Wallet</span>
           </span>
         </Link>
       </TouchableOpacity>
-
       <TouchableOpacity>
         <Link to="/account">
-          <span class="icon_button">
+          <span className="icon_button">
             <GiFullMotorcycleHelmet color="#fff" size={24} />
             <span style={{ fontSize: 12 }}>Profile</span>
           </span>
