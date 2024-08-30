@@ -56,7 +56,8 @@ function SignIn() {
         <p className="form-label">6 digit token:</p>
         <input
           className="form-input"
-          type="text"
+          type="number"
+          inputMode="numeric"
           value={token}
           onChange={(event) => setToken(event.target.value)}
           placeholder="Enter 6 digit token"
@@ -180,7 +181,8 @@ export function SignUP() {
             <p className="form-label">6 digit login token:</p>
             <input
               className="form-input"
-              type="text"
+              type="number"
+              inputMode="numeric"
               value={token}
               onChange={(event) => setToken(event.target.value)}
               placeholder="Enter 6 digit token"
