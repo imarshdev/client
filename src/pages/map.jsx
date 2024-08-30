@@ -6,9 +6,9 @@ import { TouchableOpacity } from "react-native-web";
 import { BottomSheet } from "react-spring-bottom-sheet";
 import { StatusBar } from "react-native-web";
 
-
-<StatusBar translucent={true} backgroundColor="transparent" />
+<StatusBar translucent={true} backgroundColor="transparent" />;
 const Map = () => {
+  const [mapHeight, setMapHeight] = useState('85vh')
   const [map, setMap] = useState(null);
   const [open, setOpen] = useState(false);
   const [step, setStep] = useState(1);
@@ -21,9 +21,11 @@ const Map = () => {
 
   const openAndCalculate = () => {
     setOpen(true);
+    setMapHeight('55vh')
     calculateDirections();
   };
   const close = () => {
+    setMapHeight("85vh");
     setOpen(false);
   };
 
@@ -133,7 +135,7 @@ const Map = () => {
 
   return (
     <>
-      <div className="home">
+      <div className="home" style={{justifyContent: 'start'}}>
         <div className="search">
           <div className="search-1">
             <CiRoute color="limegreen" />
@@ -165,6 +167,7 @@ const Map = () => {
             </TouchableOpacity>
           </div>
         </div>
+
         <BottomSheet blocking={false} open={open} id="bottom-sheet">
           <div id="bottom-sheet">
             <div>
@@ -180,23 +183,27 @@ const Map = () => {
                   width: "100%",
                   display: "flex",
                   justifyContent: "space-between",
+                  marginBottom: "20px",
                 }}
               >
                 <TouchableOpacity
                   id="option"
-                  style={{ width: "35%", border: " solid 1px orange" }}
+                  style={{ width: "35%", backgroundColor: "orange" }}
                   onPress={close}
                 >
                   <span> Cancel</span>
                 </TouchableOpacity>
-                <TouchableOpacity id="option" style={{ width: "60%" }}>
+                <TouchableOpacity
+                  id="option"
+                  style={{ width: "60%", backgroundColor: "limegreen" }}
+                >
                   <span>Order</span>
                 </TouchableOpacity>
               </div>
             </div>
           </div>
         </BottomSheet>
-        <div id="map" style={{ height: "100vh", width: "100%" }}></div>
+        <div id="map" style={{ height: mapHeight, width: "100%", marginTop: '15vh' }}></div>
       </div>
     </>
   );
