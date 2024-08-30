@@ -1,3 +1,16 @@
+#map{
+  position: fixed;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  z-index: 1;
+}
+.map + .status-bar{
+  background-color: transparent;
+}
+.map + .status-bar-content{
+  z-index: 1;
+}
 .search {
   height: 20vh;
   width: 90%;
@@ -68,17 +81,17 @@
 
 #bottom-sheet {
   box-sizing: border-box;
-  padding: 10px;
+  padding: 20px;
 }
 #option {
   width: 45%;
   height: 50px;
-  -webkit-box-shadow: 0 5px 10px rgba(160, 163, 189, 0.404);
-  box-shadow: 0 5px 10px rgba(160, 163, 189, 0.247);
+  -webkit-box-shadow: 0 5px 10px limegreen;
+  box-shadow: 0 5px 10px rgba(50, 205, 50, 0.342);
   display: flex;
   align-items: center;
+  color: #fff;
   justify-content: center;
-  border: solid 1px limegreen;
   border-radius: 10px;
 }
 
