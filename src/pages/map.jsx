@@ -4,7 +4,10 @@ import { CiRoute } from "react-icons/ci";
 import { TiArrowRightOutline, TiTickOutline } from "react-icons/ti";
 import { TouchableOpacity } from "react-native-web";
 import { BottomSheet } from "react-spring-bottom-sheet";
+import { StatusBar } from "react-native-web";
 
+
+<StatusBar translucent={true} backgroundColor="transparent" />
 const Map = () => {
   const [map, setMap] = useState(null);
   const [open, setOpen] = useState(false);
