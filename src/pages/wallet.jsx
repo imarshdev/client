@@ -10,6 +10,7 @@ import { MdAccountBalanceWallet } from "react-icons/md";
 import { GiFullMotorcycleHelmet } from "react-icons/gi";
 import { Link } from "react-router-dom";
 import { BottomSheet } from "react-spring-bottom-sheet";
+import axios from "axios";
 import "react-spring-bottom-sheet/dist/style.css";
 // Define the Wallet component
 export default function Wallet() {
@@ -38,12 +39,23 @@ export default function Wallet() {
   const pay = () => {
     setStep("pay");
   };
+
+  // getting user list
+  const getUsers = async (event) => {
+    event.preventDefault();
+    try {
+      const response = await axios.get(
+        "https://walamin-server.onrender.com/users"
+      ).then(response => console.log(response.data))
+    } catch (error) {console.log(error);
+    }
+  };
   return (
     // Main container
     <main className="home">
       {/* Top section */}
       <div className="top" style={{ height: "40vh" }}>
-          {/* Topper container */}
+        {/* Topper container */}
         <div className="topper" style={{ borderRadius: 0 }}>
           {/* Wallet title */}
           <p>Wallet</p>
@@ -85,7 +97,14 @@ export default function Wallet() {
           boxSizing: "border-box",
           padding: "10px",
         }}
-      ></ScrollView>
+      >
+        <div>
+          <p>hello</p>
+          <button onClick={getUsers}>
+            <p style={{color: 'black'}}>GET</p>
+          </button>
+        </div>
+      </ScrollView>
       <div className="bottom_drawer wallet_bottom_drawer">
         <Navigator />
       </div>

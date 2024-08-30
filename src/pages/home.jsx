@@ -89,7 +89,7 @@ function Home() {
           </TouchableOpacity>
 
           <TouchableOpacity id="service_item">
-            <Link to="/map" id="link_item">
+            <Link to="/map2" id="link_item">
               <GrFormSchedule size={34} />
               <p style={{ fontSize: 12 }}>Schedule ride</p>{" "}
             </Link>

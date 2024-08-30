@@ -25,11 +25,6 @@ function SignIn() {
       );
       if (response.data.success) {
         setUser({ ...user, username });
-        const userDataResponse = await axios.get(
-          `https://walamin-server.onrender.com/users/${username}`
-        );
-        const { firstName, lastName } = userDataResponse.data;
-        setUser({ ...user, firstName, lastName });
         navigate("/home");
       } else {
         setError(response.data.error);
@@ -69,7 +64,7 @@ function SignIn() {
         />
       </label>
       {error && <p style={{ color: "red" }}>{error}</p>}
-      <button id="signup">
+      <button type="submit" id="signup">
         <span style={{ padding: "6px", color: "black" }}>Sign in</span>
       </button>
       <p>Don't have an account, Sign up</p>

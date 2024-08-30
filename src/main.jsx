@@ -10,6 +10,7 @@ import Account from "./pages/account.jsx";
 import Services from "./pages/services.jsx";
 import Wallet from "./pages/wallet.jsx";
 import { UserProvider } from "./userContext.jsx";
+import Map, { MapTrial } from "./pages/map.jsx";
 
 const router = createBrowserRouter([
   {
@@ -36,7 +37,17 @@ const router = createBrowserRouter([
     path: "/services",
     element: <Services />,
     errorElement: <ErrorPage />,
-  }
+  },
+  {
+    path: "/map",
+    element: <Map />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/map2",
+    element: <MapTrial />,
+    errorElement: <ErrorPage />,
+  },
 ]);
 const value = {
   ripple: true,
