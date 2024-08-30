@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "../css/map.css";
 import { CiRoute } from "react-icons/ci";
 import { TiArrowRightOutline, TiTickOutline } from "react-icons/ti";
-import { ImageBackground, TouchableOpacity } from "react-native-web";
+import { TouchableOpacity } from "react-native-web";
 import { BottomSheet } from "react-spring-bottom-sheet";
 
 const Map = () => {
@@ -19,11 +19,6 @@ const Map = () => {
   const openAndCalculate = () => {
     setOpen(true);
     calculateDirections();
-    setStep(2);
-  };
-  const closeAndStep = () => {
-    setOpen(false);
-    setStep(1);
   };
   const close = () => {
     setOpen(false);
@@ -136,39 +131,37 @@ const Map = () => {
   return (
     <>
       <div className="home">
-        {step === 1 && (
-          <div className="search">
-            <div className="search-1">
-              <CiRoute color="limegreen" />
-              <CiRoute color="pink" />
-            </div>
-            <div className="search-2">
-              <label className="search-2-label">
-                <span>from: </span>
-                <input
-                  type="text"
-                  placeholder="enter pick-up location"
-                  id="pac-input-1"
-                />
-              </label>
-              <label className="search-2-label">
-                <span>to: </span>
-                <input
-                  type="text"
-                  placeholder="enter-destination"
-                  id="pac-input-2"
-                />
-              </label>
-            </div>
-            <div className="search-3">
-              <TouchableOpacity id="go" onPress={openAndCalculate}>
-                <span style={{ color: "orange" }}>
-                  <TiTickOutline />
-                </span>
-              </TouchableOpacity>
-            </div>
+        <div className="search">
+          <div className="search-1">
+            <CiRoute color="limegreen" />
+            <CiRoute color="pink" />
           </div>
-        )}
+          <div className="search-2">
+            <label className="search-2-label">
+              <span>from: </span>
+              <input
+                type="text"
+                placeholder="enter pick-up location"
+                id="pac-input-1"
+              />
+            </label>
+            <label className="search-2-label">
+              <span>to: </span>
+              <input
+                type="text"
+                placeholder="enter-destination"
+                id="pac-input-2"
+              />
+            </label>
+          </div>
+          <div className="search-3">
+            <TouchableOpacity id="go" onPress={openAndCalculate}>
+              <span style={{ color: "orange" }}>
+                <TiTickOutline />
+              </span>
+            </TouchableOpacity>
+          </div>
+        </div>
         <BottomSheet blocking={false} open={open} id="bottom-sheet">
           <div id="bottom-sheet">
             <div>
@@ -178,34 +171,29 @@ const Map = () => {
             <div>
               <p>Cost: </p>
             </div>
-            <div></div>
             <div>
               <div
                 style={{
                   width: "100%",
                   display: "flex",
                   justifyContent: "space-between",
-                  marginBottom: '20px'
                 }}
               >
                 <TouchableOpacity
                   id="option"
-                  style={{ width: "35%", backgroundColor: "orange" }}
-                  onPress={closeAndStep}
+                  style={{ width: "35%", border: " solid 1px orange" }}
+                  onPress={close}
                 >
                   <span> Cancel</span>
                 </TouchableOpacity>
-                <TouchableOpacity
-                  id="option"
-                  style={{ width: "60%", backgroundColor: "limegreen" }}
-                >
+                <TouchableOpacity id="option" style={{ width: "60%" }}>
                   <span>Order</span>
                 </TouchableOpacity>
               </div>
             </div>
           </div>
         </BottomSheet>
-        <div id="map" className="map" style={{ height: "100vh", width: "100%" }}></div>
+        <div id="map" style={{ height: "100vh", width: "100%" }}></div>
       </div>
     </>
   );
