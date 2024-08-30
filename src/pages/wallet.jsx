@@ -40,16 +40,7 @@ export default function Wallet() {
     setStep("pay");
   };
 
-  // getting user list
-  const getUsers = async (event) => {
-    event.preventDefault();
-    try {
-      const response = await axios.get(
-        "https://walamin-server.onrender.com/users"
-      ).then(response => console.log(response.data))
-    } catch (error) {console.log(error);
-    }
-  };
+
   return (
     // Main container
     <main className="home">
@@ -98,12 +89,6 @@ export default function Wallet() {
           padding: "10px",
         }}
       >
-        <div>
-          <p>hello</p>
-          <button onClick={getUsers}>
-            <p style={{color: 'black'}}>GET</p>
-          </button>
-        </div>
       </ScrollView>
       <div className="bottom_drawer wallet_bottom_drawer">
         <Navigator />
