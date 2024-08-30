@@ -5,6 +5,7 @@ import { TiArrowRightOutline, TiTickOutline } from "react-icons/ti";
 import { TouchableOpacity } from "react-native-web";
 import { BottomSheet } from "react-spring-bottom-sheet";
 import { StatusBar } from "react-native-web";
+import { Helmet } from "react-helmet";
 
 <StatusBar translucent={true} backgroundColor="transparent" />;
 const Map = () => {
@@ -136,7 +137,9 @@ const Map = () => {
   return (
     <>
       <div className="home" style={{ justifyContent: "start" }}>
-        <meta name="theme-color" content="#ffffff" />
+        <Helmet>
+          <meta name="theme-color" content="#ffffff" />
+        </Helmet>
         <div className="search">
           <div className="search-1">
             <CiRoute color="limegreen" />
