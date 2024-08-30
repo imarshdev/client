@@ -135,7 +135,8 @@ const Map = () => {
 
   return (
     <>
-      <div className="home" style={{justifyContent: 'start'}}>
+      <div className="home" style={{ justifyContent: "start" }}>
+        <meta name="theme-color" content="#ffffff" />
         <div className="search">
           <div className="search-1">
             <CiRoute color="limegreen" />
@@ -203,7 +204,10 @@ const Map = () => {
             </div>
           </div>
         </BottomSheet>
-        <div id="map" style={{ height: mapHeight, width: "100%", marginTop: '15vh' }}></div>
+        <div
+          id="map"
+          style={{ height: mapHeight, width: "100%", marginTop: "15vh" }}
+        ></div>
       </div>
     </>
   );
