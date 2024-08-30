@@ -137,9 +137,6 @@ const Map = () => {
   return (
     <>
       <div className="home" style={{ justifyContent: "start" }}>
-        <Helmet>
-          <meta name="theme-color" content="#ffffff" />
-        </Helmet>
         <div className="search">
           <div className="search-1">
             <CiRoute color="limegreen" />

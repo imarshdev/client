@@ -47,7 +47,7 @@ export default function Wallet() {
       {/* Top section */}
       <div className="top" style={{ height: "40vh" }}>
         {/* Topper container */}
-        <div className="topper" style={{ borderRadius: 0 }}>
+        <div className="topper" style={{ borderRadius: "10px" }}>
           {/* Wallet title */}
           <p>Wallet</p>
           {/* card container */}
