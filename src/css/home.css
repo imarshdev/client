@@ -8,7 +8,6 @@
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
   -ms-flex-direction: column;
-  box-sizing: border-box;
 }
 .top {
   height: 25vh;
@@ -19,11 +18,12 @@
   align-items: start;
   text-align: start;
   box-sizing: border-box;
+  padding: 5px;
 }
 .topper {
   background-color:limegreen;
   color: #fff;
-  width: 96%;
+  width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -31,8 +31,7 @@
   align-items: start;
   box-sizing: border-box;
   padding: 20px;
-  margin: 2% 2% 2% 2%;
-  border-radius: 20px;
+  border-radius:10px;
   -webkit-box-shadow: 0 5px 10px rgba(160, 163, 189, 0.918);
   box-shadow: 0 5px 10px rgba(160, 163, 189, 0.801);
 }
