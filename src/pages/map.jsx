@@ -5,7 +5,7 @@ import { TiArrowRightOutline, TiTickOutline } from "react-icons/ti";
 import { TouchableOpacity } from "react-native-web";
 import { BottomSheet } from "react-spring-bottom-sheet";
 import { StatusBar } from "react-native-web";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 
 <StatusBar translucent={true} backgroundColor="transparent" />;
 const Map = () => {

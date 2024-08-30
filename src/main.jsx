@@ -12,6 +12,7 @@ import Wallet from "./pages/wallet.jsx";
 import { UserProvider } from "./userContext.jsx";
 import Map, { MapTrial } from "./pages/map.jsx";
 
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -55,7 +56,7 @@ const value = {
 ReactDOM.createRoot(document.getElementById("root")).render(
   <PrimeReactProvider value={value}>
     <UserProvider>
-      <RouterProvider router={router} />{" "}
+        <RouterProvider router={router} />
     </UserProvider>
   </PrimeReactProvider>
 );
