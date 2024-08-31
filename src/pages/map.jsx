@@ -6,10 +6,11 @@ import { TouchableOpacity } from "react-native-web";
 import { BottomSheet } from "react-spring-bottom-sheet";
 import { StatusBar } from "react-native-web";
 import { Helmet } from "react-helmet-async";
+import { IoIosArrowBack } from "react-icons/io";
+import { useNavigate } from "react-router-dom";
 
-<StatusBar translucent={true} backgroundColor="transparent" />;
 const Map = () => {
-  const [mapHeight, setMapHeight] = useState('85vh')
+  const [mapHeight, setMapHeight] = useState("85vh");
   const [map, setMap] = useState(null);
   const [open, setOpen] = useState(false);
   const [step, setStep] = useState(1);
@@ -19,10 +20,14 @@ const Map = () => {
   const [destination, setDestination] = useState("");
   const [distance, setDistance] = useState("");
   const [duration, setDuration] = useState("");
+  const navigate = useNavigate()
 
+  const back = () => {
+    navigate("/home")
+  };
   const openAndCalculate = () => {
     setOpen(true);
-    setMapHeight('55vh')
+    setMapHeight("55vh");
     calculateDirections();
   };
   const close = () => {
@@ -168,7 +173,12 @@ const Map = () => {
             </TouchableOpacity>
           </div>
         </div>
-
+        <TouchableOpacity
+          id="back"
+          onPress={back}
+        >
+          <IoIosArrowBack size={24} />
+        </TouchableOpacity>
         <BottomSheet blocking={false} open={open} id="bottom-sheet">
           <div id="bottom-sheet">
             <div>

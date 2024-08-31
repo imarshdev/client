@@ -35,9 +35,27 @@
   -webkit-box-shadow: 0 5px 10px rgba(160, 163, 189, 0.404);
   box-shadow: 0 5px 10px rgba(160, 163, 189, 0.247);
   box-sizing: border-box;
-  padding: 10px;
   border-radius: 10px;
   display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+}
+#back {
+  width: 50px;
+  height: 50px;
+  background-color: rgba(255, 192, 203, 0.233);
+  position: absolute;
+  z-index: 9999999;
+  left: 5px;
+  top: 5px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  -webkit-box-shadow: 0 5px 10px rgba(160, 163, 189, 0.404);
+  box-shadow: 0 5px 10px rgba(160, 163, 189, 0.247);
 }
 #pac-input-1 {
   width: 100%;
@@ -78,8 +96,6 @@
   border-radius: 10px;
 }
 
-
-
 .pac-container {
   /* styles for the dropdown list container */
   border: 1px solid #ccc;
@@ -105,5 +121,3 @@
   /* styles for the selected item */
   background-color: #ddd;
 }
-
-
