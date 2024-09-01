@@ -37,12 +37,12 @@ function SignIn() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="home"
       style={{
         boxSizing: "border-box",
         padding: "20px",
         justifyContent: "start",
         marginTop: "10vh",
+        width: '100vw'
       }}
     >
       <h2>Signin</h2>
