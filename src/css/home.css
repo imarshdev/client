@@ -65,6 +65,7 @@
   width: 100%;
   box-sizing: border-box;
   padding: 10px;
+  color: #000;
 }
 .mid_details_upper {
   height: 90%;
@@ -188,6 +189,7 @@
   box-sizing: border-box;
   margin: 3% 6% 3% 0;
   padding: 5px 0;
+  color: black;
   -webkit-box-shadow: 0 5px 10px rgba(160, 163, 189, 0.918);
   box-shadow: 0 5px 10px rgba(160, 163, 189, 0.801);
 }

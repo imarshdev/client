@@ -13,7 +13,6 @@ const Map = () => {
   const [mapHeight, setMapHeight] = useState("85vh");
   const [map, setMap] = useState(null);
   const [open, setOpen] = useState(false);
-  const [step, setStep] = useState(1);
   const [autocomplete, setAutocomplete] = useState(null);
   const [directionsRenderer, setDirectionsRenderer] = useState(null);
   const [origin, setOrigin] = useState("");
@@ -237,6 +236,12 @@ export const MapTrial = () => {
   const [distance, setDistance] = useState("");
   const [duration, setDuration] = useState("");
 
+    const navigate = useNavigate();
+
+    const back = () => {
+      navigate("/home");
+    };
+
   const openAndCalculate = () => {
     setOpen(true);
     calculateDirections();
@@ -337,6 +342,9 @@ export const MapTrial = () => {
       {page === "agreement" && (
         <>
           <p>Agreement</p>
+          <TouchableOpacity id="back" onPress={back}>
+            <IoIosArrowBack size={24} />
+          </TouchableOpacity>
           <TouchableOpacity
             onPress={() => setPage("loaction")}
             id="option"
@@ -346,7 +354,7 @@ export const MapTrial = () => {
           </TouchableOpacity>
         </>
       )}
-      {page === "loaction" && (
+      {page === "location" && (
         <div className="home">
           <div className="search">
             <div className="search-1">
@@ -392,6 +400,9 @@ export const MapTrial = () => {
               )}
             </div>
           </div>
+          <TouchableOpacity id="back" onPress={() => setPage("agreement")}>
+            <IoIosArrowBack size={24} />
+          </TouchableOpacity>
           <BottomSheet blocking={false} open={open} id="bottom-sheet">
             <div id="bottom-sheet">
               <div>
@@ -430,7 +441,14 @@ export const MapTrial = () => {
           <div id="map" style={{ height: "100vh", width: "100%" }}></div>
         </div>
       )}
-      {page === "information" && <p>More Information</p>}
+      {page === "information" && (
+        <>
+          <TouchableOpacity id="back" onPress={() => setPage("location")}>
+            <IoIosArrowBack size={24} />
+          </TouchableOpacity>
+          <p>More Information</p>
+        </>
+      )}
     </>
   );
 };

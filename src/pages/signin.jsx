@@ -38,7 +38,12 @@ function SignIn() {
     <form
       onSubmit={handleSubmit}
       className="home"
-      style={{ boxSizing: "border-box", padding: "20px" }}
+      style={{
+        boxSizing: "border-box",
+        padding: "20px",
+        justifyContent: "start",
+        marginTop: "10vh",
+      }}
     >
       <h2>Signin</h2>
       <label className="form-label-wrapper">
@@ -64,7 +69,9 @@ function SignIn() {
           required
         />
       </label>
+      <br />
       {error && <p style={{ color: "red" }}>{error}</p>}
+      <br />
       <button type="submit" id="signup">
         <span style={{ padding: "6px", color: "black" }}>Sign in</span>
       </button>
@@ -72,7 +79,11 @@ function SignIn() {
       <TouchableOpacity onPress={() => setOpen(true)} id="signup">
         <p>Sign up</p>
       </TouchableOpacity>
-      <BottomSheet onDismiss={() => setOpen(false)} open={open}>
+      <BottomSheet
+        snapPoints={({maxHeight})=> [maxHeight]}
+        onDismiss={() => setOpen(false)}
+        open={open}
+      >
         <SignUP />
       </BottomSheet>
     </form>
@@ -119,8 +130,12 @@ export function SignUP() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="home"
-      style={{ height: "80vh", boxSizing: "border-box", padding: "20px" }}
+      style={{
+        boxSizing: "border-box",
+        padding: "20px",
+        justifyContent: "start",
+        marginTop: "10vh",
+      }}
     >
       <h2>Sign up</h2>
       {step === 1 && (

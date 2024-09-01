@@ -1,21 +1,17 @@
 import React, { useContext, useEffect, useState } from "react";
 import { UserContext } from "../userContext";
-import { FaCloudSunRain, FaMotorcycle } from "react-icons/fa";
+import { FaMotorcycle } from "react-icons/fa";
 import { FaHome } from "react-icons/fa";
-import { GrFormSchedule, GrSchedule } from "react-icons/gr";
-import { IoIosArrowRoundBack, IoIosSend } from "react-icons/io";
+import { GrFormSchedule } from "react-icons/gr";
+import { IoIosSend } from "react-icons/io";
 import { MdAccountBalanceWallet, MdDining } from "react-icons/md";
 import { GiFullMotorcycleHelmet } from "react-icons/gi";
-import { FaServicestack } from "react-icons/fa";
 import { MdOutlineDeliveryDining } from "react-icons/md";
 import { FaUserAstronaut } from "react-icons/fa";
-import { InputText } from "primereact/inputtext";
 import "../css/home.css";
 import { TouchableOpacity } from "react-native-web";
 import { Link } from "react-router-dom";
-import { RiCalendarScheduleFill } from "react-icons/ri";
 import { PiHandWithdraw } from "react-icons/pi";
-import { minutesToHours } from "date-fns";
 
 function Home() {
   const [time, setTime] = useState("");
@@ -74,42 +70,60 @@ function Home() {
 
       <div className="mid_details">
         <div className="mid_details_upper">
-          <TouchableOpacity id="service_item">
+          <TouchableOpacity
+            id="service_item"
+            style={{ backgroundColor: "#1abc9c" }}
+          >
             <Link to="/map" id="link_item">
               <MdOutlineDeliveryDining size={34} />
               <p style={{ fontSize: 12 }}>Delivery</p>{" "}
             </Link>
           </TouchableOpacity>
 
-          <TouchableOpacity id="service_item">
+          <TouchableOpacity
+            id="service_item"
+            style={{ backgroundColor: "#032b" }}
+          >
             <Link to="/map" id="link_item">
               <FaMotorcycle size={34} />
               <p style={{ fontSize: 12 }}>Order Ride</p>
             </Link>
           </TouchableOpacity>
 
-          <TouchableOpacity id="service_item">
+          <TouchableOpacity
+            id="service_item"
+            style={{ backgroundColor: "#7a28" }}
+          >
             <Link to="/map2" id="link_item">
               <GrFormSchedule size={34} />
               <p style={{ fontSize: 12 }}>Schedule ride</p>{" "}
             </Link>
           </TouchableOpacity>
 
-          <TouchableOpacity id="service_item">
+          <TouchableOpacity
+            id="service_item"
+            style={{ backgroundColor: "#3333" }}
+          >
             <Link id="link_item">
               <MdDining size={34} />
               <p style={{ fontSize: 12 }}>Dine</p>{" "}
             </Link>
           </TouchableOpacity>
 
-          <TouchableOpacity id="service_item">
+          <TouchableOpacity
+            id="service_item"
+            style={{ backgroundColor: "#0097" }}
+          >
             <Link id="link_item">
               <IoIosSend size={34} />
               <p style={{ fontSize: 12 }}>Send Money</p>{" "}
             </Link>
           </TouchableOpacity>
 
-          <TouchableOpacity id="service_item">
+          <TouchableOpacity
+            id="service_item"
+            style={{ backgroundColor: "#f2c4" }}
+          >
             <Link id="link_item">
               <PiHandWithdraw size={34} />
               <p style={{ fontSize: 12 }}>Withdraw</p>{" "}
