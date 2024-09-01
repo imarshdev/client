@@ -15,17 +15,12 @@ import Map, { MapTrial } from "./pages/map.jsx";
 
 const router = createBrowserRouter([
   {
-    path: "/signin",
+    path: "/",
     element: <App />,
     errorElement: <ErrorPage />,
   },
   {
     path: "/home",
-    element: <Home />,
-    errorElement: <ErrorPage />,
-  },
-  {
-    path: "/",
     element: <Home />,
     errorElement: <ErrorPage />,
   },
