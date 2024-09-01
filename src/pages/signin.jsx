@@ -17,7 +17,7 @@ function SignIn() {
     event.preventDefault();
     try {
       const response = await axios.post(
-        "https://walamin-server.onrender.com/login",
+        "https://walamin-server.onrender.com/users/login",
         {
           username,
           token,
@@ -110,7 +110,7 @@ export function SignUP() {
     event.preventDefault();
     try {
       const response = await axios.post(
-        "https://walamin-server.onrender.com/register",
+        "https://walamin-server.onrender.com/users",
         {
           firstName,
           lastName,
