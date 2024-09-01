@@ -72,7 +72,7 @@ function Home() {
         <div className="mid_details_upper">
           <TouchableOpacity
             id="service_item"
-            style={{ backgroundColor: "#1abc9c" }}
+
           >
             <Link to="/map" id="link_item">
               <MdOutlineDeliveryDining size={34} />
@@ -82,7 +82,7 @@ function Home() {
 
           <TouchableOpacity
             id="service_item"
-            style={{ backgroundColor: "#032b" }}
+
           >
             <Link to="/map" id="link_item">
               <FaMotorcycle size={34} />
@@ -92,7 +92,7 @@ function Home() {
 
           <TouchableOpacity
             id="service_item"
-            style={{ backgroundColor: "#7a28" }}
+
           >
             <Link to="/map2" id="link_item">
               <GrFormSchedule size={34} />
@@ -102,7 +102,7 @@ function Home() {
 
           <TouchableOpacity
             id="service_item"
-            style={{ backgroundColor: "#3333" }}
+
           >
             <Link id="link_item">
               <MdDining size={34} />
@@ -112,7 +112,7 @@ function Home() {
 
           <TouchableOpacity
             id="service_item"
-            style={{ backgroundColor: "#0097" }}
+
           >
             <Link id="link_item">
               <IoIosSend size={34} />
@@ -122,7 +122,7 @@ function Home() {
 
           <TouchableOpacity
             id="service_item"
-            style={{ backgroundColor: "#f2c4" }}
+
           >
             <Link id="link_item">
               <PiHandWithdraw size={34} />

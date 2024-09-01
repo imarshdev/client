@@ -4,8 +4,6 @@ import { CiRoute } from "react-icons/ci";
 import { TiArrowRightOutline, TiTickOutline } from "react-icons/ti";
 import { TouchableOpacity } from "react-native-web";
 import { BottomSheet } from "react-spring-bottom-sheet";
-import { StatusBar } from "react-native-web";
-import { Helmet } from "react-helmet-async";
 import { IoIosArrowBack } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 
@@ -346,7 +344,7 @@ export const MapTrial = () => {
             <IoIosArrowBack size={24} />
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => setPage("loaction")}
+            onPress={() => setPage("location")}
             id="option"
             style={{ width: "100px" }}
           >
