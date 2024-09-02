@@ -10,7 +10,8 @@ import Account from "./pages/account.jsx";
 import Services from "./pages/services.jsx";
 import Wallet from "./pages/wallet.jsx";
 import { UserProvider } from "./userContext.jsx";
-import Map, { MapTrial } from "./pages/map.jsx";
+import Map from "./pages/map.jsx";
+import ScheduleRide from "./pages/schedue.jsx";
 
 
 const router = createBrowserRouter([
@@ -46,7 +47,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/map2",
-    element: <MapTrial />,
+    element: <ScheduleRide />,
     errorElement: <ErrorPage />,
   },
 ]);
