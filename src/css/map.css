@@ -102,13 +102,16 @@
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   overflow: hidden;
-  margin-top: 15vh;
+  margin-top: 0vh;
   width: 100%;
+  width: 100vw !important;
+  left: 0 !important;
+  top: 0 !important;
 }
 
 .pac-item {
   /* styles for each item in the dropdown list */
-  padding: 5px;
+  padding: 10px;
   cursor: pointer;
 }
 
@@ -120,4 +123,13 @@
 .pac-item-selected {
   /* styles for the selected item */
   background-color: #ddd;
+}
+#confirm-pickup{
+  width: 100%;
+  background-color: limegreen;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  color: #fff;
 }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "../css/map.css";
 import { CiRoute } from "react-icons/ci";
 import { TiArrowRightOutline, TiTickOutline } from "react-icons/ti";
@@ -6,6 +6,7 @@ import { TouchableOpacity } from "react-native-web";
 import { BottomSheet } from "react-spring-bottom-sheet";
 import { IoIosArrowBack } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
+import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
 
 const Map = () => {
   const [mapHeight, setMapHeight] = useState("85vh");
@@ -17,10 +18,10 @@ const Map = () => {
   const [destination, setDestination] = useState("");
   const [distance, setDistance] = useState("");
   const [duration, setDuration] = useState("");
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const back = () => {
-    navigate("/home")
+    navigate("/home");
   };
   const openAndCalculate = () => {
     setOpen(true);
@@ -38,7 +39,6 @@ const Map = () => {
     script.src =
       "https://maps.gomaps.pro/maps/api/js?key=AlzaSyLrk1KXy32iTkKpsbR1J1USZWKd4lE5oud&libraries=geometry,places&callback=initMap";
     document.head.appendChild(script);
-
     // Initialize the map and autocomplete
 
     window.initMap = () => {
@@ -154,7 +154,7 @@ const Map = () => {
               />
             </label>
             <label className="search-2-label">
-              <span>to: </span>
+              <span>Where to: </span>
               <input
                 type="text"
                 placeholder="enter-destination"
@@ -170,10 +170,7 @@ const Map = () => {
             </TouchableOpacity>
           </div>
         </div>
-        <TouchableOpacity
-          id="back"
-          onPress={back}
-        >
+        <TouchableOpacity id="back" onPress={back}>
           <IoIosArrowBack size={24} />
         </TouchableOpacity>
         <BottomSheet blocking={false} open={open} id="bottom-sheet">
@@ -222,231 +219,118 @@ const Map = () => {
 
 export default Map;
 
-export const MapTrial = () => {
+export function MapTrial() {
+  const [open, setOpen] = useState(true);
   const [map, setMap] = useState(null);
-  const [page, setPage] = useState("agreement");
-  const [open, setOpen] = useState(false);
-  const [step, setStep] = useState(1);
+  const [userLocation, setUserLocation] = useState("");
   const [autocomplete, setAutocomplete] = useState(null);
-  const [directionsRenderer, setDirectionsRenderer] = useState(null);
-  const [origin, setOrigin] = useState("");
-  const [destination, setDestination] = useState("");
-  const [distance, setDistance] = useState("");
-  const [duration, setDuration] = useState("");
-
-    const navigate = useNavigate();
-
-    const back = () => {
-      navigate("/home");
-    };
-
-  const openAndCalculate = () => {
-    setOpen(true);
-    calculateDirections();
-  };
-  const close = () => {
-    setOpen(false);
-  };
+  const [selectedPlace, setSelectedPlace] = useState(null);
 
   useEffect(() => {
-    // Load the Google Maps JavaScript API with the Places library
-    const script = document.createElement("script");
-    script.src =
-      "https://maps.gomaps.pro/maps/api/js?key=AlzaSyLrk1KXy32iTkKpsbR1J1USZWKd4lE5oud&libraries=geometry,places&callback=initMap";
-    document.head.appendChild(script);
-
-    // Initialize the map and autocomplete
-
     window.initMap = () => {
       const mapElement = document.getElementById("map");
-      const mapOptions = {
+      const mapInstance = new google.maps.Map(mapElement, {
         center: { lat: 0.3163, lng: 32.5811 },
         zoom: 13,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
         streetViewControl: false,
         mapTypeControl: false,
         fullscreenControl: false,
-      };
-      const mapInstance = new google.maps.Map(mapElement, mapOptions);
+      });
       setMap(mapInstance);
 
-      const input1 = document.getElementById("pac-input-1");
-      const autocompleteInstance1 = new google.maps.places.Autocomplete(input1);
-      autocompleteInstance1.bindTo("bounds", mapInstance);
-      setAutocomplete(autocompleteInstance1);
+      const input = document.getElementById("pac-input-2");
+      const autocompleteInstance = new google.maps.places.Autocomplete(input);
+      autocompleteInstance.bindTo("bounds", mapInstance);
+      setAutocomplete(autocompleteInstance);
 
-      const input2 = document.getElementById("pac-input-2");
-      const autocompleteInstance2 = new google.maps.places.Autocomplete(input2);
-      autocompleteInstance2.bindTo("bounds", mapInstance);
-      setAutocomplete(autocompleteInstance2);
-
-      // Set up the event listener for when the user selects a place
-      autocompleteInstance1.addListener("place_changed", () => {
-        const place = autocompleteInstance1.getPlace();
+      autocompleteInstance.addListener("place_changed", () => {
+        const place = autocompleteInstance.getPlace();
         if (!place.geometry) {
           console.log(
             "No details available for the input: '" + place.name + "'"
           );
           return;
         }
-        setOrigin(place.formatted_address);
-      });
-
-      autocompleteInstance2.addListener("place_changed", () => {
-        const place = autocompleteInstance2.getPlace();
-        if (!place.geometry) {
-          console.log(
-            "No details available for the input: '" + place.name + "'"
-          );
-          return;
-        }
-        setDestination(place.formatted_address);
-        calculateDirections();
-      });
-    };
-  }, []);
-
-  const calculateDirections = () => {
-    if (origin && destination) {
-      const directionsService = new google.maps.DirectionsService();
-      const directionsRequest = {
-        origin: origin,
-        destination: destination,
-        travelMode: google.maps.TravelMode.DRIVING,
-      };
-      directionsService.route(directionsRequest, (response, status) => {
-        if (status === google.maps.DirectionsStatus.OK) {
-          if (directionsRenderer) {
-            directionsRenderer.setDirections(response);
-          } else {
-            const directionsRendererInstance =
-              new google.maps.DirectionsRenderer({
-                map: map,
-                directions: response,
-              });
-            setDirectionsRenderer(directionsRendererInstance);
-            setDistance(response.routes[0].legs[0].distance.text);
-            setDuration(response.routes[0].legs[0].duration.text);
-          }
+        setSelectedPlace(place);
+        getDirections()
+        console.log("Selected place updated:", place);
+        if (place.geometry.viewport) {
+          mapInstance.fitBounds(place.geometry.viewport);
         } else {
-          console.log("Directions request failed: " + status);
+          mapInstance.setCenter(place.geometry.location);
+          mapInstance.setZoom(17);
         }
+        new google.maps.Marker({
+          position: place.geometry.location,
+          map: mapInstance,
+        });
       });
-    }
-  };
 
+
+
+        const getDirections = () => {
+        // Get the user's current location
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            setUserLocation({
+              lat: position.coords.latitude,
+              lng: position.coords.longitude,
+            });
+            const directionsService = new google.maps.DirectionsService();
+            directionsService.route(
+              {
+                origin: new google.maps.LatLng(userLocation.lat, userLocation.lng),
+                destination: selectedPlace.geometry.location,
+                travelMode: google.maps.TravelMode.DRIVING,
+              },
+              (result, status) => {
+                if (status === google.maps.DirectionsStatus.OK) {
+                  const directionsRenderer =
+                    new google.maps.DirectionsRenderer();
+                  directionsRenderer.setMap(mapInstance);
+                  directionsRenderer.setDirections(result);
+                }
+              }
+            );
+          },
+          (error) => {
+            console.error(error);
+          },
+          { enableHighAccuracy: true }
+        );
+
+}
+    };
+
+    const script = document.createElement("script");
+    script.src = `https://maps.gomaps.pro/maps/api/js?key=AlzaSyLrk1KXy32iTkKpsbR1J1USZWKd4lE5oud&libraries=geometry,places&callback=initMap`;
+    document.head.appendChild(script);
+  }, []);
   return (
     <>
-      {page === "agreement" && (
-        <>
-          <p>Agreement</p>
-          <TouchableOpacity id="back" onPress={back}>
-            <IoIosArrowBack size={24} />
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => setPage("location")}
-            id="option"
-            style={{ width: "100px" }}
+      <div>
+        <div id="map" style={{ height: "100vh", width: "100vw" }} />
+        <BottomSheet open={open} blocking={false}>
+          <div
+            style={{ width: "100vw", boxSizing: "border-box", padding: "20px" }}
           >
-            <span>Next</span>
-          </TouchableOpacity>
-        </>
-      )}
-      {page === "location" && (
-        <div className="home">
-          <div className="search">
-            <div className="search-1">
-              {step === 1 && <CiRoute color="limegreen" />}
-              {step === 2 && <CiRoute color="pink" />}
+            <p>Where To?</p>
+            <div style={{ borderBottom: "solid 0.5px black" }}>
+              <input
+                style={{ width: "100%" }}
+                id="pac-input-2"
+                type="text"
+                placeholder="Search for a place"
+              />
             </div>
-            <div className="search-2">
-              {step === 1 && (
-                <label className="search-2-label">
-                  <span>from: </span>
-                  <input
-                    type="text"
-                    placeholder="enter pick-up location"
-                    id="pac-input-1"
-                  />
-                </label>
-              )}
-              {step === 2 && (
-                <label className="search-2-label">
-                  <span>to: </span>
-                  <input
-                    type="text"
-                    placeholder="enter-destination"
-                    id="pac-input-2"
-                  />
-                </label>
-              )}
-            </div>
-            <div className="search-3">
-              {step === 1 && (
-                <TouchableOpacity id="go" onPress={() => setStep(2)}>
-                  <span style={{ color: "limegreen" }}>
-                    <TiArrowRightOutline />
-                  </span>
-                </TouchableOpacity>
-              )}
-              {step === 2 && (
-                <TouchableOpacity id="go" onPress={openAndCalculate}>
-                  <span style={{ color: "orange" }}>
-                    <TiTickOutline />
-                  </span>
-                </TouchableOpacity>
-              )}
-            </div>
+            <br />
+            <button id="confirm-pickup">
+              <p> Confirm Location</p>
+            </button>
           </div>
-          <TouchableOpacity id="back" onPress={() => setPage("agreement")}>
-            <IoIosArrowBack size={24} />
-          </TouchableOpacity>
-          <BottomSheet blocking={false} open={open} id="bottom-sheet">
-            <div id="bottom-sheet">
-              <div>
-                <p>Distance: {distance}</p>
-                <p>Duration: {duration}</p>
-              </div>
-              <div>
-                <p>Cost: </p>
-              </div>
-              <div>
-                <div
-                  style={{
-                    width: "100%",
-                    display: "flex",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  <TouchableOpacity
-                    id="option"
-                    style={{ width: "30%", border: " solid 1px orange" }}
-                    onPress={close}
-                  >
-                    <span> Cancel</span>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    id="option"
-                    style={{ width: "65%" }}
-                    onPress={() => setPage("information")}
-                  >
-                    <span>Continue Scheduling</span>
-                  </TouchableOpacity>
-                </div>
-              </div>
-            </div>
-          </BottomSheet>
-          <div id="map" style={{ height: "100vh", width: "100%" }}></div>
-        </div>
-      )}
-      {page === "information" && (
-        <>
-          <TouchableOpacity id="back" onPress={() => setPage("location")}>
-            <IoIosArrowBack size={24} />
-          </TouchableOpacity>
-          <p>More Information</p>
-        </>
-      )}
+        </BottomSheet>
+      </div>
     </>
   );
-};
+}
