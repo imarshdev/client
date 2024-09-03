@@ -64,7 +64,7 @@ function Home() {
             </TouchableOpacity>
           </div>
           <p>
-            {time} {user.userName}
+            {time} {user.firstName}
           </p>
           <div>
             <span>{formattedTime}</span>
