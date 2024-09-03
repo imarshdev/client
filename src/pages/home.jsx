@@ -78,14 +78,14 @@ function Home() {
       <div className="mid_details">
         <div className="mid_details_upper">
           <TouchableOpacity id="service_item">
-            <Link to="/map" id="link_item">
+            <Link to="/map2" id="link_item">
               <img src={delivery} style={{ width: "36px" }} />
               <p style={{ fontSize: 12 }}>Delivery</p>{" "}
             </Link>
           </TouchableOpacity>
 
           <TouchableOpacity id="service_item">
-            <Link to="/map" id="link_item">
+            <Link to="/map2" id="link_item">
               <img src={ride} style={{ width: "34px" }} />
               <p style={{ fontSize: 12 }}>Order Ride</p>
             </Link>

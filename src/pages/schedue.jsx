@@ -9,15 +9,18 @@ export default function ScheduleRide() {
   const [number, setNumber] = useState(4);
   const [open, setOpen] = useState(true);
   const [map, setMap] = useState(null);
-  const [userLocation, setUserLocation] = useState("");
+  const [origin, setOrigin] = useState("");
   const [autocomplete, setAutocomplete] = useState(null);
   const [destination, setDestination] = useState(null);
   const [directionsRenderer, setDirectionsRenderer] = useState(null);
+  const [distance, setDistance] = useState("");
+  const [duration, setDuration] = useState("");
   const navigate = useNavigate();
   const back = () => {
     navigate("/home");
   };
   const start = () => {
+    setNumber(3)
     if (!destination) return;
     getDirections();
   };
@@ -75,35 +78,49 @@ export default function ScheduleRide() {
     // Get the user's current location
     navigator.geolocation.getCurrentPosition(
       (position) => {
-        setUserLocation({
-          lat: position.coords.latitude,
-          lng: position.coords.longitude,
-        });
-        console.log("User location set:", userLocation);
-        const directionsService = new google.maps.DirectionsService();
-        const directionsRequest = {
-          origin: new google.maps.LatLng(userLocation.lat, userLocation.lng),
-          destination: destination,
-          travelMode: google.maps.TravelMode.DRIVING,
-        };
-        directionsService.route(directionsRequest, (result, status) => {
-          if (status === google.maps.DirectionsStatus.OK) {
-            if (directionsRenderer) {
-              directionsRenderer.setDirections(result);
+        const lat = position.coords.latitude;
+        const lng = position.coords.longitude;
+        console.log(`Latitude: ${lat}, Longitude: ${lng}`);
+        const geocoder = new google.maps.Geocoder();
+        geocoder.geocode(
+          {
+            location: {
+              lat: lat,
+              lng: lng,
+            },
+          },
+          (result, status) => {
+            if (status === google.maps.GeocoderStatus.OK) {
+              console.log(result[0].formatted_address);
+              const directionsService = new google.maps.DirectionsService();
+              const directionsRequest = {
+                origin: result[0].formatted_address,
+                destination: destination,
+                travelMode: google.maps.TravelMode.DRIVING,
+              };
+              directionsService.route(directionsRequest, (result, status) => {
+                if (status === google.maps.DirectionsStatus.OK) {
+                  if (directionsRenderer) {
+                    directionsRenderer.setDirections(result);
+                  } else {
+                    const directionsRendererInstance =
+                      new google.maps.DirectionsRenderer({
+                        map: map,
+                        directions: result,
+                      });
+                    setDirectionsRenderer(directionsRendererInstance);
+                    setDistance(result.routes[0].legs[0].distance.text);
+                    setDuration(result.routes[0].legs[0].duration.text);
+                  }
+                } else {
+                  console.log("Directions request failed: " + status);
+                }
+              });
             } else {
-              const directionsRendererInstance =
-                new google.maps.DirectionsRenderer({
-                  map: map,
-                  directions: response,
-                });
-              setDirectionsRenderer(directionsRendererInstance);
-              setDistance(response.routes[0].legs[0].distance.text);
-              setDuration(response.routes[0].legs[0].duration.text);
+              console.error(status);
             }
-          } else {
-            console.log("Directions request failed: " + status);
           }
-        });
+        );
       },
       (error) => {
         console.error(error);
@@ -136,6 +153,13 @@ export default function ScheduleRide() {
                 placeholder="Search for a place"
               />
             </div>
+            {number === 3 && (
+              <>
+                <p>distance: {distance}</p>
+                <p>Duration: {duration}</p>
+                <p>Estimated Cost: </p>
+              </>
+            )}
             <br />
             <TouchableOpacity onPress={start} id="confirm-pickup">
               <p> Confirm Location</p>
