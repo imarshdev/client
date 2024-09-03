@@ -12,6 +12,13 @@ import "../css/home.css";
 import { TouchableOpacity } from "react-native-web";
 import { Link } from "react-router-dom";
 import { PiHandWithdraw } from "react-icons/pi";
+import ride from "../assets/ride.svg"
+import delivery from "../assets/delivery.svg"
+import schedule from "../assets/schedule.svg"
+import dine from "../assets/dine.svg"
+import send from "../assets/send.svg"
+import withdraw from "../assets/withdraw.svg";
+import shopping from "../assets/shopping.svg";
 
 function Home() {
   const [time, setTime] = useState("");
@@ -70,62 +77,51 @@ function Home() {
 
       <div className="mid_details">
         <div className="mid_details_upper">
-          <TouchableOpacity
-            id="service_item"
-
-          >
+          <TouchableOpacity id="service_item">
             <Link to="/map" id="link_item">
-              <MdOutlineDeliveryDining size={34} />
+              <img src={delivery} style={{ width: "36px" }} />
               <p style={{ fontSize: 12 }}>Delivery</p>{" "}
             </Link>
           </TouchableOpacity>
 
-          <TouchableOpacity
-            id="service_item"
-
-          >
+          <TouchableOpacity id="service_item">
             <Link to="/map" id="link_item">
-              <FaMotorcycle size={34} />
+              <img src={ride} style={{ width: "34px" }} />
               <p style={{ fontSize: 12 }}>Order Ride</p>
             </Link>
           </TouchableOpacity>
 
-          <TouchableOpacity
-            id="service_item"
-
-          >
+          <TouchableOpacity id="service_item">
             <Link to="/map2" id="link_item">
-              <GrFormSchedule size={34} />
+              <img src={schedule} style={{ width: "34px" }} />
               <p style={{ fontSize: 12 }}>Schedule ride</p>{" "}
             </Link>
           </TouchableOpacity>
 
-          <TouchableOpacity
-            id="service_item"
-
-          >
+          <TouchableOpacity id="service_item">
             <Link id="link_item">
-              <MdDining size={34} />
+              <img src={dine} style={{ width: "34px" }} />
               <p style={{ fontSize: 12 }}>Dine</p>{" "}
             </Link>
           </TouchableOpacity>
 
-          <TouchableOpacity
-            id="service_item"
-
-          >
+          <TouchableOpacity id="service_item">
             <Link id="link_item">
-              <IoIosSend size={34} />
+              <img src={shopping} style={{ width: "34px" }} />
+              <p style={{ fontSize: 12 }}>Shopping</p>{" "}
+            </Link>
+          </TouchableOpacity>
+
+          <TouchableOpacity id="service_item">
+            <Link id="link_item">
+              <img src={send} style={{ width: "34px" }} />
               <p style={{ fontSize: 12 }}>Send Money</p>{" "}
             </Link>
           </TouchableOpacity>
 
-          <TouchableOpacity
-            id="service_item"
-
-          >
+          <TouchableOpacity id="service_item">
             <Link id="link_item">
-              <PiHandWithdraw size={34} />
+              <img src={withdraw} style={{ width: "34px" }} />
               <p style={{ fontSize: 12 }}>Withdraw</p>{" "}
             </Link>
           </TouchableOpacity>

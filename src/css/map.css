@@ -48,8 +48,8 @@
   background-color: rgba(255, 192, 203, 0.233);
   position: absolute;
   z-index: 9999999;
-  left: 5px;
-  top: 5px;
+  left: 10px;
+  top: 10px;
   border-radius: 50%;
   display: flex;
   justify-content: center;

@@ -2,6 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 import "../css/map.css";
 import { BottomSheet } from "react-spring-bottom-sheet";
 import { TouchableOpacity } from "react-native-web";
+import { IoIosArrowBack } from "react-icons/io";
+import { useNavigate } from "react-router-dom";
 
 export default function ScheduleRide() {
   const [number, setNumber] = useState(4);
@@ -11,10 +13,20 @@ export default function ScheduleRide() {
   const [autocomplete, setAutocomplete] = useState(null);
   const [destination, setDestination] = useState(null);
   const [directionsRenderer, setDirectionsRenderer] = useState(null);
+  const navigate = useNavigate();
+  const back = () => {
+    navigate("/home");
+  };
+  const start = () => {
+    if (!destination) return;
+    getDirections();
+  };
 
   useEffect(() => {
     const script = document.createElement("script");
     script.src = `https://maps.gomaps.pro/maps/api/js?key=AlzaSyLrk1KXy32iTkKpsbR1J1USZWKd4lE5oud&libraries=geometry,places&callback=initMap`;
+    script.async = true;
+    script.defer = true;
     document.head.appendChild(script);
 
     window.initMap = () => {
@@ -41,8 +53,8 @@ export default function ScheduleRide() {
             "No details available for the input: '" + place.name + "'"
           );
           return;
-          }
-          setNumber(4)
+        }
+        setNumber(4);
         setDestination(place.formatted_address);
         console.log("Selected place updated:", place);
         if (place.geometry.viewport) {
@@ -56,55 +68,56 @@ export default function ScheduleRide() {
           map: mapInstance,
         });
       });
-
-      const getDirections = () => {
-        // Get the user's current location
-        navigator.geolocation.getCurrentPosition(
-          (position) => {
-            setUserLocation({
-              lat: position.coords.latitude,
-              lng: position.coords.longitude,
-            });
-            const directionsService = new google.maps.DirectionsService();
-            const directionsRequest = {
-              origin: new google.maps.LatLng(
-                userLocation.lat,
-                userLocation.lng
-              ),
-              destination: destination,
-              travelMode: google.maps.TravelMode.DRIVING,
-            };
-            directionsService.route(directionsRequest, (result, status) => {
-              if (status === google.maps.DirectionsStatus.OK) {
-                if (directionsRenderer) {
-                  directionsRenderer.setDirections(response);
-                } else {
-                  const directionsRendererInstance =
-                    new google.maps.DirectionsRenderer({
-                      map: map,
-                      directions: response,
-                    });
-                  setDirectionsRenderer(directionsRendererInstance);
-                  setDistance(response.routes[0].legs[0].distance.text);
-                  setDuration(response.routes[0].legs[0].duration.text);
-                }
-              } else {
-                console.log("Directions request failed: " + status);
-              }
-            });
-          },
-          (error) => {
-            console.error(error);
-          },
-          { enableHighAccuracy: true }
-        );
-      };
     };
   }, []);
+
+  const getDirections = () => {
+    // Get the user's current location
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        setUserLocation({
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        });
+        console.log("User location set:", userLocation);
+        const directionsService = new google.maps.DirectionsService();
+        const directionsRequest = {
+          origin: new google.maps.LatLng(userLocation.lat, userLocation.lng),
+          destination: destination,
+          travelMode: google.maps.TravelMode.DRIVING,
+        };
+        directionsService.route(directionsRequest, (result, status) => {
+          if (status === google.maps.DirectionsStatus.OK) {
+            if (directionsRenderer) {
+              directionsRenderer.setDirections(result);
+            } else {
+              const directionsRendererInstance =
+                new google.maps.DirectionsRenderer({
+                  map: map,
+                  directions: response,
+                });
+              setDirectionsRenderer(directionsRendererInstance);
+              setDistance(response.routes[0].legs[0].distance.text);
+              setDuration(response.routes[0].legs[0].duration.text);
+            }
+          } else {
+            console.log("Directions request failed: " + status);
+          }
+        });
+      },
+      (error) => {
+        console.error(error);
+      },
+      { enableHighAccuracy: true }
+    );
+  };
   return (
     <>
       <div>
         <div id="map" style={{ height: "100vh", width: "100vw" }} />
+        <TouchableOpacity id="back" onPress={back}>
+          <IoIosArrowBack size={24} />
+        </TouchableOpacity>
         <BottomSheet
           open={open}
           blocking={false}
@@ -115,8 +128,8 @@ export default function ScheduleRide() {
           >
             <p>Where To?</p>
             <div style={{ borderBottom: "solid 0.5px black" }}>
-                          <input
-                              onFocus={()=>setNumber(1)}
+              <input
+                onFocus={() => setNumber(1)}
                 style={{ width: "100%" }}
                 id="pac-input-2"
                 type="text"
@@ -124,7 +137,7 @@ export default function ScheduleRide() {
               />
             </div>
             <br />
-            <TouchableOpacity id="confirm-pickup">
+            <TouchableOpacity onPress={start} id="confirm-pickup">
               <p> Confirm Location</p>
             </TouchableOpacity>
           </div>

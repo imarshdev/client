@@ -9,8 +9,9 @@ import { CiSquareChevDown } from "react-icons/ci";
 import { MdAccountBalanceWallet } from "react-icons/md";
 import { GiFullMotorcycleHelmet } from "react-icons/gi";
 import { Link } from "react-router-dom";
+import mtn from "../assets/mtn.svg"
+import airtel from "../assets/airtel.svg"
 import { BottomSheet } from "react-spring-bottom-sheet";
-import axios from "axios";
 import "react-spring-bottom-sheet/dist/style.css";
 // Define the Wallet component
 export default function Wallet() {
@@ -57,7 +58,7 @@ export default function Wallet() {
             <br />
             <span style={{ fontSize: "30px" }}>
               {/* account ballance amount */}
-              sh.17,000<span>.00</span>
+              sh. 00<span>.00</span>
             </span>
           </div>
           {/* action buttons container */}
@@ -88,8 +89,7 @@ export default function Wallet() {
           boxSizing: "border-box",
           padding: "10px",
         }}
-      >
-      </ScrollView>
+      ></ScrollView>
       <div className="bottom_drawer wallet_bottom_drawer">
         <Navigator />
       </div>
@@ -167,10 +167,10 @@ export default function Wallet() {
           {step === "pay" && (
             <div className="options">
               <TouchableOpacity id="option_item">
-                <span>MTN</span>
+                <img src={mtn} style={{ width: "100%" }} />
               </TouchableOpacity>
               <TouchableOpacity id="option_item">
-                <span>Airtel</span>
+                <img src={airtel} style={{ width: "100%" }} />
               </TouchableOpacity>
             </div>
           )}
@@ -216,7 +216,7 @@ export default function Wallet() {
               onPress={() => setAmount("20,000")}
               id="amount_item"
             >
-              <span style={{ textDecoration: "line-through" }}>sh.20,000</span>
+              <span>sh.20,000</span>
             </TouchableOpacity>
             <TouchableOpacity onPress={custom} id="amount_item">
               <span>Custom</span>
@@ -254,10 +254,10 @@ export default function Wallet() {
           {step === "pay" && (
             <div className="options">
               <TouchableOpacity id="option_item">
-                <span>MTN</span>
+                <img src={mtn} style={{ width: "100%" }} />
               </TouchableOpacity>
               <TouchableOpacity id="option_item">
-                <span>Airtel</span>
+                <img src={airtel} style={{ width: "100%" }} />
               </TouchableOpacity>
             </div>
           )}

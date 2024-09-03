@@ -21,7 +21,7 @@
   padding: 10px;
 }
 .topper {
-  background-color:limegreen;
+  background-color: rgb(50, 205, 50);
   color: #fff;
   width: 100%;
   height: 100%;
@@ -31,7 +31,7 @@
   align-items: start;
   box-sizing: border-box;
   padding: 20px;
-  border-radius:10px;
+  border-radius: 10px;
   -webkit-box-shadow: 0 5px 10px rgba(160, 163, 189, 0.918);
   box-shadow: 0 5px 10px rgba(160, 163, 189, 0.801);
 }
@@ -71,7 +71,8 @@
   height: 90%;
   width: 100%;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
+  align-items: start;
   flex-wrap: wrap;
 }
 #items_wrapper {
@@ -131,7 +132,7 @@
   -webkit-box-shadow: 0 5px 10px rgba(160, 163, 189, 0.918);
   box-shadow: 0 5px 10px rgba(160, 163, 189, 0.801);
 }
-.icon_button{
+.icon_button {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -142,14 +143,14 @@
   width: 100%;
   padding-left: 10px;
 }
-.order{
+.order {
   background-color: limegreen;
 }
 .map {
   height: 60%;
   width: 100%;
 }
-.map_container{
+.map_container {
   height: 100%;
 }
 .ride_details {
@@ -162,7 +163,7 @@
   z-index: 99999;
 }
 
-.schedule{
+.schedule {
   height: 100%;
   border-radius: 0;
   display: flex;
@@ -170,7 +171,7 @@
   justify-content: center;
   align-items: start;
 }
-.services_container{
+.services_container {
   width: 100%;
   height: auto;
   box-sizing: border-box;
@@ -182,21 +183,22 @@
   justify-content: space-between;
   flex-wrap: wrap;
 }
-#service_item{
-  width: 40%;
-  height: auto;
+#service_item {
+  width: 30%;
+  height: 8rem;
   border-radius: 10px;
   box-sizing: border-box;
-  margin: 3% 6% 3% 0;
+  margin: 5px;
   padding: 5px 0;
   color: black;
+  background-color: #ecfcf0c5;
   -webkit-box-shadow: 0 5px 10px rgba(160, 163, 189, 0.918);
   box-shadow: 0 5px 10px rgba(160, 163, 189, 0.801);
 }
-#link_item{
+#link_item {
   width: 100%;
   height: 100%;
-    display: flex;
+  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
