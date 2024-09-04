@@ -5,7 +5,7 @@ import { TouchableOpacity } from "react-native-web";
 import { IoIosArrowBack } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 
-export default function ScheduleRide() {
+export default function MapElement() {
   const [number, setNumber] = useState(4);
   const [open, setOpen] = useState(true);
   const [map, setMap] = useState(null);
@@ -20,7 +20,7 @@ export default function ScheduleRide() {
     navigate("/home");
   };
   const start = () => {
-    setNumber(3)
+    setNumber(3);
     if (!destination) return;
     getDirections();
   };
@@ -129,44 +129,46 @@ export default function ScheduleRide() {
     );
   };
   return (
-    <>
-      <div>
-        <div id="map" style={{ height: "100vh", width: "100vw" }} />
-        <TouchableOpacity id="back" onPress={back}>
-          <IoIosArrowBack size={24} />
-        </TouchableOpacity>
-        <BottomSheet
-          open={open}
-          blocking={false}
-          snapPoints={({ maxHeight }) => [maxHeight / number]}
-        >
-          <div
-            style={{ width: "100vw", boxSizing: "border-box", padding: "20px" }}
+        <div>
+          <div id="map" style={{ height: "100vh", width: "100vw" }} />
+          <TouchableOpacity id="back" onPress={back}>
+            <IoIosArrowBack size={24} />
+          </TouchableOpacity>
+          <BottomSheet
+            open={open}
+            blocking={false}
+            snapPoints={({ maxHeight }) => [maxHeight / number]}
           >
-            <p>Where To?</p>
-            <div style={{ borderBottom: "solid 0.5px black" }}>
-              <input
-                onFocus={() => setNumber(1)}
-                style={{ width: "100%" }}
-                id="pac-input-2"
-                type="text"
-                placeholder="Search for a place"
-              />
+            <div
+              style={{
+                width: "100vw",
+                boxSizing: "border-box",
+                padding: "20px",
+              }}
+            >
+              <p>Where To?</p>
+              <div style={{ borderBottom: "solid 0.5px black" }}>
+                <input
+                  onFocus={() => setNumber(1)}
+                  style={{ width: "100%" }}
+                  id="pac-input-2"
+                  type="text"
+                  placeholder="Search for a place"
+                />
+              </div>
+              {number === 3 && (
+                <>
+                  <p>distance: {distance}</p>
+                  <p>Duration: {duration}</p>
+                  <p>Estimated Cost: </p>
+                </>
+              )}
+              <br />
+              <TouchableOpacity onPress={start} id="confirm-pickup">
+                <p> Confirm Location</p>
+              </TouchableOpacity>
             </div>
-            {number === 3 && (
-              <>
-                <p>distance: {distance}</p>
-                <p>Duration: {duration}</p>
-                <p>Estimated Cost: </p>
-              </>
-            )}
-            <br />
-            <TouchableOpacity onPress={start} id="confirm-pickup">
-              <p> Confirm Location</p>
-            </TouchableOpacity>
-          </div>
-        </BottomSheet>
-      </div>
-    </>
+          </BottomSheet>
+        </div>
   );
 }

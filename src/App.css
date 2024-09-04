@@ -13,7 +13,7 @@ h2,
 h1,
 span,
 a,
-h3 {
+h3, li {
   font-family: sans;
 }
 .card {

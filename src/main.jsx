@@ -11,7 +11,8 @@ import Services from "./pages/services.jsx";
 import Wallet from "./pages/wallet.jsx";
 import { UserProvider } from "./userContext.jsx";
 import Map from "./pages/map.jsx";
-import ScheduleRide from "./pages/schedue.jsx";
+import MapElement from "./pages/mapelement.jsx";
+import Schedule from "./pages/schedule.jsx";
 
 
 const router = createBrowserRouter([
@@ -47,7 +48,12 @@ const router = createBrowserRouter([
   },
   {
     path: "/map2",
-    element: <ScheduleRide />,
+    element: <MapElement />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/agree",
+    element: <Schedule />,
     errorElement: <ErrorPage />,
   },
 ]);

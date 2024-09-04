@@ -12,11 +12,11 @@ import "../css/home.css";
 import { TouchableOpacity } from "react-native-web";
 import { Link } from "react-router-dom";
 import { PiHandWithdraw } from "react-icons/pi";
-import ride from "../assets/ride.svg"
-import delivery from "../assets/delivery.svg"
-import schedule from "../assets/schedule.svg"
-import dine from "../assets/dine.svg"
-import send from "../assets/send.svg"
+import ride from "../assets/ride.svg";
+import delivery from "../assets/delivery.svg";
+import schedule from "../assets/schedule.svg";
+import dine from "../assets/dine.svg";
+import send from "../assets/send.svg";
 import withdraw from "../assets/withdraw.svg";
 import shopping from "../assets/shopping.svg";
 
@@ -47,94 +47,101 @@ function Home() {
   const timeOptions = { hour: "2-digit", minute: "2-digit" };
   const dateOptions = { weekday: "short", month: "short", day: "2-digit" };
 
-  const formattedTime = currentTimeString.toLocaleTimeString('en-US', timeOptions)
-  const formattedDate = currentTimeString.toLocaleDateString('en-US', dateOptions)
-
+  const formattedTime = currentTimeString.toLocaleTimeString(
+    "en-US",
+    timeOptions
+  );
+  const formattedDate = currentTimeString.toLocaleDateString(
+    "en-US",
+    dateOptions
+  );
 
   const { user } = useContext(UserContext);
   return (
-    <main className="home">
-      <div className="top">
-        <div className="topper">
-          <div className="upper_topper">
-            <TouchableOpacity id="user_icon">
-              <div className="user_icon one">
-                <FaUserAstronaut color="green" size={24} />
-              </div>
+    <>
+      <main className="home">
+        <div className="top">
+          <div className="topper">
+            <div className="upper_topper">
+              <TouchableOpacity id="user_icon">
+                <div className="user_icon one">
+                  <FaUserAstronaut color="green" size={24} />
+                </div>
+              </TouchableOpacity>
+            </div>
+            <p>
+              {time} {user.firstName}
+            </p>
+            <div>
+              <span>{formattedTime}</span>
+              <br />
+              <span>{formattedDate}</span>
+              <br />
+            </div>
+          </div>
+        </div>
+
+        <div className="mid_details">
+          <div className="mid_details_upper">
+            <TouchableOpacity id="service_item">
+              <Link to="/map2" id="link_item">
+                <img src={delivery} style={{ width: "36px" }} />
+                <p style={{ fontSize: 12 }}>Delivery</p>{" "}
+              </Link>
+            </TouchableOpacity>
+
+            <TouchableOpacity id="service_item">
+              <Link to="/map2" id="link_item">
+                <img src={ride} style={{ width: "34px" }} />
+                <p style={{ fontSize: 12 }}>Order Ride</p>
+              </Link>
+            </TouchableOpacity>
+
+            <TouchableOpacity id="service_item">
+              <Link to="/agree" id="link_item">
+                <img src={schedule} style={{ width: "34px" }} />
+                <p style={{ fontSize: 12 }}>Schedule ride</p>{" "}
+              </Link>
+            </TouchableOpacity>
+
+            <TouchableOpacity id="service_item">
+              <Link id="link_item">
+                <img src={dine} style={{ width: "34px" }} />
+                <p style={{ fontSize: 12 }}>Dine</p>{" "}
+              </Link>
+            </TouchableOpacity>
+
+            <TouchableOpacity id="service_item">
+              <Link id="link_item">
+                <img src={shopping} style={{ width: "34px" }} />
+                <p style={{ fontSize: 12 }}>Shopping</p>{" "}
+              </Link>
+            </TouchableOpacity>
+
+            <TouchableOpacity id="service_item">
+              <Link id="link_item">
+                <img src={send} style={{ width: "34px" }} />
+                <p style={{ fontSize: 12 }}>Send Money</p>{" "}
+              </Link>
+            </TouchableOpacity>
+
+            <TouchableOpacity id="service_item">
+              <Link id="link_item">
+                <img src={withdraw} style={{ width: "34px" }} />
+                <p style={{ fontSize: 12 }}>Withdraw</p>{" "}
+              </Link>
             </TouchableOpacity>
           </div>
-          <p>
-            {time} {user.firstName}
-          </p>
-          <div>
-            <span>{formattedTime}</span>
-            <br />
-            <span>{formattedDate}</span>
-            <br />
+          <div className="mid_details_lower">
+            <div className="image"></div>
           </div>
         </div>
-      </div>
 
-      <div className="mid_details">
-        <div className="mid_details_upper">
-          <TouchableOpacity id="service_item">
-            <Link to="/map2" id="link_item">
-              <img src={delivery} style={{ width: "36px" }} />
-              <p style={{ fontSize: 12 }}>Delivery</p>{" "}
-            </Link>
-          </TouchableOpacity>
-
-          <TouchableOpacity id="service_item">
-            <Link to="/map2" id="link_item">
-              <img src={ride} style={{ width: "34px" }} />
-              <p style={{ fontSize: 12 }}>Order Ride</p>
-            </Link>
-          </TouchableOpacity>
-
-          <TouchableOpacity id="service_item">
-            <Link to="/map2" id="link_item">
-              <img src={schedule} style={{ width: "34px" }} />
-              <p style={{ fontSize: 12 }}>Schedule ride</p>{" "}
-            </Link>
-          </TouchableOpacity>
-
-          <TouchableOpacity id="service_item">
-            <Link id="link_item">
-              <img src={dine} style={{ width: "34px" }} />
-              <p style={{ fontSize: 12 }}>Dine</p>{" "}
-            </Link>
-          </TouchableOpacity>
-
-          <TouchableOpacity id="service_item">
-            <Link id="link_item">
-              <img src={shopping} style={{ width: "34px" }} />
-              <p style={{ fontSize: 12 }}>Shopping</p>{" "}
-            </Link>
-          </TouchableOpacity>
-
-          <TouchableOpacity id="service_item">
-            <Link id="link_item">
-              <img src={send} style={{ width: "34px" }} />
-              <p style={{ fontSize: 12 }}>Send Money</p>{" "}
-            </Link>
-          </TouchableOpacity>
-
-          <TouchableOpacity id="service_item">
-            <Link id="link_item">
-              <img src={withdraw} style={{ width: "34px" }} />
-              <p style={{ fontSize: 12 }}>Withdraw</p>{" "}
-            </Link>
-          </TouchableOpacity>
+        <div className="bottom_drawer">
+          <Navigator page="home" />
         </div>
-        <div className="mid_details_lower">
-          <div className="image"></div>
-        </div>
-      </div>
-
-      <div className="bottom_drawer">
-        <Navigator page="home" />
-      </div>
-    </main>
+      </main>
+    </>
   );
 }
 

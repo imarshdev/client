@@ -1,0 +1,35 @@
+.warning {
+  width: 90%;
+  background-color: #fff;
+  -webkit-box-shadow: 0 5px 10px rgba(160, 163, 189, 0.404);
+  box-shadow: 0 5px 10px rgba(160, 163, 189, 0.247);
+}
+.terms {
+  width: 90%;
+  text-align: start;
+}
+.acceptence {
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
+}
+#button {
+  width: 45%;
+  border-radius: 30px;
+  -webkit-box-shadow: 0 5px 10px rgba(160, 163, 189, 0.404);
+  box-shadow: 0 5px 10px rgba(160, 163, 189, 0.247);
+}
+#schedule-item {
+  width: 80%;
+  background-color: limegreen;
+  color: #fff;
+  border-radius: 10px;
+  -webkit-box-shadow: 0 5px 10px rgba(160, 163, 189, 0.404);
+  box-shadow: 0 5px 10px rgba(160, 163, 189, 0.247);
+}
+.content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
