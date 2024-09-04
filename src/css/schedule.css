@@ -1,5 +1,8 @@
 .warning {
-  width: 90%;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px;
+  border-radius: 10px;
   background-color: #fff;
   -webkit-box-shadow: 0 5px 10px rgba(160, 163, 189, 0.404);
   box-shadow: 0 5px 10px rgba(160, 163, 189, 0.247);
@@ -7,29 +10,77 @@
 .terms {
   width: 90%;
   text-align: start;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.terms li {
+  font-size: 14px;
+  width: 90%;
 }
 .acceptence {
-  width: 90%;
+  width: 100%;
   display: flex;
   justify-content: space-between;
 }
 #button {
-  width: 45%;
-  border-radius: 30px;
-  -webkit-box-shadow: 0 5px 10px rgba(160, 163, 189, 0.404);
-  box-shadow: 0 5px 10px rgba(160, 163, 189, 0.247);
-}
-#schedule-item {
-  width: 80%;
-  background-color: limegreen;
-  color: #fff;
+  width: 47%;
   border-radius: 10px;
   -webkit-box-shadow: 0 5px 10px rgba(160, 163, 189, 0.404);
   box-shadow: 0 5px 10px rgba(160, 163, 189, 0.247);
 }
+#schedule-item {
+  width: 100%;
+  color: black;
+  background-color: rgba(211, 211, 211, 0.253);
+  border-radius: 10px;
+  -webkit-box-shadow: 0 5px 10px rgba(160, 163, 189, 0.404);
+  box-shadow: 0 5px 10px rgba(160, 163, 189, 0.247);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  box-sizing: border-box;
+  padding: 10px 20px;
+  margin-bottom: 20px;
+}
 .content {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#input-container {
+  border-bottom: solid 0.1px gray;
+  width: 100%;
+}
+.schedule-input {
+  background-color: #fff;
+}
+.schedule-input:focus {
+  outline: none;
+}
+#set {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  width: 100%;
+  background-color: limegreen;
+}
+#category {
+  width: 30%;
+  height: 5rem;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  background-color: aliceblue;
+  -webkit-box-shadow: 0 5px 10px rgba(160, 163, 189, 0.404);
+  box-shadow: 0 5px 10px rgba(160, 163, 189, 0.247);
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  box-sizing: border-box;
+  padding: 10px;
+}
+#category:focus {
+  border: solid 0.1px rgba(50, 205, 50, 0.5);
 }

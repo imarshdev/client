@@ -2,10 +2,16 @@ import { IoIosArrowBack } from "react-icons/io";
 import { TouchableOpacity } from "react-native-web";
 import { useNavigate } from "react-router-dom";
 import "../css/schedule.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BottomSheet } from "react-spring-bottom-sheet";
 
 export default function Schedule() {
+  const [category, setCategory] = useState("");
+  const [pickup, setPickup] = useState("");
+  const [destination, setDestination] = useState("");
+  const [time, setTime] = useState("");
+  const [recurring, setRecurring] = useState("");
+  const [request, setRequest] = useState("");
   const [step, setStep] = useState("");
   const [open, setOpen] = useState(false);
   const [agreement, setAgreement] = useState(false);
@@ -20,26 +26,33 @@ export default function Schedule() {
     setStep("name");
     setOpen(true);
   };
-  const pickup = () => {
+  const Pickup = () => {
     setStep("pickup");
     setOpen(true);
   };
-  const destination = () => {
+  const Destination = () => {
     setStep("destination");
     setOpen(true);
   };
-  const time = () => {
+  const Time = () => {
     setStep("time");
     setOpen(true);
   };
-  const schedule = () => {
+  const Schedule = () => {
     setStep("schedule");
+    setOpen(true);
+  };
+  const Request = () => {
+    setStep("request");
     setOpen(true);
   };
   return (
     <>
       {agreement === false && (
-        <main className="home">
+        <main
+          className="home"
+          style={{ boxSizing: "border-box", padding: "10px" }}
+        >
           <TouchableOpacity id="back" onPress={back}>
             <IoIosArrowBack size={24} />
           </TouchableOpacity>
@@ -52,8 +65,10 @@ export default function Schedule() {
             </p>
           </div>
           <br />
+          <p style={{ fontSize: 18, textAlign: "start", width: "90%" }}>
+            Terms and conditions
+          </p>
           <div className="terms">
-            <p style={{ fontSize: 18 }}>Terms and conditions</p>
             <li>
               You must provide accurate pick-up and destination locations, as
               well as desired time of pick-up and days of the week for the ride
@@ -88,6 +103,8 @@ export default function Schedule() {
             </li>
           </div>
           <br />
+          <br />
+          <br />
           <div className="acceptence">
             <TouchableOpacity
               onPress={back}
@@ -107,57 +124,199 @@ export default function Schedule() {
         </main>
       )}
       {agreement === true && (
-        <main className="home">
+        <main
+          className="home"
+          style={{
+            boxSizing: "border-box",
+            padding: "30px 10px",
+            justifyContent: "space-between",
+          }}
+        >
           <TouchableOpacity id="back" onPress={back}>
             <IoIosArrowBack size={24} />
           </TouchableOpacity>
+          <p style={{ width: "100%" }}>Schedule Ride !</p>
           <div className="content">
-            <p style={{ textAlign: "start", width: "80%" }}>SCHEDULE RIDE</p>
             <TouchableOpacity id="schedule-item" onPress={name}>
-              <p>Ride Name</p>
+              <p>Category : </p>
+              <p>{category}</p>
             </TouchableOpacity>
-            <p style={{ textAlign: "start", width: "80%" }}>Name:</p>
-            <TouchableOpacity id="schedule-item" onPress={pickup}>
-              <p>Set pick up</p>
+            <TouchableOpacity id="schedule-item" onPress={Pickup}>
+              <p>Pick up :</p>
+              <p>{pickup}</p>
             </TouchableOpacity>
-            <p style={{ textAlign: "start", width: "80%" }}>Pick up:</p>
-            <TouchableOpacity id="schedule-item" onPress={destination}>
-              <p>Set destination</p>
+            <TouchableOpacity id="schedule-item" onPress={Destination}>
+              <p>Destination :</p>
+              <p>{destination}</p>
             </TouchableOpacity>
-            <p style={{ textAlign: "start", width: "80%" }}>Destination:</p>
-            <TouchableOpacity id="schedule-item" onPress={time}>
-              <p>Set time</p>
+            <TouchableOpacity id="schedule-item" onPress={Time}>
+              <p>Set time :</p>
+              <p>{time}</p>
             </TouchableOpacity>
-            <p style={{ textAlign: "start", width: "80%" }}>Time:</p>
-            <TouchableOpacity id="schedule-item" onPress={schedule}>
-              <p>Recurring schedule</p>
+            <TouchableOpacity id="schedule-item" onPress={Schedule}>
+              <p>Recurring :</p>
+              <p>{recurring}</p>
             </TouchableOpacity>
-            <p style={{ textAlign: "start", width: "80%" }}>Days:</p>
+            <TouchableOpacity id="schedule-item" onPress={Request}>
+              <p>Special request :</p>
+              <p>{request}</p>
+            </TouchableOpacity>
           </div>
-          <br />
-          <br />
-          <div className="acceptence">
-            <TouchableOpacity
-              onPress={back}
-              id="button"
-              style={{ backgroundColor: "lightgray", color: "black" }}
-            >
-              <p>Cancel</p>
-            </TouchableOpacity>
+          <div
+            className="acceptence"
+            style={{ flexDirection: "column", alignItems: "center" }}
+          >
             <TouchableOpacity
               onPress={() => setAgreement(true)}
               id="button"
-              style={{ backgroundColor: "limegreen", color: "#fff" }}
+              style={{
+                backgroundColor: "limegreen",
+                color: "#fff",
+                width: "100%",
+              }}
             >
               <p>Save Ride</p>
             </TouchableOpacity>
+            <br />
+            <TouchableOpacity
+              onPress={back}
+              id="button"
+              style={{ color: "black" }}
+            >
+              <p>Cancel</p>
+            </TouchableOpacity>
           </div>
-          <BottomSheet onDismiss={dismiss} open={open}>
-            {step === "name" && <p>Name</p>}
-            {step === "pickup" && <p>Pick up</p>}
-            {step === "destination" && <p>Destination</p>}
-            {step === "time" && <p>Time</p>}
-            {step === "schedule" && <p>Schedule</p>}
+          <BottomSheet
+            onDismiss={dismiss}
+            open={open}
+            snapPoints={({ maxHeight }) => [maxHeight / 1.5]}
+          >
+            <div style={{ boxSizing: "border-box", padding: "20px" }}>
+              {step === "name" && (
+                <>
+                  <p>Category: {category}</p>
+                  <div
+                    style={{
+                      width: "100%",
+                      display: "flex",
+                      flexWrap: "wrap",
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    <TouchableOpacity
+                      id="category"
+                      onPress={() => setCategory("Daily Commute")}
+                    >
+                      <p>Daily Commute</p>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      id="category"
+                      onPress={() => setCategory("Work")}
+                    >
+                      <p>Work !</p>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      id="category"
+                      onPress={() => setCategory("School Run")}
+                    >
+                      <p>School Run</p>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      id="category"
+                      onPress={() => setCategory("Grocery Trip")}
+                    >
+                      <p>Grocery Trip</p>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      id="category"
+                      onPress={() => setCategory("Medical Appointment")}
+                    >
+                      <p>Medical Apointment</p>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      id="category"
+                      onPress={() => setCategory("Night Shift")}
+                    >
+                      <p>Night Shift?</p>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      id="category"
+                      onPress={() => setCategory("Social Event")}
+                    >
+                      <p>Social Event</p>
+                    </TouchableOpacity>
+                  </div>
+                  <p>Custom: </p>
+                  <div id="input-container">
+                    <input
+                      type="text"
+                      value={category}
+                      className="schedule-input"
+                      onChange={(event) => setCategory(event.target.value)}
+                    />
+                  </div>
+                  <br />
+                  <TouchableOpacity id="set" onPress={() => setOpen(false)}>
+                    <p>Set</p>
+                  </TouchableOpacity>
+                </>
+              )}
+              {step === "pickup" && (
+                <>
+                  <p>Pick up address</p>
+                  <div id="input-container">
+                    <input
+                      type="text"
+                      value={pickup}
+                      onChange={(event) => setPickup(event.target.value)}
+                      className="schedule-input"
+                      id="pickup"
+                    />
+                  </div>
+                  <br />
+                  <TouchableOpacity id="set"  onPress={() => setOpen(false)}>
+                    <p>Set</p>
+                  </TouchableOpacity>
+                </>
+              )}
+              {step === "destination" && (
+                <>
+                  <p>Destination address</p>
+                  <div id="input-container">
+                    <input
+                      type="text"
+                      value={destination}
+                      onChange={(event) => setDestination(event.target.value)}
+                      className="schedule-input"
+                    />
+                  </div>
+                  <br />
+                  <TouchableOpacity id="set"  onPress={() => setOpen(false)}>
+                    <p>Set</p>
+                  </TouchableOpacity>
+                </>
+              )}
+              {step === "time" && <p>Time</p>}
+              {step === "schedule" && <p>Schedule</p>}
+              {step === "request" && (
+                <>
+                  <p>Describe special request</p>
+                  <div id="input-container">
+                    <input
+                      type="text"
+                      value={request}
+                      onChange={(event) => setRequest(event.target.value)}
+                      className="schedule-input"
+                      id="pickup"
+                    />
+                  </div>
+                  <br />
+                  <TouchableOpacity id="set"  onPress={() => setOpen(false)}>
+                    <p>Set</p>
+                  </TouchableOpacity>
+                </>
+              )}
+            </div>
           </BottomSheet>
         </main>
       )}
