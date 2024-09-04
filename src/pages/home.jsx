@@ -1,17 +1,11 @@
-import React, { useContext, useEffect, useState } from "react";
-import { UserContext } from "../userContext";
-import { FaMotorcycle } from "react-icons/fa";
+import React, { useEffect, useState } from "react";
 import { FaHome } from "react-icons/fa";
-import { GrFormSchedule } from "react-icons/gr";
-import { IoIosSend } from "react-icons/io";
 import { MdAccountBalanceWallet, MdDining } from "react-icons/md";
 import { GiFullMotorcycleHelmet } from "react-icons/gi";
-import { MdOutlineDeliveryDining } from "react-icons/md";
 import { FaUserAstronaut } from "react-icons/fa";
 import "../css/home.css";
 import { TouchableOpacity } from "react-native-web";
 import { Link } from "react-router-dom";
-import { PiHandWithdraw } from "react-icons/pi";
 import ride from "../assets/ride.svg";
 import delivery from "../assets/delivery.svg";
 import schedule from "../assets/schedule.svg";
@@ -19,10 +13,35 @@ import dine from "../assets/dine.svg";
 import send from "../assets/send.svg";
 import withdraw from "../assets/withdraw.svg";
 import shopping from "../assets/shopping.svg";
+import axios from "axios";
 
 function Home() {
+  const [userName, setUserName] = useState("");
   const [time, setTime] = useState("");
   const [currentTimeString, setCurrentTimeString] = useState(new Date());
+const setName = async (event) => {
+  event.preventDefault();
+  try {
+    const response = await axios.get(
+      "https://walamin-server.onrender.com/user",
+      {
+        withCredentials: "include",
+      }
+    );
+    if (response.data && response.data.name) {
+      setUserName(response.data.name);
+    } else {
+      console.error("Unexpected response data:", response.data);
+    }
+  } catch (error) {
+    if (error.response) {
+      console.error("Request failed with status code", error.response.status);
+    } else {
+      console.error("Request failed due to", error.message);
+    }
+  }
+};
+
   useEffect(() => {
     const currentTime = new Date().getHours();
     let time;
@@ -56,7 +75,6 @@ function Home() {
     dateOptions
   );
 
-  const { user } = useContext(UserContext);
   return (
     <>
       <main className="home">
@@ -70,7 +88,7 @@ function Home() {
               </TouchableOpacity>
             </div>
             <p>
-              {time} {user.firstName}
+              {time} {userName}!
             </p>
             <div>
               <span>{formattedTime}</span>
@@ -129,6 +147,13 @@ function Home() {
               <Link id="link_item">
                 <img src={withdraw} style={{ width: "34px" }} />
                 <p style={{ fontSize: 12 }}>Withdraw</p>{" "}
+              </Link>
+            </TouchableOpacity>
+
+            <TouchableOpacity id="service_item" onPress={setName}>
+              <Link id="link_item">
+                <img src={withdraw} style={{ width: "34px" }} />
+                <p style={{ fontSize: 12 }}>Set Name</p>{" "}
               </Link>
             </TouchableOpacity>
           </div>

@@ -9,10 +9,11 @@ import { CiSquareChevDown } from "react-icons/ci";
 import { MdAccountBalanceWallet } from "react-icons/md";
 import { GiFullMotorcycleHelmet } from "react-icons/gi";
 import { Link } from "react-router-dom";
-import mtn from "../assets/mtn.svg"
-import airtel from "../assets/airtel.svg"
+import mtn from "../assets/mtn.svg";
+import airtel from "../assets/airtel.svg";
 import { BottomSheet } from "react-spring-bottom-sheet";
 import "react-spring-bottom-sheet/dist/style.css";
+import axios from "axios";
 // Define the Wallet component
 export default function Wallet() {
   // State variables for amount, step, and bottom sheet open state
@@ -20,6 +21,18 @@ export default function Wallet() {
   const [step, setStep] = useState("pay");
   const [open, setOpen] = useState(false);
   const [open1, setOpen1] = useState(false);
+
+  const setName = async (event) => {
+    event.preventDefault();
+    try {
+      const response = await axios.get(
+        "https://walamin-server.onrender.com/users"
+      );
+      console.log(response.data);
+    } catch (error) {
+      console.error(errot);
+    }
+  };
 
   // Function to dismiss the bottom sheet
   const dismis = () => {
@@ -40,7 +53,6 @@ export default function Wallet() {
   const pay = () => {
     setStep("pay");
   };
-
 
   return (
     // Main container
@@ -88,8 +100,15 @@ export default function Wallet() {
           textAlign: "start",
           boxSizing: "border-box",
           padding: "10px",
+          width: "100vw",
         }}
-      ></ScrollView>
+      >
+        <TouchableOpacity id="service_item" onPress={setName}>
+          <Link id="link_item">
+            <p style={{ fontSize: 12 }}>Set Name</p>{" "}
+          </Link>
+        </TouchableOpacity>
+      </ScrollView>
       <div className="bottom_drawer wallet_bottom_drawer">
         <Navigator />
       </div>

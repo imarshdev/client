@@ -93,7 +93,6 @@ function SignIn() {
 export default SignIn;
 
 export function SignUP() {
-  const { user, setUser } = useContext(UserContext);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [username, setUsername] = useState("");
@@ -120,7 +119,6 @@ export function SignUP() {
         }
       );
       console.log(response.data);
-      setUser({ ...user, username, firstName, lastName });
       navigate("/home");
     } catch (error) {
       console.error(error);
