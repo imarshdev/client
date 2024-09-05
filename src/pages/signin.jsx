@@ -3,11 +3,11 @@ import { TouchableOpacity } from "react-native-web";
 import axios from "axios";
 import "../css/signin.css";
 import { useState, useContext } from "react";
-import { UserContext } from "../userContext";
 import { BottomSheet } from "react-spring-bottom-sheet";
+import { UserContext } from "../../UserContext";
 function SignIn() {
-  const [open, setOpen] = useState(false);
   const { user, setUser } = useContext(UserContext);
+  const [open, setOpen] = useState(false);
   const [username, setUsername] = useState("");
   const [token, setToken] = useState("");
   const [error, setError] = useState(null);
@@ -24,7 +24,7 @@ function SignIn() {
         }
       );
       if (response.data.success) {
-        setUser({ ...user, username });
+        setUser({ Username: username, Token: token });
         navigate("/home");
       } else {
         setError(response.data.error);
@@ -42,7 +42,7 @@ function SignIn() {
         padding: "20px",
         justifyContent: "start",
         marginTop: "10vh",
-        width: '100vw'
+        width: "100vw",
       }}
     >
       <h2>Signin</h2>
@@ -80,7 +80,7 @@ function SignIn() {
         <p>Sign up</p>
       </TouchableOpacity>
       <BottomSheet
-        snapPoints={({maxHeight})=> [maxHeight]}
+        snapPoints={({ maxHeight }) => [maxHeight]}
         onDismiss={() => setOpen(false)}
         open={open}
       >
@@ -93,6 +93,7 @@ function SignIn() {
 export default SignIn;
 
 export function SignUP() {
+  const { user, setUser } = useContext(UserContext);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [username, setUsername] = useState("");
@@ -119,6 +120,7 @@ export function SignUP() {
         }
       );
       console.log(response.data);
+      setUser({ Username: username, Token: token });
       navigate("/home");
     } catch (error) {
       console.error(error);

@@ -1,5 +1,4 @@
-import React, { useState, useContext } from "react";
-import { UserContext } from "../userContext";
+import React, { useState, useContext, useEffect, useLayoutEffect } from "react";
 import { TouchableOpacity } from "react-native-web";
 import "../css/home.css";
 import { useSwipeable } from "react-swipeable";
@@ -27,6 +26,9 @@ import { LiaIdCardSolid } from "react-icons/lia";
 import { FiUser } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import { Sidebar } from "primereact/sidebar";
+import { UserContext } from "../../UserContext";
+import { Password } from "primereact/password";
+import axios from "axios";
 
 export default function Account() {
   const { user } = useContext(UserContext);
@@ -123,7 +125,7 @@ export default function Account() {
           }}
         >
           <span>
-            <span>{user.firstName} {user.lastName}</span>
+            <span>Username: {user.Username}</span>
             <br />
             <span style={{ fontSize: 12, padding: 0 }}>0767116290</span>
           </span>
@@ -254,48 +256,67 @@ export function Navigator() {
 }
 
 function ScheduledRides() {
+  const { user } = useContext(UserContext);
+  const [token, setToken] = useState("");
+  const [username, setUsername] = useState("");
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    try {
+      setUsername(user.Username);
+      setToken(user.Token);
+      if (username && token) {
+        axios
+          .get("https://walamin-server.onrender.com/rides", {
+            params: { username, token },
+          })
+          .then((response) => {
+            setData(response.data);
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }, [user, username, token]);
+
+  useEffect(() => {
+    console.log(data);
+  }, [data]);
+
   return (
     <div
       className="mid_details"
       style={{ height: "90vh", justifyContent: "center" }}
     >
       <p style={{ textAlign: "start" }}>Scheduled Rides</p>
-      <div className="scheduled_ride">
-        <span style={{ fontSize: 18 }}>School</span>
-        <span>
-          <CiLocationOn style={{ marginRight: "10px" }} />
-          Ntinda Stretcher - UICT
-        </span>
-        <span>
-          <MdAccessTime style={{ marginRight: "10px" }} />
-          Mon - Fri 8 am
-        </span>
-        <span>
-          <CiCreditCard1 style={{ marginRight: "10px" }} />
-          Card - $5
-        </span>
-        <TouchableOpacity id="action">
-          <span>Edit</span>
-        </TouchableOpacity>
-      </div>
-      <div className="scheduled_ride">
-        <span style={{ fontSize: 18 }}>Work</span>
-        <span>
-          <CiLocationOn style={{ marginRight: "10px" }} />
-          UICT - Mapeera House
-        </span>
-        <span>
-          <MdAccessTime style={{ marginRight: "10px" }} />
-          Mon - Fri 2 pm
-        </span>
-        <span>
-          <CiCreditCard1 style={{ marginRight: "10px" }} />
-          Card - $5
-        </span>
-        <TouchableOpacity id="action">
-          <span>Edit</span>
-        </TouchableOpacity>
-      </div>
+      {data ? (
+        data.map((ride, index) => (
+          <div className="scheduled_ride" key={index}>
+            <span style={{ fontSize: 18 }}>{ride.rideCategory}</span>
+            <span>
+              <CiLocationOn style={{ marginRight: "10px" }} />
+              {ride.pickupLocation} - {ride.dropoffLocation}
+            </span>
+            <span>
+              <MdAccessTime style={{ marginRight: "10px" }} />
+              {ride.rideDate} - {ride.rideTime} pm
+            </span>
+            <span>
+              <CiCreditCard1 style={{ marginRight: "10px" }} />
+              {ride.rideStatus}
+            </span>
+            <TouchableOpacity id="action">
+              <span>Edit</span>
+            </TouchableOpacity>
+          </div>
+        ))
+      ) : (
+        <p>Loading...</p>
+      )}
     </div>
   );
 }

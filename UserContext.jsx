@@ -1,13 +1,16 @@
-import { createContext, useState, useEffect } from "react";
+import React, { createContext, useState, useEffect } from "react";
 
-const UserContext = createContext();
+export const UserContext = createContext();
 
-const UserProvider = ({ children }) => {
+export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(() => {
     const storedUser = localStorage.getItem("user");
-    return storedUser
+    return storedUser !== null
       ? JSON.parse(storedUser)
-      : { username: "", firstName: "", lastName: "" };
+      : {
+          Username: "",
+          Token: "",
+        };
   });
 
   useEffect(() => {
@@ -20,5 +23,3 @@ const UserProvider = ({ children }) => {
     </UserContext.Provider>
   );
 };
-
-export { UserProvider, UserContext };

@@ -2,11 +2,15 @@ import { IoIosArrowBack } from "react-icons/io";
 import { TouchableOpacity } from "react-native-web";
 import { useNavigate } from "react-router-dom";
 import "../css/schedule.css";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import { BottomSheet } from "react-spring-bottom-sheet";
+import { UserContext } from "../../UserContext";
 
 export default function Schedule() {
+  const { user } = useContext(UserContext);
+  const [username, setUsername] = useState("");
+  const [token, setToken] = useState("");
   const [rideCategory, setRideCategory] = useState("");
   const [pickupLocation, setPickupLocation] = useState("");
   const [dropoffLocation, setDropoffLocation] = useState("");
@@ -18,19 +22,31 @@ export default function Schedule() {
   const [message, setMessage] = useState("");
   const [agreement, setAgreement] = useState(false);
   const navigate = useNavigate();
-  const bookRide = async (e) => {
-    e.preventDefault();
+  const bookRide = async () => {
+    setUsername(user.Username);
+    setToken(user.Token);
     try {
-      const response = await axios.post("http://localhost:4000/users/login", {
-        rideCategory,
-        pickupLocation,
-        dropoffLocation,
-        rideDate,
-        rideTime,
-      });
-      setMessage(response.data.message);
+      const response = await axios.post(
+        "https://walamin-server.onrender.com/ride",
+        {
+          username,
+          token,
+          rideCategory,
+          pickupLocation,
+          dropoffLocation,
+          rideDate,
+          rideTime,
+        }
+      );
+      setMessage("Ride booked successfully!");
     } catch (error) {
-      setMessage(error.response.data.message);
+      if (error.response) {
+        setMessage(error.response.data.message);
+      } else {
+        setMessage(
+          "An error occurred while booking the ride. Please try again."
+        );
+      }
     }
   };
   const back = () => {
@@ -175,7 +191,7 @@ export default function Schedule() {
               <p>{rideDate}</p>
             </TouchableOpacity>
             <TouchableOpacity id="schedule-item" onPress={Request}>
-              <p>Special request :</p>
+              <p>Comment :</p>
               <p>{request}</p>
             </TouchableOpacity>
           </div>
@@ -207,168 +223,179 @@ export default function Schedule() {
           <BottomSheet
             onDismiss={dismiss}
             open={open}
-            snapPoints={({ maxHeight }) => [maxHeight / 1.5]}
+            snapPoints={({ maxHeight }) => [maxHeight / 1.2]}
           >
             <div style={{ boxSizing: "border-box", padding: "20px" }}>
               {step === "name" && (
-                <>
-                  <p>Category: {rideCategory}</p>
-                  <div
-                    style={{
-                      width: "100%",
-                      display: "flex",
-                      flexWrap: "wrap",
-                      justifyContent: "space-between",
-                    }}
-                  >
-                    <TouchableOpacity
-                      id="category"
-                      onPress={() => setRideCategory("Daily Commute")}
+                <div className="upp">
+                  <div>
+                    {" "}
+                    <p>Custom: </p>
+                    <div id="input-container">
+                      <input
+                        type="text"
+                        value={rideCategory}
+                        className="schedule-input"
+                        onChange={(event) =>
+                          setRideCategory(event.target.value)
+                        }
+                      />
+                    </div>
+                    <br />
+                    <p>Category: {rideCategory}</p>
+                    <div
+                      style={{
+                        width: "100%",
+                        display: "flex",
+                        flexWrap: "wrap",
+                        justifyContent: "space-between",
+                      }}
                     >
-                      <p>Daily Commute</p>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                      id="category"
-                      onPress={() => setRideCategory("Work")}
-                    >
-                      <p>Work !</p>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                      id="category"
-                      onPress={() => setRideCategory("School Run")}
-                    >
-                      <p>School Run</p>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                      id="category"
-                      onPress={() => setRideCategory("Grocery Trip")}
-                    >
-                      <p>Grocery Trip</p>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                      id="category"
-                      onPress={() => setRideCategory("Medical Appointment")}
-                    >
-                      <p>Medical Apointment</p>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                      id="category"
-                      onPress={() => setRideCategory("Night Shift")}
-                    >
-                      <p>Night Shift?</p>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                      id="category"
-                      onPress={() => setRideCategory("Social Event")}
-                    >
-                      <p>Social Event</p>
-                    </TouchableOpacity>
+                      <TouchableOpacity
+                        id="category"
+                        onPress={() => setRideCategory("Daily Commute")}
+                      >
+                        <p>Daily Commute</p>
+                      </TouchableOpacity>
+                      <TouchableOpacity
+                        id="category"
+                        onPress={() => setRideCategory("Work")}
+                      >
+                        <p>Work !</p>
+                      </TouchableOpacity>
+                      <TouchableOpacity
+                        id="category"
+                        onPress={() => setRideCategory("School Run")}
+                      >
+                        <p>School Run</p>
+                      </TouchableOpacity>
+                      <TouchableOpacity
+                        id="category"
+                        onPress={() => setRideCategory("Grocery Trip")}
+                      >
+                        <p>Grocery Trip</p>
+                      </TouchableOpacity>
+                      <TouchableOpacity
+                        id="category"
+                        onPress={() => setRideCategory("Medical Appointment")}
+                      >
+                        <p>Medical Apointment</p>
+                      </TouchableOpacity>
+                      <TouchableOpacity
+                        id="category"
+                        onPress={() => setRideCategory("Night Shift")}
+                      >
+                        <p>Night Shift?</p>
+                      </TouchableOpacity>
+                      <TouchableOpacity
+                        id="category"
+                        onPress={() => setRideCategory("Social Event")}
+                      >
+                        <p>Social Event</p>
+                      </TouchableOpacity>
+                    </div>
+                    <br />
                   </div>
-                  <p>Custom: </p>
-                  <div id="input-container">
-                    <input
-                      type="text"
-                      value={rideCategory}
-                      className="schedule-input"
-                      onChange={(event) => setRideCategory(event.target.value)}
-                    />
-                  </div>
-                  <br />
                   <TouchableOpacity id="set" onPress={() => setOpen(false)}>
                     <p>Set</p>
                   </TouchableOpacity>
-                </>
+                </div>
               )}
               {step === "pickup" && (
-                <>
-                  <p>Pick up address</p>
-                  <div id="input-container">
-                    <input
-                      type="text"
-                      value={pickupLocation}
-                      onChange={(event) =>
-                        setPickupLocation(event.target.value)
-                      }
-                      className="schedule-input"
-                      id="pickup"
-                    />
+                <div className="upp">
+                  <div>
+                    <p>Pick up address</p>
+                    <div id="input-container">
+                      <input
+                        type="text"
+                        value={pickupLocation}
+                        onChange={(event) =>
+                          setPickupLocation(event.target.value)
+                        }
+                        className="schedule-input"
+                        id="pickup"
+                      />
+                    </div>
                   </div>
-                  <br />
                   <TouchableOpacity id="set" onPress={() => setOpen(false)}>
                     <p>Set</p>
                   </TouchableOpacity>
-                </>
+                </div>
               )}
               {step === "destination" && (
-                <>
-                  <p>Destination address</p>
-                  <div id="input-container">
-                    <input
-                      type="text"
-                      value={dropoffLocation}
-                      onChange={(event) =>
-                        setDropoffLocation(event.target.value)
-                      }
-                      className="schedule-input"
-                    />
+                <div className="upp">
+                  <div>
+                    <p>Destination address</p>
+                    <div id="input-container">
+                      <input
+                        type="text"
+                        value={dropoffLocation}
+                        onChange={(event) =>
+                          setDropoffLocation(event.target.value)
+                        }
+                        className="schedule-input"
+                      />
+                    </div>
                   </div>
-                  <br />
                   <TouchableOpacity id="set" onPress={() => setOpen(false)}>
                     <p>Set</p>
                   </TouchableOpacity>
-                </>
+                </div>
               )}
               {step === "time" && (
-                <>
-                  <p>Set Ride Time: </p>
-                  <div id="input-container">
-                    <input
-                      type="time"
-                      value={rideTime}
-                      onChange={(event) => setRideTime(event.target.value)}
-                      className="schedule-input"
-                    />
+                <div className="upp">
+                  <div>
+                    <p>Set Ride Time: </p>
+                    <div id="input-container">
+                      <input
+                        type="time"
+                        value={rideTime}
+                        onChange={(event) => setRideTime(event.target.value)}
+                        className="schedule-input"
+                      />
+                    </div>
                   </div>
-                  <br />
                   <TouchableOpacity id="set" onPress={() => setOpen(false)}>
                     <p>Set</p>
                   </TouchableOpacity>
-                </>
+                </div>
               )}
               {step === "schedule" && (
-                <>
-                  <p>Set Date: </p>
-                  <div id="input-container">
-                    <input
-                      type="date"
-                      value={rideDate}
-                      onChange={(event) => setRideDate(event.target.value)}
-                      className="schedule-input"
-                    />
+                <div className="upp">
+                  <div>
+                    <p>Set Date: </p>
+                    <div id="input-container">
+                      <input
+                        type="date"
+                        value={rideDate}
+                        onChange={(event) => setRideDate(event.target.value)}
+                        className="schedule-input"
+                      />
+                    </div>
                   </div>
-                  <br />
                   <TouchableOpacity id="set" onPress={() => setOpen(false)}>
                     <p>Set</p>
                   </TouchableOpacity>
-                </>
+                </div>
               )}
               {step === "request" && (
-                <>
-                  <p>Describe special request</p>
-                  <div id="input-container">
-                    <input
-                      type="text"
-                      value={request}
-                      onChange={(event) => setRequest(event.target.value)}
-                      className="schedule-input"
-                      id="pickup"
-                    />
+                <div className="upp">
+                  <div>
+                    <p>Describe special request</p>
+                    <div id="input-container">
+                      <input
+                        type="text"
+                        value={request}
+                        onChange={(event) => setRequest(event.target.value)}
+                        className="schedule-input"
+                        id="pickup"
+                      />
+                    </div>
                   </div>
-                  <br />
                   <TouchableOpacity id="set" onPress={() => setOpen(false)}>
                     <p>Set</p>
                   </TouchableOpacity>
-                </>
+                </div>
               )}
             </div>
           </BottomSheet>

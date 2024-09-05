@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { FaHome } from "react-icons/fa";
 import { MdAccountBalanceWallet, MdDining } from "react-icons/md";
 import { GiFullMotorcycleHelmet } from "react-icons/gi";
@@ -14,33 +14,14 @@ import send from "../assets/send.svg";
 import withdraw from "../assets/withdraw.svg";
 import shopping from "../assets/shopping.svg";
 import axios from "axios";
+import { UserContext } from "../../UserContext";
+
 
 function Home() {
+  const {user} = useContext(UserContext)
   const [userName, setUserName] = useState("");
   const [time, setTime] = useState("");
   const [currentTimeString, setCurrentTimeString] = useState(new Date());
-const setName = async (event) => {
-  event.preventDefault();
-  try {
-    const response = await axios.get(
-      "https://walamin-server.onrender.com/user",
-      {
-        withCredentials: "include",
-      }
-    );
-    if (response.data && response.data.name) {
-      setUserName(response.data.name);
-    } else {
-      console.error("Unexpected response data:", response.data);
-    }
-  } catch (error) {
-    if (error.response) {
-      console.error("Request failed with status code", error.response.status);
-    } else {
-      console.error("Request failed due to", error.message);
-    }
-  }
-};
 
   useEffect(() => {
     const currentTime = new Date().getHours();
@@ -87,9 +68,7 @@ const setName = async (event) => {
                 </div>
               </TouchableOpacity>
             </div>
-            <p>
-              {time} {userName}!
-            </p>
+            <p>{time} {user.Username}!</p>
             <div>
               <span>{formattedTime}</span>
               <br />
@@ -150,12 +129,6 @@ const setName = async (event) => {
               </Link>
             </TouchableOpacity>
 
-            <TouchableOpacity id="service_item" onPress={setName}>
-              <Link id="link_item">
-                <img src={withdraw} style={{ width: "34px" }} />
-                <p style={{ fontSize: 12 }}>Set Name</p>{" "}
-              </Link>
-            </TouchableOpacity>
           </div>
           <div className="mid_details_lower">
             <div className="image"></div>

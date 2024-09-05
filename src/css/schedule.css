@@ -59,6 +59,12 @@
 .schedule-input:focus {
   outline: none;
 }
+.upp{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 75vh;
+}
 #set {
   display: flex;
   justify-content: center;
