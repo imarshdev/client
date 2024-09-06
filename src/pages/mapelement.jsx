@@ -42,7 +42,7 @@ export default function MapElement() {
     console.log("Token:", token);
   });
   const bookRide = async () => {
-    console.log("Origin:", originName);
+    console.log("Origin:", origin);
     console.log("Destination:", destinationName);
     try {
       const response = await axios.post(
@@ -50,7 +50,7 @@ export default function MapElement() {
         {
           username,
           token,
-          origin: originName,
+          origin: origin,
           destination: destinationName,
         }
       );
@@ -133,11 +133,7 @@ export default function MapElement() {
           (result, status) => {
             if (status === google.maps.GeocoderStatus.OK) {
               console.log(result[0].formatted_address);
-              console.log(result[0].name);
               setOrigin(result[0].formatted_address);
-              console.log(result[0].name);
-              setOriginName(result[0].name)
-              console.log(originName)
               const directionsService = new google.maps.DirectionsService();
               const directionsRequest = {
                 origin: result[0].formatted_address,
