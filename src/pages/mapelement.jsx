@@ -9,7 +9,7 @@ import axios from "axios";
 
 export default function MapElement() {
   const [sendRide, setSendRide] = useState(false);
-  const [number, setNumber] = useState(4);
+  const [number, setNumber] = useState(3.5);
   const [open, setOpen] = useState(true);
   const [map, setMap] = useState(null);
   const [originName, setOriginName] = useState("")
@@ -97,7 +97,7 @@ export default function MapElement() {
           );
           return;
         }
-        setNumber(4);
+        setNumber(3.5);
         setDestination(place.formatted_address);
         setDestinationName(place.name)
         console.log("Selected place updated:", place);
@@ -179,7 +179,10 @@ export default function MapElement() {
       <BottomSheet
         open={open}
         blocking={false}
-        snapPoints={({ minHeight }) => [minHeight]}
+        snapPoints={({ maxHeight, minHeight }) => [
+          maxHeight / number,
+          minHeight,
+        ]}
       >
         <div
           style={{
