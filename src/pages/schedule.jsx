@@ -27,7 +27,7 @@ export default function Schedule() {
     setToken(user.Token);
     try {
       const response = await axios.post(
-        "https://walamin-server.onrender.com/ride",
+        "http://localhost:4000/ride",
         {
           username,
           token,

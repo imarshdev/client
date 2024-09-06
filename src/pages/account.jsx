@@ -24,7 +24,7 @@ import { RiListSettingsLine } from "react-icons/ri";
 import { CiLocationOn, CiCreditCard1, CiStar } from "react-icons/ci";
 import { LiaIdCardSolid } from "react-icons/lia";
 import { FiUser } from "react-icons/fi";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Sidebar } from "primereact/sidebar";
 import { UserContext } from "../../UserContext";
 import { Password } from "primereact/password";
@@ -56,6 +56,25 @@ export default function Account() {
   const [visible4, setVisible4] = useState(false);
   const [visible5, setVisible5] = useState(false);
   const [visible6, setVisible6] = useState(false);
+
+  const [errorMessage, setErrorMessage] = useState("");
+  const [code, setCode] = useState("");
+  const navigate = useNavigate();
+  const secretCode = "1234";
+
+  const handleCodeChange = (event) => {
+    setCode(event.target.value);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    if (code === secretCode) {
+    navigate("/captain-dash")
+    } else {
+      setErrorMessage("Contact us to become a Captain");
+    }
+  };
+
   return (
     <main className="home">
       <Sidebar
@@ -136,18 +155,35 @@ export default function Account() {
             }}
           >
             <h2>Enter Captain's PassCode</h2>
-            <div id="input-container" style={{ width: "80%" }}>
-              <input
-                type="number"
-                inputMode="numeric"
-                className="schedule-input"
-                id="center-input"
-              />
+            <div style={{width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+              <div id="input-container" style={{ width: "80%" }}>
+                <input
+                  type="number"
+                  inputMode="numeric"
+                  className="schedule-input"
+                  id="center-input"
+                  value={code}
+                  onChange={handleCodeChange}
+                />
+              </div>
+              {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
             </div>
-            <TouchableOpacity id="set" style={{ width: "60%" }}>
+            <TouchableOpacity
+              id="set"
+              style={{ width: "60%" }}
+              onPress={handleSubmit}
+            >
               <p>Submit</p>
             </TouchableOpacity>
-            <div style={{ width: '80%', textAlign: 'center', alignItems: 'center', display: 'flex', flexDirection: 'column'}}>
+            <div
+              style={{
+                width: "80%",
+                textAlign: "center",
+                alignItems: "center",
+                display: "flex",
+                flexDirection: "column",
+              }}
+            >
               <p>Don't have a code, contact us!!</p>
               <TouchableOpacity id="set" style={{ width: "60%" }}>
                 <p>Contact us</p>
@@ -252,7 +288,7 @@ export default function Account() {
           <div id="inner_account_item" onClick={() => setVisible6(true)}>
             <div style={{ display: "flex", alignItems: "center" }}>
               <MdTwoWheeler size={20} style={{ marginRight: "10px" }} />
-              <span>Become a Captain</span>
+              <span>Captain Dash</span>
             </div>
             <FaAngleRight />
           </div>
@@ -303,7 +339,6 @@ function ScheduledRides() {
   const [token, setToken] = useState("");
   const [username, setUsername] = useState("");
   const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     try {
@@ -365,6 +400,36 @@ function ScheduledRides() {
 }
 
 function PersonalInformation() {
+  const { user } = useContext(UserContext);
+  const [fullname, setfullname] = useState("");
+  const [data, setData] = useState("");
+  const [token, setToken] = useState("");
+  const [username, setUsername] = useState("");
+  useEffect(() => {
+    try {
+      setUsername(user.Username);
+      setToken(user.Token);
+      if (username && token) {
+        axios
+          .get("https://walamin-server.onrender.com/user/details", {
+            params: { username, token },
+          })
+          .then((response) => {
+            setData(response.data);
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }, [user, username, token]);
+
+  useEffect(() => {
+    console.log(data);
+    setfullname(data.firstName);
+  }, [data]);
   return (
     <div className="mid_details" style={{ height: "90vh" }}>
       <p>Personal Information</p>
@@ -374,7 +439,13 @@ function PersonalInformation() {
           <span style={{ padding: 0 }}>
             Name <br />
             <span style={{ fontSize: "12px", padding: 0 }}>
-              Mansur Chelangat
+              {data ? (
+                <p>
+                  {data.firstName} {data.lastName}
+                </p>
+              ) : (
+                <p>Loading</p>
+              )}
             </span>
           </span>
         </div>
@@ -386,7 +457,9 @@ function PersonalInformation() {
           <IoPhonePortraitOutline size={30} style={{ marginRight: "15px" }} />
           <span style={{ padding: 0 }}>
             Phone number <br />
-            <span style={{ fontSize: "12px", padding: 0 }}>+256767116290</span>
+            <span style={{ fontSize: "12px", padding: 0 }}>
+              {data ? <p>{data.contact}</p> : <p>Loading</p>}
+            </span>
           </span>
         </div>
         <MdKeyboardDoubleArrowRight />

@@ -13,6 +13,7 @@ import Map from "./pages/map.jsx";
 import MapElement from "./pages/mapelement.jsx";
 import Schedule from "./pages/schedule.jsx";
 import { UserProvider } from "../UserContext.jsx";
+import CapDash from "./pages/captains.jsx";
 
 
 const router = createBrowserRouter([
@@ -54,6 +55,11 @@ const router = createBrowserRouter([
   {
     path: "/agree",
     element: <Schedule />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/captain-dash",
+    element: <CapDash />,
     errorElement: <ErrorPage />,
   },
 ]);

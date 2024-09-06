@@ -47,27 +47,31 @@ function SignIn() {
     >
       <h2>Signin</h2>
       <label className="form-label-wrapper">
-        <p className="form-label">Username:</p>
-        <input
-          className="form-input"
-          type="text"
-          value={username}
-          onChange={(event) => setUsername(event.target.value)}
-          placeholder="Enter your name"
-          required
-        />
+        <p className="form-label">Username:</p>{" "}
+        <div id="input-container">
+          <input
+            className="schedule-input"
+            type="text"
+            value={username}
+            onChange={(event) => setUsername(event.target.value)}
+            placeholder="Enter your name"
+            required
+          />
+        </div>
       </label>
       <label className="form-label-wrapper">
-        <p className="form-label">6 digit token:</p>
-        <input
-          className="form-input"
-          type="number"
-          inputMode="numeric"
-          value={token}
-          onChange={(event) => setToken(event.target.value)}
-          placeholder="Enter 6 digit token"
-          required
-        />
+        <p className="form-label">6 digit token:</p>{" "}
+        <div id="input-container">
+          <input
+            className="schedule-input"
+            type="number"
+            inputMode="numeric"
+            value={token}
+            onChange={(event) => setToken(event.target.value)}
+            placeholder="Enter 6 digit token"
+            required
+          />
+        </div>
       </label>
       <br />
       {error && <p style={{ color: "red" }}>{error}</p>}
@@ -141,37 +145,43 @@ export function SignUP() {
       {step === 1 && (
         <>
           <label className="form-label-wrapper">
-            <p className="form-label">First Name:</p>
-            <input
-              className="form-input"
-              type="text"
-              value={firstName}
-              onChange={(event) => setFirstName(event.target.value)}
-              placeholder="Enter your first name"
-              required
-            />
+            <p className="form-label">First Name:</p>{" "}
+            <div id="input-container">
+              <input
+                className="schedule-input"
+                type="text"
+                value={firstName}
+                onChange={(event) => setFirstName(event.target.value)}
+                placeholder="Enter your first name"
+                required
+              />
+            </div>
           </label>
           <label className="form-label-wrapper">
-            <p className="form-label">Last Name:</p>
-            <input
-              className="form-input"
-              type="text"
-              value={lastName}
-              onChange={(event) => setLastName(event.target.value)}
-              placeholder="Enter your last name"
-              required
-            />
+            <p className="form-label">Last Name:</p>{" "}
+            <div id="input-container">
+              <input
+                className="schedule-input"
+                type="text"
+                value={lastName}
+                onChange={(event) => setLastName(event.target.value)}
+                placeholder="Enter your last name"
+                required
+              />
+            </div>
           </label>
           <label className="form-label-wrapper">
-            <p className="form-label">Preferred Username:</p>
-            <input
-              className="form-input"
-              type="text"
-              value={username}
-              onChange={(event) => setUsername(event.target.value)}
-              placeholder="Enter username"
-              required
-            />
+            <p className="form-label">Preferred Username:</p>{" "}
+            <div id="input-container">
+              <input
+                className="schedule-input"
+                type="text"
+                value={username}
+                onChange={(event) => setUsername(event.target.value)}
+                placeholder="Enter username"
+                required
+              />
+            </div>
           </label>
           <br />
           <TouchableOpacity onPress={nextStep} id="signup">
@@ -182,27 +192,33 @@ export function SignUP() {
       {step === 2 && (
         <>
           <label className="form-label-wrapper">
-            <p className="form-label">Password:</p>
-            <input
-              className="form-input"
-              type="password"
-              value={password}
-              onChange={(event) => setPassword(event.target.value)}
-              placeholder="Enter password"
-              required
-            />
+            <p className="form-label">Contact:</p>{" "}
+            <div id="input-container">
+              <input
+                className="schedule-input"
+                type="tel"
+                value={password}
+                name="phone"
+                onChange={(event) => setPassword(event.target.value)}
+                placeholder="Enter contact"
+                required
+              />
+            </div>
           </label>
           <label className="form-label-wrapper">
-            <p className="form-label">6 digit login token:</p>
-            <input
-              className="form-input"
-              type="number"
-              inputMode="numeric"
-              value={token}
-              onChange={(event) => setToken(event.target.value)}
-              placeholder="Enter 6 digit token"
-              required
-            />
+            <p className="form-label">6 digit login token:</p>{" "}
+            <div id="input-container">
+              <input
+                className="schedule-input"
+                type="number"
+                inputMode="numeric"
+                value={token}
+                onChange={(event) => setToken(event.target.value)}
+                placeholder="Enter 6 digit token"
+                required
+              />
+            </div>
+            <br />
             <span style={{ textAlign: "end" }}>
               Be sure to remember your token!!
             </span>
