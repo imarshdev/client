@@ -133,8 +133,10 @@ export default function MapElement() {
           (result, status) => {
             if (status === google.maps.GeocoderStatus.OK) {
               console.log(result[0].formatted_address);
+              console.log(result[0].name);
               setOrigin(result[0].formatted_address);
               setOriginName(result[0].name)
+              console.log(originName)
               const directionsService = new google.maps.DirectionsService();
               const directionsRequest = {
                 origin: result[0].formatted_address,
