@@ -41,7 +41,7 @@ export default function CapDash() {
         .catch((error) => {
           console.error(error);
         });
-    }, 10000); // 20000 milliseconds = 20 seconds
+    }, 5000); // 5000 milliseconds = 5 seconds
 
     return () => {
       clearInterval(intervalId);
