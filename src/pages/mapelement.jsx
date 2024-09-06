@@ -12,11 +12,11 @@ export default function MapElement() {
   const [number, setNumber] = useState(3.5);
   const [open, setOpen] = useState(true);
   const [map, setMap] = useState(null);
-  const [originName, setOriginName] = useState("")
+  const [originName, setOriginName] = useState("");
   const [origin, setOrigin] = useState("");
   const [autocomplete, setAutocomplete] = useState(null);
   const [destination, setDestination] = useState(null);
-  const [destinationName, setDestinationName] = useState("")
+  const [destinationName, setDestinationName] = useState("");
   const [directionsRenderer, setDirectionsRenderer] = useState(null);
   const [distance, setDistance] = useState("");
   const [duration, setDuration] = useState("");
@@ -99,7 +99,7 @@ export default function MapElement() {
         }
         setNumber(3.5);
         setDestination(place.formatted_address);
-        setDestinationName(place.name)
+        setDestinationName(place.name);
         console.log("Selected place updated:", place);
         if (place.geometry.viewport) {
           mapInstance.fitBounds(place.geometry.viewport);
@@ -179,10 +179,7 @@ export default function MapElement() {
       <BottomSheet
         open={open}
         blocking={false}
-        snapPoints={({ maxHeight, minHeight }) => [
-          maxHeight / number,
-          minHeight,
-        ]}
+        snapPoints={({ maxHeight }) => [maxHeight / number]}
       >
         <div
           style={{
