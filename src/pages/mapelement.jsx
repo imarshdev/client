@@ -179,7 +179,7 @@ export default function MapElement() {
       <BottomSheet
         open={open}
         blocking={false}
-        snapPoints={({ maxHeight }) => [maxHeight / number]}
+        snapPoints={({ minHeight }) => [minHeight]}
       >
         <div
           style={{
@@ -198,6 +198,7 @@ export default function MapElement() {
               placeholder="Search for a place"
             />
           </div>
+          <br />
           {number === 2.5 && (
             <>
               <p>distance: {distance}</p>

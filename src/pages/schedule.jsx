@@ -84,29 +84,30 @@ export default function Schedule() {
       {agreement === false && (
         <main
           className="home"
-          style={{ boxSizing: "border-box", padding: "10px" }}
+          style={{
+            boxSizing: "border-box",
+            padding: "30px 10px",
+            justifyContent: "space-between",
+          }}
         >
           <TouchableOpacity id="back" onPress={back}>
             <IoIosArrowBack size={24} />
           </TouchableOpacity>
           <div className="warning">
             <p>Hello 👋</p>
-            <p>
-              By creating a scheduled ride, you agree to the terms and
-              conditions outlined in this document. You understand that you are
-              commiting to a recurring ride schedule
-            </p>
+            <span>
+              Take a moment and read through the terms and conditions before you
+              schedule a ride
+            </span>
           </div>
-          <br />
-          <p style={{ fontSize: 18, textAlign: "start", width: "90%" }}>
-            Terms and conditions
-          </p>
           <div className="terms">
+            <p style={{ fontSize: 18, textAlign: "start", width: "90%" }}>
+              Terms and conditions
+            </p>
             <li>
               You must provide accurate pick-up and destination locations, as
               well as desired time of pick-up and days of the week for the ride
             </li>
-            <br />
             <li>
               The cost of the tip is calculated based on distance and summed up
               for a whole week
@@ -116,7 +117,6 @@ export default function Schedule() {
               validated
             </li>
             <li>You can pay for as many future rides as you please</li>
-            <br />
             <li>
               If you exceed paid rides by one ride, your scheduled ride will be
               terminated for safety reasons.
@@ -125,19 +125,14 @@ export default function Schedule() {
               You have the option to cancel or extend scheduled time an upcoming
               ride ahead
             </li>
-            <br />
             <li>
               You will be provided a helmet and raincoat for inclement weather.
             </li>
-            <br />
             <li>
               You must keep to the scheduled time, as our riders have multiple
               customers to attend to
             </li>
           </div>
-          <br />
-          <br />
-          <br />
           <div className="acceptence">
             <TouchableOpacity
               onPress={back}
@@ -161,8 +156,10 @@ export default function Schedule() {
           className="home"
           style={{
             boxSizing: "border-box",
-            padding: "30px 10px",
+            padding: "0px 10px",
             justifyContent: "space-between",
+            height: '100vh',
+            boxSizing: 'border-box'
           }}
         >
           <TouchableOpacity id="back" onPress={back}>
@@ -223,13 +220,12 @@ export default function Schedule() {
           <BottomSheet
             onDismiss={dismiss}
             open={open}
-            snapPoints={({ maxHeight }) => [maxHeight / 1.2]}
+            snapPoints={({ maxHeight }) => [maxHeight / 1]}
           >
             <div style={{ boxSizing: "border-box", padding: "20px" }}>
               {step === "name" && (
                 <div className="upp">
                   <div>
-                    {" "}
                     <p>Custom: </p>
                     <div id="input-container">
                       <input
@@ -296,6 +292,7 @@ export default function Schedule() {
                     </div>
                     <br />
                   </div>
+                  <br />
                   <TouchableOpacity id="set" onPress={() => setOpen(false)}>
                     <p>Set</p>
                   </TouchableOpacity>

@@ -204,3 +204,9 @@
   align-items: center;
   color: unset;
 }
+
+@media (max-height: 800px) {
+  body {
+    height: 100vh;
+  }
+}
