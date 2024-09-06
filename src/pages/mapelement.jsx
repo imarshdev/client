@@ -134,6 +134,7 @@ export default function MapElement() {
             if (status === google.maps.GeocoderStatus.OK) {
               console.log(result[0].formatted_address);
               setOrigin(result[0].formatted_address);
+              setOriginName(result[0].name)
               const directionsService = new google.maps.DirectionsService();
               const directionsRequest = {
                 origin: result[0].formatted_address,
