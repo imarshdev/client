@@ -12,9 +12,11 @@ export default function MapElement() {
   const [number, setNumber] = useState(4);
   const [open, setOpen] = useState(true);
   const [map, setMap] = useState(null);
+  const [originName, setOriginName] = useState("")
   const [origin, setOrigin] = useState("");
   const [autocomplete, setAutocomplete] = useState(null);
   const [destination, setDestination] = useState(null);
+  const [destinationName, setDestinationName] = useState("")
   const [directionsRenderer, setDirectionsRenderer] = useState(null);
   const [distance, setDistance] = useState("");
   const [duration, setDuration] = useState("");
@@ -48,8 +50,8 @@ export default function MapElement() {
         {
           username,
           token,
-          origin: origin,
-          destination: destination,
+          origin: originName,
+          destination: destinationName,
         }
       );
       setMessage("Ride sent successfully! Await rider call");
@@ -97,6 +99,7 @@ export default function MapElement() {
         }
         setNumber(4);
         setDestination(place.formatted_address);
+        setDestinationName(place.name)
         console.log("Selected place updated:", place);
         if (place.geometry.viewport) {
           mapInstance.fitBounds(place.geometry.viewport);
