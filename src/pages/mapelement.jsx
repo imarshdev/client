@@ -135,6 +135,7 @@ export default function MapElement() {
               console.log(result[0].formatted_address);
               console.log(result[0].name);
               setOrigin(result[0].formatted_address);
+              console.log(result[0].name);
               setOriginName(result[0].name)
               console.log(originName)
               const directionsService = new google.maps.DirectionsService();
