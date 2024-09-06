@@ -42,8 +42,8 @@ export default function MapElement() {
     console.log("Token:", token);
   });
   const bookRide = async () => {
-    console.log("Origin:", origin);
-    console.log("Destination:", destination);
+    console.log("Origin:", originName);
+    console.log("Destination:", destinationName);
     try {
       const response = await axios.post(
         "https://walamin-server.onrender.com/rides/express",
