@@ -22,17 +22,6 @@ export default function Wallet() {
   const [open, setOpen] = useState(false);
   const [open1, setOpen1] = useState(false);
 
-  const setName = async (event) => {
-    event.preventDefault();
-    try {
-      const response = await axios.get(
-        "https://walamin-server.onrender.com/users"
-      );
-      console.log(response.data);
-    } catch (error) {
-      console.error(errot);
-    }
-  };
 
   // Function to dismiss the bottom sheet
   const dismis = () => {
@@ -103,11 +92,6 @@ export default function Wallet() {
           width: "100vw",
         }}
       >
-        <TouchableOpacity id="service_item" onPress={setName}>
-          <Link id="link_item">
-            <p style={{ fontSize: 12 }}>Set Name</p>{" "}
-          </Link>
-        </TouchableOpacity>
       </ScrollView>
       <div className="bottom_drawer wallet_bottom_drawer">
         <Navigator />

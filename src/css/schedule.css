@@ -55,6 +55,7 @@
 }
 .schedule-input {
   background-color: #fff;
+  width: 100%;
 }
 .schedule-input:focus {
   outline: none;
@@ -89,4 +90,7 @@
 }
 #category:focus {
   border: solid 0.1px rgba(50, 205, 50, 0.5);
+}
+#center-input{
+  text-align: center;
 }

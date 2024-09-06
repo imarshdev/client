@@ -47,11 +47,15 @@ export default function Account() {
   const handlers5 = useSwipeable({
     onSwipedRight: () => setVisible5(false),
   });
+  const handlers6 = useSwipeable({
+    onSwipedRight: () => setVisible6(false),
+  });
   const [visible, setVisible] = useState(false);
   const [visible2, setVisible2] = useState(false);
   const [visible3, setVisible3] = useState(false);
   const [visible4, setVisible4] = useState(false);
   const [visible5, setVisible5] = useState(false);
+  const [visible6, setVisible6] = useState(false);
   return (
     <main className="home">
       <Sidebar
@@ -111,6 +115,45 @@ export default function Account() {
       >
         <div {...handlers5} style={{ width: "100%", height: "100%" }}>
           <DeleteAccount />
+        </div>
+      </Sidebar>
+
+      <Sidebar
+        visible={visible6}
+        position="right"
+        onHide={() => setVisible6(fasle)}
+        className="home"
+        style={{ backgroundColor: "#fff" }}
+      >
+        <div {...handlers6} style={{ width: "100%", height: "100%" }}>
+          <div
+            className="mid_details"
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "space-around",
+              alignItems: "center",
+            }}
+          >
+            <h2>Enter Captain's PassCode</h2>
+            <div id="input-container" style={{ width: "80%" }}>
+              <input
+                type="number"
+                inputMode="numeric"
+                className="schedule-input"
+                id="center-input"
+              />
+            </div>
+            <TouchableOpacity id="set" style={{ width: "60%" }}>
+              <p>Submit</p>
+            </TouchableOpacity>
+            <div style={{ width: '80%', textAlign: 'center', alignItems: 'center', display: 'flex', flexDirection: 'column'}}>
+              <p>Don't have a code, contact us!!</p>
+              <TouchableOpacity id="set" style={{ width: "60%" }}>
+                <p>Contact us</p>
+              </TouchableOpacity>
+            </div>
+          </div>
         </div>
       </Sidebar>
 
@@ -206,7 +249,7 @@ export default function Account() {
         </TouchableOpacity>
 
         <TouchableOpacity id="account_item">
-          <div id="inner_account_item">
+          <div id="inner_account_item" onClick={() => setVisible6(true)}>
             <div style={{ display: "flex", alignItems: "center" }}>
               <MdTwoWheeler size={20} style={{ marginRight: "10px" }} />
               <span>Become a Captain</span>
