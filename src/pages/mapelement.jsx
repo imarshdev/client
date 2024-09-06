@@ -203,8 +203,8 @@ export default function MapElement() {
             <>
               <p>distance: {distance}</p>
               <p>Duration: {duration}</p>
-              <p style={{ marginBottom: "30px" }}>Estimated Cost: </p>
-              <p>{message}</p>
+              <p>Estimated Cost: </p>
+              <p style={{ marginBottom: "20px" }}>{message}</p>
             </>
           )}
           <br />
