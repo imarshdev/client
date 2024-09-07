@@ -14,6 +14,14 @@ export default function CapDash() {
   const [page, setPage] = useState("scheduled");
   const [data, setData] = useState("");
   const [dataExpress, setDataExpress] = useState("");
+
+  const handleDeclineRide = (index) => {
+    axios.post("/decline-ride", {
+      username,
+      rideIndex: index,
+    });
+  };
+
   useEffect(() => {
     const intervalId = setInterval(() => {
       axios
@@ -139,79 +147,86 @@ export default function CapDash() {
               Object.keys(dataExpress).map((username, index) => (
                 <div key={index}>
                   <p>Username: {username}</p>
-                  {dataExpress[username].expressRides.map((ride, rideIndex) => (
-                    <div
-                      key={rideIndex}
-                      ride={ride}
-                      className="scheduled_ride"
-                      style={{
-                        boxSizing: "border-box",
-                        padding: "0px",
-                        justifyContent: "space-between",
-                        height: "12rem",
-                      }}
-                    >
-                      <span style={{ fontSize: 18 }}>{ride.rideCategory}</span>
-                      <span style={{ padding: "0px 10px" }}>
-                        <CiLocationOn style={{ marginRight: "10px" }} />
-                        {truncateText(ride.origin, 30)}
-                      </span>
-                      <span style={{ padding: "0px 10px" }}>
-                        <CiLocationOn style={{ marginRight: "10px" }} />
-                        {truncateText(ride.destination, 30)}
-                      </span>
-                      <span style={{ padding: "0px 10px" }}>
-                        <CiTimer style={{ marginRight: "10px" }} />
-                        {truncateText(ride.timestamp, 30)}
-                      </span>
-                      <span style={{ padding: "0px 10px" }}>
-                        <IoCallOutline style={{ marginRight: "10px" }} />
-                        {dataExpress[username].contact}
-                      </span>
+                  {dataExpress[username].expressRides
+                    .filter(
+                      (ride, rideIndex) =>
+                        !user.declinedRides.includes(rideIndex)
+                    )
+                    .map((ride, rideIndex) => (
                       <div
+                        key={rideIndex}
+                        ride={ride}
+                        className="scheduled_ride"
                         style={{
-                          width: "100%",
-                          height: "25%",
-                          display: "flex",
+                          boxSizing: "border-box",
+                          padding: "0px",
                           justifyContent: "space-between",
-                          alignItems: "center",
+                          height: "12rem",
                         }}
                       >
-                        <TouchableOpacity
+                        <span style={{ fontSize: 18 }}>
+                          {ride.rideCategory}
+                        </span>
+                        <span style={{ padding: "0px 10px" }}>
+                          <CiLocationOn style={{ marginRight: "10px" }} />
+                          {truncateText(ride.origin, 30)}
+                        </span>
+                        <span style={{ padding: "0px 10px" }}>
+                          <CiLocationOn style={{ marginRight: "10px" }} />
+                          {truncateText(ride.destination, 30)}
+                        </span>
+                        <span style={{ padding: "0px 10px" }}>
+                          <CiTimer style={{ marginRight: "10px" }} />
+                          {truncateText(ride.timestamp, 30)}
+                        </span>
+                        <span style={{ padding: "0px 10px" }}>
+                          <IoCallOutline style={{ marginRight: "10px" }} />
+                          {dataExpress[username].contact}
+                        </span>
+                        <div
                           style={{
-                            right: 0,
-                            width: "40%",
-                            height: "100%",
-                            backgroundColor: "limegreen",
-                            color: "#fff",
-                            bottom: 0,
-                            borderRadius: "10px 0px 0px 0px",
+                            width: "100%",
+                            height: "25%",
                             display: "flex",
-                            justifyContent: "center",
+                            justifyContent: "space-between",
                             alignItems: "center",
                           }}
                         >
-                          <span>Accept</span>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                          style={{
-                            left: 0,
-                            width: "40%",
-                            height: "100%",
-                            backgroundColor: "red",
-                            color: "#fff",
-                            bottom: 0,
-                            borderRadius: "10px 0px 0px 0px",
-                            display: "flex",
-                            justifyContent: "center",
-                            alignItems: "center",
-                          }}
-                        >
-                          <span>Decline</span>
-                        </TouchableOpacity>
+                          <TouchableOpacity
+                            style={{
+                              right: 0,
+                              width: "40%",
+                              height: "100%",
+                              backgroundColor: "limegreen",
+                              color: "#fff",
+                              bottom: 0,
+                              borderRadius: "10px 0px 0px 0px",
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
+                            }}
+                          >
+                            <span>Accept</span>
+                          </TouchableOpacity>
+                          <TouchableOpacity
+                            style={{
+                              left: 0,
+                              width: "40%",
+                              height: "100%",
+                              backgroundColor: "red",
+                              color: "#fff",
+                              bottom: 0,
+                              borderRadius: "10px 0px 0px 0px",
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
+                            }}
+                          >
+                            <span>Decline</span>
+                          </TouchableOpacity>
+                        </div>
                       </div>
-                    </div>
-                  ))}
+                    ))}
                 </div>
               ))}
           </ScrollView>

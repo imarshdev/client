@@ -159,7 +159,6 @@ export default function Schedule() {
             padding: "0px 10px",
             justifyContent: "space-between",
             height: '100vh',
-            boxSizing: 'border-box'
           }}
         >
           <TouchableOpacity id="back" onPress={back}>
