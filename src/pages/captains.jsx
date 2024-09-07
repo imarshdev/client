@@ -15,7 +15,7 @@ export default function CapDash() {
   const [data, setData] = useState("");
   const [dataExpress, setDataExpress] = useState("");
 
-  const handleAcceptRide = (index) => {
+  const handleAcceptRide = (username, rideIndex) => {
     const phoneNumber = dataExpress[username].contact;
     window.location.href = `tel:${phoneNumber}`;
   };
@@ -195,7 +195,7 @@ export default function CapDash() {
                             justifyContent: "center",
                             alignItems: "center",
                           }}
-                          onPress={() => handleAcceptRide(rideIndex)}
+                          onPress={() => handleAcceptRide(username, rideIndex)}
                         >
                           <span>Accept</span>
                         </TouchableOpacity>
