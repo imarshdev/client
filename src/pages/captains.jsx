@@ -19,6 +19,19 @@ export default function CapDash() {
     const phoneNumber = dataExpress[username].contact;
     window.location.href = `tel:${phoneNumber}`;
   };
+  const handleDeclineRide = (username, rideIndex) => {
+    const declinedRide = dataExpress[username].expressRides[rideIndex];
+    const rideId = `${declinedRide.origin}${declinedRide.timestamp}`;
+    setDataExpress((prevData) => {
+      const updatedData = { ...prevData };
+      updatedData[username].expressRides = updatedData[
+        username
+      ].expressRides.filter(
+        (ride) => `${ride.origin}${ride.timestamp}` !== rideId
+      );
+      return updatedData;
+    });
+  };
   useEffect(() => {
     const intervalId = setInterval(() => {
       axios
@@ -212,6 +225,7 @@ export default function CapDash() {
                             justifyContent: "center",
                             alignItems: "center",
                           }}
+                          onPress={() => handleDeclineRide(username, rideIndex)}
                         >
                           <span>Decline</span>
                         </TouchableOpacity>
