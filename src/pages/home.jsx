@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { FaHome } from "react-icons/fa";
+import { FaHome, FaServicestack } from "react-icons/fa";
 import { MdAccountBalanceWallet, MdDining } from "react-icons/md";
 import { GiFullMotorcycleHelmet } from "react-icons/gi";
 import { FaUserAstronaut } from "react-icons/fa";
@@ -15,6 +15,7 @@ import withdraw from "../assets/withdraw.svg";
 import shopping from "../assets/shopping.svg";
 import axios from "axios";
 import { UserContext } from "../../UserContext";
+import { RiAuctionLine } from "react-icons/ri";
 
 
 function Home() {
@@ -68,7 +69,9 @@ function Home() {
                 </div>
               </TouchableOpacity>
             </div>
-            <p>{time} {user.Username}!</p>
+            <p>
+              {time} {user.Username}!
+            </p>
             <div>
               <span>{formattedTime}</span>
               <br />
@@ -117,6 +120,13 @@ function Home() {
 
             <TouchableOpacity id="service_item">
               <Link id="link_item">
+                <RiAuctionLine size={34} color="limegreen" />
+                <p style={{ fontSize: 12 }}>Auction House</p>{" "}
+              </Link>
+            </TouchableOpacity>
+
+            <TouchableOpacity id="service_item">
+              <Link id="link_item">
                 <img src={send} style={{ width: "34px" }} />
                 <p style={{ fontSize: 12 }}>Send Money</p>{" "}
               </Link>
@@ -129,6 +139,12 @@ function Home() {
               </Link>
             </TouchableOpacity>
 
+            <TouchableOpacity id="service_item">
+              <Link id="link_item">
+                <FaServicestack size={34} color="limegreen" />
+                <p style={{ fontSize: 12 }}>All Services</p>{" "}
+              </Link>
+            </TouchableOpacity>
           </div>
           <div className="mid_details_lower">
             <div className="image"></div>
