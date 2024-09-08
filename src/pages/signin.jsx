@@ -53,6 +53,7 @@ function SignIn() {
             className="schedule-input"
             type="text"
             value={username}
+            style={{"::placeholder":{color: "black"}}}
             onChange={(event) => setUsername(event.target.value)}
             placeholder="Enter your name"
             required
@@ -66,6 +67,7 @@ function SignIn() {
             className="schedule-input"
             type="number"
             inputMode="numeric"
+            style={{"::placeholder":{color: "black"}}}
             value={token}
             onChange={(event) => setToken(event.target.value)}
             placeholder="Enter 6 digit token"
