@@ -217,7 +217,7 @@ export default function CapDash() {
                         </span>
                         <span style={{ padding: "0px 10px" }}>
                           <IoMdPricetags style={{ marginRight: "10px" }} />
-                          {truncateText("shs.",ride.cost, 30)}
+                          {`shs.${ride.cost}`}
                         </span>
                         <div
                           style={{
