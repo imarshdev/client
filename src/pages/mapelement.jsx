@@ -8,6 +8,7 @@ import { UserContext } from "../../UserContext";
 import axios from "axios";
 
 export default function MapElement() {
+  const [isExpanded, setIsExpanded] = useState(false);
   const [sendRide, setSendRide] = useState(false);
   const [number, setNumber] = useState(3.5);
   const [open, setOpen] = useState(true);
@@ -20,6 +21,7 @@ export default function MapElement() {
   const [directionsRenderer, setDirectionsRenderer] = useState(null);
   const [distance, setDistance] = useState("");
   const [duration, setDuration] = useState("");
+  const [cost, setCost] = useState("");
   const { user } = useContext(UserContext);
   const [message, setMessage] = useState("");
   const [username, setUsername] = useState("");
@@ -34,7 +36,9 @@ export default function MapElement() {
     getDirections();
     setSendRide(true);
   };
-
+  const snapPoints = ({ maxHeight, minHeight }) => {
+    return isExpanded ? [maxHeight] : [minHeight];
+  };
   useEffect(() => {
     setUsername(user.Username);
     setToken(user.Token);
@@ -97,7 +101,7 @@ export default function MapElement() {
           );
           return;
         }
-        setNumber(3.5);
+        setIsExpanded(false);
         setDestination(place.formatted_address);
         setDestinationName(place.name);
         console.log("Selected place updated:", place);
@@ -153,6 +157,14 @@ export default function MapElement() {
                     setDirectionsRenderer(directionsRendererInstance);
                     setDistance(result.routes[0].legs[0].distance.text);
                     setDuration(result.routes[0].legs[0].duration.text);
+                    const distanceInKm = parseFloat(
+                      result.routes[0].legs[0].distance.value / 1000
+                    );
+                    const cost =
+                      distanceInKm < 1.5
+                        ? 1000
+                        : Math.ceil((distanceInKm - 0.5) / 0.5) * 500;
+                    setCost(cost);
                   }
                 } else {
                   console.log("Directions request failed: " + status);
@@ -176,11 +188,7 @@ export default function MapElement() {
       <TouchableOpacity id="back" onPress={back}>
         <IoIosArrowBack size={24} />
       </TouchableOpacity>
-      <BottomSheet
-        open={open}
-        blocking={false}
-        snapPoints={({ maxHeight }) => [maxHeight / number]}
-      >
+      <BottomSheet open={open} blocking={false} snapPoints={snapPoints}>
         <div
           style={{
             width: "100vw",
@@ -191,7 +199,7 @@ export default function MapElement() {
           <p>Where To?</p>
           <div style={{ borderBottom: "solid 0.5px black" }}>
             <input
-              onFocus={() => setNumber(1)}
+              onFocus={() => setIsExpanded(true)}
               style={{ width: "100%" }}
               id="pac-input-2"
               type="text"
@@ -203,7 +211,7 @@ export default function MapElement() {
             <>
               <p>distance: {distance}</p>
               <p>Duration: {duration}</p>
-              <p>Estimated Cost: </p>
+              <p>Estimated Cost: shs.{cost}</p>
               <p style={{ marginBottom: "20px" }}>{message}</p>
             </>
           )}
@@ -214,9 +222,17 @@ export default function MapElement() {
             </TouchableOpacity>
           )}
           {sendRide === true && (
-            <TouchableOpacity onPress={bookRide} id="confirm-pickup">
-              <p>Order Ride</p>
-            </TouchableOpacity>
+            <>
+              <TouchableOpacity
+                onPress={bookRide}
+                id="confirm-pickup"
+              >
+                <p>Order Ride</p>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={back} id="cancel-pickup">
+                <p>Cancel</p>
+              </TouchableOpacity>
+            </>
           )}
         </div>
       </BottomSheet>

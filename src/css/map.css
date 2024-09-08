@@ -126,7 +126,7 @@
   background-color: #ddd;
 }
 #confirm-pickup{
-  width: 90vw;
+  width: 50vw;
   background-color: limegreen;
   display: flex;
   justify-content: center;
@@ -136,4 +136,16 @@
   position: absolute;
   bottom: 10px;
   left: 5%;
+}
+#cancel-pickup{
+  width: 35vw;
+  background-color: orange;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  color: #fff;
+  position: absolute;
+  bottom: 10px;
+  right: 5%;
 }
