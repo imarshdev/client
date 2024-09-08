@@ -67,7 +67,7 @@ function SignIn() {
             className="schedule-input"
             type="number"
             inputMode="numeric"
-            style={{"::placeholder":{color: "black"}}}
+            style={{color: "black"}}
             value={token}
             onChange={(event) => setToken(event.target.value)}
             placeholder="Enter 6 digit token"
