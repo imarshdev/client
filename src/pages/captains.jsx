@@ -5,9 +5,9 @@ import delivery from "../assets/delivery.svg";
 import schedule from "../assets/schedule.svg";
 import axios from "axios";
 import { CiCreditCard1, CiLocationOn, CiTimer } from "react-icons/ci";
-import { MdAccessTime } from "react-icons/md";
+import { MdAccessTime, MdStart } from "react-icons/md";
 import { IoCallOutline } from "react-icons/io5";
-import { IoIosArrowBack } from "react-icons/io";
+import { IoIosArrowBack, IoMdPricetags } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 
 export default function CapDash() {
@@ -193,14 +193,14 @@ export default function CapDash() {
                           boxSizing: "border-box",
                           padding: "0px",
                           justifyContent: "space-between",
-                          height: "12rem",
+                          height: "12.5rem",
                         }}
                       >
                         <span style={{ fontSize: 18 }}>
                           {ride.rideCategory}
                         </span>
                         <span style={{ padding: "0px 10px" }}>
-                          <CiLocationOn style={{ marginRight: "10px" }} />
+                          <MdStart style={{ marginRight: "10px" }} />
                           {truncateText(ride.origin, 30)}
                         </span>
                         <span style={{ padding: "0px 10px" }}>
@@ -216,8 +216,8 @@ export default function CapDash() {
                           {dataExpress[username].contact}
                         </span>
                         <span style={{ padding: "0px 10px" }}>
-                          <IoCallOutline style={{ marginRight: "10px" }} />
-                          {dataExpress[username].cost}
+                          <IoMdPricetags style={{ marginRight: "10px" }} />
+                          {truncateText("shs.",ride.cost, 30)}
                         </span>
                         <div
                           style={{
