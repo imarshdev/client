@@ -215,6 +215,10 @@ export default function CapDash() {
                           <IoCallOutline style={{ marginRight: "10px" }} />
                           {dataExpress[username].contact}
                         </span>
+                        <span style={{ padding: "0px 10px" }}>
+                          <IoCallOutline style={{ marginRight: "10px" }} />
+                          {dataExpress[username].cost}
+                        </span>
                         <div
                           style={{
                             width: "100%",

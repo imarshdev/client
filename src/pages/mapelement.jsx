@@ -44,6 +44,8 @@ export default function MapElement() {
     setToken(user.Token);
     console.log("Username:", username);
     console.log("Token:", token);
+    console.log("cost:", cost);
+    
   });
   const bookRide = async () => {
     console.log("Origin:", origin);
@@ -56,6 +58,7 @@ export default function MapElement() {
           token,
           origin: origin,
           destination: destinationName,
+          cost,
         }
       );
       setMessage("Ride sent successfully! Await rider call");
