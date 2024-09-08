@@ -53,7 +53,7 @@ function SignIn() {
             className="schedule-input"
             type="text"
             value={username}
-            style={{"::placeholder":{color: "black"}}}
+            style={{color: "black"}}
             onChange={(event) => setUsername(event.target.value)}
             placeholder="Enter your name"
             required
@@ -153,6 +153,7 @@ export function SignUP() {
                 className="schedule-input"
                 type="text"
                 value={firstName}
+                            style={{color: "black"}}
                 onChange={(event) => setFirstName(event.target.value)}
                 placeholder="Enter your first name"
                 required
@@ -166,6 +167,7 @@ export function SignUP() {
                 className="schedule-input"
                 type="text"
                 value={lastName}
+                            style={{color: "black"}}
                 onChange={(event) => setLastName(event.target.value)}
                 placeholder="Enter your last name"
                 required
@@ -179,6 +181,7 @@ export function SignUP() {
                 className="schedule-input"
                 type="text"
                 value={username}
+                            style={{color: "black"}}
                 onChange={(event) => setUsername(event.target.value)}
                 placeholder="Enter username"
                 required
@@ -200,6 +203,7 @@ export function SignUP() {
                 className="schedule-input"
                 type="tel"
                 value={password}
+                            style={{color: "black"}}
                 name="phone"
                 onChange={(event) => setPassword(event.target.value)}
                 placeholder="Enter contact"
@@ -214,6 +218,7 @@ export function SignUP() {
                 className="schedule-input"
                 type="number"
                 inputMode="numeric"
+                            style={{color: "black"}}
                 value={token}
                 onChange={(event) => setToken(event.target.value)}
                 placeholder="Enter 6 digit token"
