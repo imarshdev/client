@@ -20,16 +20,28 @@ export default function CapDash() {
     const phoneNumber = dataExpress[username].contact;
     window.location.href = `tel:${phoneNumber}`;
   };
-const handleDeclineRide = (username, rideIndex) => {
-  const declinedRide = dataExpress[username].expressRides[rideIndex];
-  const rideId = `${declinedRide.origin}${declinedRide.timestamp}`;
-  setDeclinedRides((prevDeclinedRides) => {
-    return {
-      ...prevDeclinedRides,
-      [username]: [...(prevDeclinedRides[username] || []), rideId],
-    };
-  });
-};
+  const handleDeclineRide = (username, rideIndex) => {
+    const declinedRide = dataExpress[username].expressRides[rideIndex];
+    const rideId = `${declinedRide.origin}${declinedRide.timestamp}`;
+    setDeclinedRides((prevDeclinedRides) => {
+      const updatedDeclinedRides = { ...prevDeclinedRides };
+      updatedDeclinedRides[username] = [
+        ...(updatedDeclinedRides[username] || []),
+        rideId,
+      ];
+      localStorage.setItem(
+        "declinedRides",
+        JSON.stringify(updatedDeclinedRides)
+      );
+      return updatedDeclinedRides;
+    });
+  };
+  useEffect(() => {
+    const storedDeclinedRides = localStorage.getItem("declinedRides");
+    if (storedDeclinedRides) {
+      setDeclinedRides(JSON.parse(storedDeclinedRides));
+    }
+  }, []);
   useEffect(() => {
     const intervalId = setInterval(() => {
       axios
