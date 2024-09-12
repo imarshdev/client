@@ -100,7 +100,7 @@ export default function CapDash() {
   }
   const navigate = useNavigate();
   const back = () => {
-    navigate("/home");
+    navigate("/");
   };
   return (
     <div

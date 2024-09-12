@@ -305,7 +305,7 @@ export function Navigator() {
   return (
     <div className="navigator">
       <TouchableOpacity>
-        <Link to="/home">
+        <Link to="/">
           <span className="icon_button">
             <FaHome color="#fff" size={24} />
             <span style={{ fontSize: 12 }}>Home</span>

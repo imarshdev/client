@@ -50,7 +50,7 @@ export default function Schedule() {
     }
   };
   const back = () => {
-    navigate("/home");
+    navigate("/");
   };
   const dismiss = () => {
     setOpen(false);

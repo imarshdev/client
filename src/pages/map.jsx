@@ -21,7 +21,7 @@ const Map = () => {
   const navigate = useNavigate();
 
   const back = () => {
-    navigate("/home");
+    navigate("/");
   };
   const openAndCalculate = () => {
     setOpen(true);

@@ -28,7 +28,7 @@ export default function MapElement() {
   const [token, setToken] = useState("");
   const navigate = useNavigate();
   const back = () => {
-    navigate("/home");
+    navigate("/");
   };
   const start = () => {
     setNumber(2.5);
