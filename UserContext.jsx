@@ -10,6 +10,7 @@ export const UserProvider = ({ children }) => {
       : {
           Username: "",
           Token: "",
+          isLoggedIn: false,
         };
   });
 

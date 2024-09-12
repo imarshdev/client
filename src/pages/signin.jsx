@@ -26,8 +26,7 @@ function SignIn() {
         }
       );
       if (response.data.success) {
-        setUser({ Username: username, Token: token });
-        setIsLoggedIn(true);
+        setUser({ Username: username, Token: token, isLoggedIn: true });
         navigate("/");
       } else {
         setError(response.data.error);
@@ -130,8 +129,7 @@ export function SignUP() {
         }
       );
       console.log(response.data);
-      setUser({ Username: username, Token: token });
-      setIsLoggedIn(true);
+      setUser({ Username: username, Token: token, isLoggedIn: true });
       navigate("/");
     } catch (error) {
       console.error(error);

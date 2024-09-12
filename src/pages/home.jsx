@@ -20,16 +20,15 @@ import { LoginContext } from "../../loggedin";
 
 function Home() {
   const { user } = useContext(UserContext);
-  const { isLoggedIn } = useContext(LoginContext);
   const [time, setTime] = useState("");
   const [currentTimeString, setCurrentTimeString] = useState(new Date());
   const navigate = useNavigate();
 
 useEffect(() => {
-  if (!isLoggedIn) {
+  if (!user.isLoggedIn) {
     navigate("/signin", { replace: true });
   }
-}, [isLoggedIn, navigate]);
+}, [user.isLoggedIn, navigate]);
 
   useEffect(() => {
     const currentTime = new Date().getHours();
