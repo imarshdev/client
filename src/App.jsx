@@ -18,12 +18,12 @@ import CapDash from "./pages/captains.jsx";
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: "/signin",
     element: <SignIn />,
     errorElement: <ErrorPage />,
   },
   {
-    path: "/home",
+    path: "/",
     element: <Home />,
     errorElement: <ErrorPage />,
   },

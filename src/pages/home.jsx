@@ -5,7 +5,7 @@ import { GiFullMotorcycleHelmet } from "react-icons/gi";
 import { FaUserAstronaut } from "react-icons/fa";
 import "../css/home.css";
 import { TouchableOpacity } from "react-native-web";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ride from "../assets/ride.svg";
 import delivery from "../assets/delivery.svg";
 import schedule from "../assets/schedule.svg";
@@ -16,13 +16,20 @@ import shopping from "../assets/shopping.svg";
 import axios from "axios";
 import { UserContext } from "../../UserContext";
 import { RiAuctionLine } from "react-icons/ri";
-
+import { LoginContext } from "../../loggedin";
 
 function Home() {
-  const {user} = useContext(UserContext)
+  const { user } = useContext(UserContext);
+  const { isLoggedIn } = useContext(LoginContext);
   const [userName, setUserName] = useState("");
   const [time, setTime] = useState("");
   const [currentTimeString, setCurrentTimeString] = useState(new Date());
+  const navigate = useNavigate()
+
+    if (!isLoggedIn) {
+      navigate("/signin", { replace: true });
+      return null;
+    }
 
   useEffect(() => {
     const currentTime = new Date().getHours();

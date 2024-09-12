@@ -5,15 +5,15 @@ import "../css/signin.css";
 import { useState, useContext } from "react";
 import { BottomSheet } from "react-spring-bottom-sheet";
 import { UserContext } from "../../UserContext";
+import { LoginContext } from "../../loggedin";
 function SignIn() {
   const { user, setUser } = useContext(UserContext);
+  const { setIsLoggedIn } = useContext(LoginContext);
   const [open, setOpen] = useState(false);
   const [username, setUsername] = useState("");
   const [token, setToken] = useState("");
   const [error, setError] = useState(null);
   const navigate = useNavigate();
-
-  
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -27,7 +27,8 @@ function SignIn() {
       );
       if (response.data.success) {
         setUser({ Username: username, Token: token });
-        navigate("/home");
+        setIsLoggedIn(true);
+        navigate("/");
       } else {
         setError(response.data.error);
       }
@@ -55,7 +56,7 @@ function SignIn() {
             className="schedule-input"
             type="text"
             value={username}
-            style={{color: "black"}}
+            style={{ color: "black" }}
             onChange={(event) => setUsername(event.target.value)}
             placeholder="Enter your name"
             required
@@ -69,7 +70,7 @@ function SignIn() {
             className="schedule-input"
             type="number"
             inputMode="numeric"
-            style={{color: "black"}}
+            style={{ color: "black" }}
             value={token}
             onChange={(event) => setToken(event.target.value)}
             placeholder="Enter 6 digit token"
@@ -102,6 +103,7 @@ export default SignIn;
 
 export function SignUP() {
   const { user, setUser } = useContext(UserContext);
+  const { setIsLoggedIn } = useContext(LoginContext);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [username, setUsername] = useState("");
@@ -129,7 +131,8 @@ export function SignUP() {
       );
       console.log(response.data);
       setUser({ Username: username, Token: token });
-      navigate("/home");
+      setIsLoggedIn(true);
+      navigate("/");
     } catch (error) {
       console.error(error);
     }
@@ -155,7 +158,7 @@ export function SignUP() {
                 className="schedule-input"
                 type="text"
                 value={firstName}
-                            style={{color: "black"}}
+                style={{ color: "black" }}
                 onChange={(event) => setFirstName(event.target.value)}
                 placeholder="Enter your first name"
                 required
@@ -169,7 +172,7 @@ export function SignUP() {
                 className="schedule-input"
                 type="text"
                 value={lastName}
-                            style={{color: "black"}}
+                style={{ color: "black" }}
                 onChange={(event) => setLastName(event.target.value)}
                 placeholder="Enter your last name"
                 required
@@ -183,7 +186,7 @@ export function SignUP() {
                 className="schedule-input"
                 type="text"
                 value={username}
-                            style={{color: "black"}}
+                style={{ color: "black" }}
                 onChange={(event) => setUsername(event.target.value)}
                 placeholder="Enter username"
                 required
@@ -205,7 +208,7 @@ export function SignUP() {
                 className="schedule-input"
                 type="tel"
                 value={password}
-                            style={{color: "black"}}
+                style={{ color: "black" }}
                 name="phone"
                 onChange={(event) => setPassword(event.target.value)}
                 placeholder="Enter contact"
@@ -220,7 +223,7 @@ export function SignUP() {
                 className="schedule-input"
                 type="number"
                 inputMode="numeric"
-                            style={{color: "black"}}
+                style={{ color: "black" }}
                 value={token}
                 onChange={(event) => setToken(event.target.value)}
                 placeholder="Enter 6 digit token"
