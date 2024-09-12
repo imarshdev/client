@@ -156,7 +156,7 @@ export default function Schedule() {
           className="home"
           style={{
             boxSizing: "border-box",
-            padding: "0px 10px",
+            padding: "20px 10px",
             justifyContent: "space-between",
             height: '100vh',
           }}
