@@ -14,7 +14,7 @@ import MapElement from "./pages/mapelement.jsx";
 import Schedule from "./pages/schedule.jsx";
 import { UserProvider } from "../UserContext.jsx";
 import CapDash from "./pages/captains.jsx";
-
+import { LoginProvider } from "../loggedin.jsx";
 
 const router = createBrowserRouter([
   {
@@ -67,8 +67,10 @@ const router = createBrowserRouter([
 function App() {
   return (
     <UserProvider>
-      <RouterProvider router={router} />
-      <PWABadge />
+      <LoginProvider>
+        <RouterProvider router={router} />
+        <PWABadge />
+      </LoginProvider>
     </UserProvider>
   );
 }

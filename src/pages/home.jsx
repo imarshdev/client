@@ -24,12 +24,14 @@ function Home() {
   const [userName, setUserName] = useState("");
   const [time, setTime] = useState("");
   const [currentTimeString, setCurrentTimeString] = useState(new Date());
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
+  useEffect(() => {
     if (!isLoggedIn) {
       navigate("/signin", { replace: true });
       return null;
     }
+  });
 
   useEffect(() => {
     const currentTime = new Date().getHours();
