@@ -221,7 +221,7 @@ export default function MapElement() {
           )}
           <br />
           {sendRide === false && (
-            <TouchableOpacity onPress={start} id="confirm-pickup" style={{width: '90vh'}}>
+            <TouchableOpacity onPress={start} id="confirm-pickup" style={{width: '90%'}}>
               <p> Confirm Location</p>
             </TouchableOpacity>
           )}

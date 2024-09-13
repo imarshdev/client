@@ -25,9 +25,7 @@ function Home() {
   const navigate = useNavigate();
 
 useEffect(() => {
-  if (!user.isLoggedIn) {
-    navigate("/signin", { replace: true });
-  }
+
 }, [user.isLoggedIn, navigate]);
 
   useEffect(() => {

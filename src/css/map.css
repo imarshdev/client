@@ -134,7 +134,7 @@
   border-radius: 10px;
   color: #fff;
   position: absolute;
-  bottom: 10px;
+  bottom: 30px;
   left: 5%;
 }
 #cancel-pickup{
@@ -146,6 +146,6 @@
   border-radius: 10px;
   color: #fff;
   position: absolute;
-  bottom: 10px;
+  bottom: 30px;
   right: 5%;
 }
