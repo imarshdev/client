@@ -5,10 +5,45 @@ import { CiHome } from "react-icons/ci";
 import { MdAdd, MdWork } from "react-icons/md";
 import { KeyboardAvoidingView, TouchableOpacity } from "react-native-web";
 
+mapboxgl.accessToken =
+  "pk.eyJ1IjoiaW1hcnNoIiwiYSI6ImNtMDZiZDB2azB4eDUyanM0YnVhN3FtZzYifQ.gU1K02oIfZLWJRGwnjGgCg";
+
 export default function CurrentRide() {
   const [step, setStep] = useState(false);
   const [inputFocused, setInputFocused] = useState(false);
   const [autoComplete, setAutocomplete] = useState(false);
+  useEffect(() => {
+    const map = new mapboxgl.Map({
+      container: "map",
+      style: "mapbox://styles/mapbox/streets-v11?logo=false",
+      zoom: 12,
+    });
+
+    // Add marker for current location
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const longitude = position.coords.longitude;
+        const latitude = position.coords.latitude;
+
+        map.setCenter([longitude, latitude]);
+        map.setZoom(12);
+
+        const marker = new mapboxgl.Marker()
+          .setLngLat([longitude, latitude])
+          .addTo(map);
+      },
+      (error) => {
+        console.error("Error getting location:", error);
+      },
+      {
+        enableHighAccuracy: true,
+      }
+    );
+
+    return () => {
+      map.remove();
+    };
+  }, []);
   const screenHeight = window.innerHeight;
   const verticalOffset = screenHeight * 1;
   const focused = () => {
@@ -21,7 +56,7 @@ export default function CurrentRide() {
   const unFocused = () => {
     setInputFocused(false);
     setAutocomplete(false);
-    setStep(false)
+    setStep(false);
   };
   return (
     <KeyboardAvoidingView
@@ -38,7 +73,6 @@ export default function CurrentRide() {
         padding: "30px 10px",
       }}
     >
-      <p>Map</p>
       <div id="map" style={{ height: "50vh", width: "100vw" }}></div>
       <BottomSheet
         header={
@@ -95,9 +129,7 @@ export default function CurrentRide() {
         expandOnContentDrag={true}
         blocking={false}
         snapPoints={({ maxHeight }) =>
-          inputFocused
-            ? [maxHeight - maxHeight / 10]
-            : [maxHeight / 2]
+          inputFocused ? [maxHeight - maxHeight / 10] : [maxHeight / 2]
         }
         open={true}
         style={{ boxSizing: "border-box", padding: "10px" }}

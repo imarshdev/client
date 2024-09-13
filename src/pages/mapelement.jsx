@@ -17,7 +17,6 @@ export default function MapElement() {
   const [number, setNumber] = useState(3.5);
   const [open, setOpen] = useState(true);
   const [map, setMap] = useState(null);
-  const [originName, setOriginName] = useState("");
   const [origin, setOrigin] = useState("");
   const [autocomplete, setAutocomplete] = useState(null);
   const [destination, setDestination] = useState(null);
