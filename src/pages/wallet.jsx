@@ -14,6 +14,7 @@ import airtel from "../assets/airtel.svg";
 import { BottomSheet } from "react-spring-bottom-sheet";
 import "react-spring-bottom-sheet/dist/style.css";
 import axios from "axios";
+import { FallingLines } from "react-loader-spinner";
 // Define the Wallet component
 export default function Wallet() {
   // State variables for amount, step, and bottom sheet open state
@@ -92,6 +93,7 @@ export default function Wallet() {
           width: "100vw",
         }}
       >
+        <FallingLines width="100px"/>
       </ScrollView>
       <div className="bottom_drawer wallet_bottom_drawer">
         <Navigator />

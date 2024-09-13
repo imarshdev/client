@@ -6,8 +6,12 @@ import { IoIosArrowBack } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../UserContext";
 import axios from "axios";
+import { FallingLines } from "react-loader-spinner";
 
 export default function MapElement() {
+  const [result, setResult] = useState(null);
+  const [loadingSuggestions, setLoadingSuggestions] = useState(false);
+  const [loaded, setLoaded] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
   const [sendRide, setSendRide] = useState();
   const [number, setNumber] = useState(3.5);
@@ -37,7 +41,7 @@ export default function MapElement() {
     setSendRide(true);
   };
   const snapPoints = ({ maxHeight, minHeight }) => {
-    return isExpanded ? [maxHeight / 1.1] : [minHeight];
+    return isExpanded ? [maxHeight / 1] : [minHeight];
   };
   useEffect(() => {
     setUsername(user.Username);
@@ -45,9 +49,9 @@ export default function MapElement() {
     console.log("Username:", username);
     console.log("Token:", token);
     console.log("cost:", cost);
-    
   });
   const bookRide = async () => {
+    setResult(false);
     console.log("Origin:", origin);
     console.log("Destination:", destinationName);
     try {
@@ -61,11 +65,13 @@ export default function MapElement() {
           cost,
         }
       );
+      setResult(true);
       setMessage("Ride sent successfully! Await rider call");
     } catch (error) {
       if (error.response) {
         setMessage(error.response.data.message);
       } else {
+        setResult(true);
         setMessage(
           "An error occurred while booking the ride. Please try again."
         );
@@ -119,11 +125,13 @@ export default function MapElement() {
           position: place.geometry.location,
           map: mapInstance,
         });
+        setLoadingSuggestions(false);
       });
     };
   }, []);
 
   const getDirections = () => {
+    setLoaded(false);
     // Get the user's current location
     navigator.geolocation.getCurrentPosition(
       (position) => {
@@ -169,6 +177,7 @@ export default function MapElement() {
                         ? 1000
                         : Math.ceil((distanceInKm - 0.5) / 0.5) * 500;
                     setCost(cost);
+                    setLoaded(true);
                   }
                 } else {
                   console.log("Directions request failed: " + status);
@@ -209,28 +218,47 @@ export default function MapElement() {
               type="text"
               placeholder="Search for a place"
             />
+            {loadingSuggestions && (
+              <div style={{ padding: "20px" }}>
+                <FallingLines width="100px" />
+              </div>
+            )}
           </div>
           <br />
           {number === 2.5 && (
             <>
-              <p>distance: {distance}</p>
-              <p>Duration: {duration}</p>
-              <p>Estimated Cost: shs.{cost}</p>
-              <p style={{ marginBottom: "20px" }}>{message}</p>
+              {loaded ? (
+                <>
+                  <p>distance: {distance}</p>
+                  <p>Duration: {duration}</p>
+                  <p>Estimated Cost: shs.{cost}</p>
+                  {result ? (
+                    <p style={{ marginBottom: "20px" }}>{message}</p>
+                  ) : (
+                    <p>Loading....</p>
+                  )}
+                  <br />
+                </>
+              ) : (
+                <div style={{ padding: "20px" }}>
+                  <FallingLines width="100px" />
+                </div>
+              )}
             </>
           )}
           <br />
           {sendRide === false && (
-            <TouchableOpacity onPress={start} id="confirm-pickup" style={{width: '90%'}}>
+            <TouchableOpacity
+              onPress={start}
+              id="confirm-pickup"
+              style={{ width: "90%" }}
+            >
               <p> Confirm Location</p>
             </TouchableOpacity>
           )}
           {sendRide === true && (
             <>
-              <TouchableOpacity
-                onPress={bookRide}
-                id="confirm-pickup"
-              >
+              <TouchableOpacity onPress={bookRide} id="confirm-pickup">
                 <p>Order Ride</p>
               </TouchableOpacity>
               <TouchableOpacity onPress={back} id="cancel-pickup">
