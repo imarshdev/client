@@ -62,6 +62,9 @@ body {
   justify-content: start;
   flex-direction: column;
 }
+body.keyboard-active{
+  overflow: hidden;
+}
 
 h1 {
   font-size: 3.2em;
