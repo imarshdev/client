@@ -8,6 +8,11 @@ import { KeyboardAvoidingView, TouchableOpacity } from "react-native-web";
 export default function CurrentRide() {
   const [inputFocused, setInputFocused] = useState(false);
   const [autoComplete, setAutocomplete] = useState(false);
+  useEffect(() => {
+   document.body.addEventListener('touchmove', (e) => {
+      e.preventDefault();
+    });
+  }, []);
   const focused = () => {
     setInputFocused(true);
     setAutocomplete(true);
