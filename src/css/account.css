@@ -120,7 +120,7 @@
 
 .wallet_bottom_drawer {
   position: fixed;
-  bottom: 0;
+  bottom: 20px;
 }
 
 .scheduled_ride {

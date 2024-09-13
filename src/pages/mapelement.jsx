@@ -9,7 +9,7 @@ import axios from "axios";
 
 export default function MapElement() {
   const [isExpanded, setIsExpanded] = useState(false);
-  const [sendRide, setSendRide] = useState(false);
+  const [sendRide, setSendRide] = useState();
   const [number, setNumber] = useState(3.5);
   const [open, setOpen] = useState(true);
   const [map, setMap] = useState(null);
@@ -105,6 +105,7 @@ export default function MapElement() {
           return;
         }
         setIsExpanded(false);
+        setSendRide(false);
         setDestination(place.formatted_address);
         setDestinationName(place.name);
         console.log("Selected place updated:", place);
