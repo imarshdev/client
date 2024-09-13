@@ -8,6 +8,8 @@ import { KeyboardAvoidingView, TouchableOpacity } from "react-native-web";
 export default function CurrentRide() {
   const [inputFocused, setInputFocused] = useState(false);
   const [autoComplete, setAutocomplete] = useState(false);
+  const screenHeight = window.innerHeight;
+  const verticalOffset = screenHeight * 1
   const focused = () => {
     setInputFocused(true);
     setAutocomplete(true);
@@ -18,6 +20,7 @@ export default function CurrentRide() {
   };
   return (
     <KeyboardAvoidingView
+      keyboardVerticalOffset={verticalOffset}
       behavior="height"
       style={{
         width: "100vw",
