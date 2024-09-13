@@ -3,7 +3,7 @@ import { BottomSheet } from "react-spring-bottom-sheet";
 import "../css/ride.css";
 import { CiHome } from "react-icons/ci";
 import { MdAdd, MdWork } from "react-icons/md";
-import { TouchableOpacity } from "react-native-web";
+import { KeyboardAvoidingView, TouchableOpacity } from "react-native-web";
 
 export default function CurrentRide() {
   const [inputFocused, setInputFocused] = useState(false);
@@ -17,7 +17,7 @@ export default function CurrentRide() {
     setAutocomplete(false);
   };
   return (
-    <div
+    <KeyboardAvoidingView
       style={{
         width: "100vw",
         height: "100vh",
@@ -124,6 +124,6 @@ export default function CurrentRide() {
           </>
         )}
       </BottomSheet>
-    </div>
+    </KeyboardAvoidingView>
   );
 }
