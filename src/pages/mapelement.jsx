@@ -9,7 +9,7 @@ import axios from "axios";
 import { FallingLines } from "react-loader-spinner";
 
 export default function MapElement() {
-  const [result, setResult] = useState(null);
+  const [result, setResult] = useState(1);
   const [loadingSuggestions, setLoadingSuggestions] = useState(false);
   const [loaded, setLoaded] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
@@ -51,7 +51,7 @@ export default function MapElement() {
     console.log("cost:", cost);
   });
   const bookRide = async () => {
-    setResult(false);
+    setResult(2);
     console.log("Origin:", origin);
     console.log("Destination:", destinationName);
     try {
@@ -65,13 +65,13 @@ export default function MapElement() {
           cost,
         }
       );
-      setResult(true);
+      setResult(3);
       setMessage("Ride sent successfully! Await rider call");
     } catch (error) {
       if (error.response) {
         setMessage(error.response.data.message);
       } else {
-        setResult(true);
+        setResult(3);
         setMessage(
           "An error occurred while booking the ride. Please try again."
         );
@@ -232,11 +232,12 @@ export default function MapElement() {
                   <p>distance: {distance}</p>
                   <p>Duration: {duration}</p>
                   <p>Estimated Cost: shs.{cost}</p>
-                  {result ? (
-                    <p style={{ marginBottom: "20px" }}>{message}</p>
-                  ) : (
-                    <p>Loading....</p>
-                  )}
+                  {result === 1
+                    ? null
+                    : (result === 2 && <p>Loading....</p>) ||
+                      (result === 3 && (
+                        <p style={{ marginBottom: "20px" }}>{message}</p>
+                      ))}
                   <br />
                 </>
               ) : (
