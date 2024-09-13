@@ -16,21 +16,24 @@ export default function CapDash() {
   const [data, setData] = useState("");
   const [dataExpress, setDataExpress] = useState("");
 
+  const currentRide = () => {
+    navigate("/currentRide");
+  };
   const handleAcceptRide = (username, rideIndex) => {
-  const phoneNumber = dataExpress[username].contact;
-  const rideId = `${dataExpress[username].expressRides[rideIndex].origin}${dataExpress[username].expressRides[rideIndex].timestamp}`;
-  axios
-    .patch("https://walamin-server.onrender.com/accept-ride", {
-      username,
-      rideId,
-    })
-    .then((response) => {
-      console.log(response.data);
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-  window.location.href = `tel:${phoneNumber}`;
+    const phoneNumber = dataExpress[username].contact;
+    const rideId = `${dataExpress[username].expressRides[rideIndex].origin}${dataExpress[username].expressRides[rideIndex].timestamp}`;
+    axios
+      .patch("https://walamin-server.onrender.com/accept-ride", {
+        username,
+        rideId,
+      })
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    window.location.href = `tel:${phoneNumber}`;
   };
   const handleDeclineRide = (username, rideIndex) => {
     const declinedRide = dataExpress[username].expressRides[rideIndex];
@@ -273,7 +276,14 @@ export default function CapDash() {
               ))}
           </ScrollView>
         )}
-        {page === "delivery" && <p>Deliver</p>}
+        {page === "delivery" && (
+          <>
+            <p>Deliver</p>
+            <button style={{backgroundColor: 'limegreen'}} onClick={currentRide}>
+              <p>Go to current ride</p>
+            </button>
+          </>
+        )}
       </div>
       <div
         style={{

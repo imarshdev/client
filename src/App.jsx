@@ -15,6 +15,7 @@ import Schedule from "./pages/schedule.jsx";
 import { UserProvider } from "../UserContext.jsx";
 import CapDash from "./pages/captains.jsx";
 import { LoginProvider } from "../loggedin.jsx";
+import CurrentRide from "./pages/currentRide.jsx";
 
 const router = createBrowserRouter([
   {
@@ -60,6 +61,11 @@ const router = createBrowserRouter([
   {
     path: "/captain-dash",
     element: <CapDash />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/currentRide",
+    element: <CurrentRide />,
     errorElement: <ErrorPage />,
   },
 ]);

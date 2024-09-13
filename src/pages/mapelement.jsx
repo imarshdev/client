@@ -224,7 +224,6 @@ export default function MapElement() {
               </div>
             )}
           </div>
-          <br />
           {number === 2.5 && (
             <>
               {loaded ? (
