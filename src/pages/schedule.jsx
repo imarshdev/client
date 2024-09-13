@@ -2,7 +2,7 @@ import { IoIosArrowBack } from "react-icons/io";
 import { TouchableOpacity } from "react-native-web";
 import { useNavigate } from "react-router-dom";
 import "../css/schedule.css";
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState, useContext, useRef } from "react";
 import axios from "axios";
 import { BottomSheet } from "react-spring-bottom-sheet";
 import { UserContext } from "../../UserContext";
@@ -21,7 +21,32 @@ export default function Schedule() {
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState("");
   const [agreement, setAgreement] = useState(false);
+  const [places, setPlaces] = useState([]);
+  const inputRef = useRef(null);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.src = `https://maps.gomaps.pro/maps/api/js?key=AlzaSyLrk1KXy32iTkKpsbR1J1USZWKd4lE5oud&libraries=geometry,places`;
+    document.head.appendChild(script);
+
+    script.onload = () => {
+      console.log("started");
+      const autocomplete = new google.maps.places.Autocomplete(
+        inputRef.current
+      );
+      autocomplete.addListener("place_changed", () => {
+        console.log("Place changed event triggered");
+        const place = autocomplete.getPlace();
+        console.log(place.formatted_address);
+        console.log("Formatted Address:", place.formatted_address);
+        console.log("Latitude:", place.geometry.location.lat());
+        console.log("Longitude:", place.geometry.location.lng());
+        setOpen(false);
+      });
+    };
+  }, []);
+
   const bookRide = async () => {
     setUsername(user.Username);
     setToken(user.Token);
@@ -158,7 +183,7 @@ export default function Schedule() {
             boxSizing: "border-box",
             padding: "20px 10px",
             justifyContent: "space-between",
-            height: '100vh',
+            height: "100vh",
           }}
         >
           <TouchableOpacity id="back" onPress={back}>
@@ -303,6 +328,7 @@ export default function Schedule() {
                     <p>Pick up address</p>
                     <div id="input-container">
                       <input
+                        ref={inputRef}
                         type="text"
                         value={pickupLocation}
                         onChange={(event) =>

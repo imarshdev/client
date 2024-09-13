@@ -37,7 +37,7 @@ export default function MapElement() {
     setSendRide(true);
   };
   const snapPoints = ({ maxHeight, minHeight }) => {
-    return isExpanded ? [maxHeight] : [minHeight];
+    return isExpanded ? [maxHeight / 1.1] : [minHeight];
   };
   useEffect(() => {
     setUsername(user.Username);
