@@ -2,6 +2,8 @@
   box-sizing: border-box;
   padding: 15px 3%;
   height: 4.3rem;
+  display: flex;
+  justify-content: space-between;
 }
 input:focus {
   outline: none;
