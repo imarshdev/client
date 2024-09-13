@@ -61,6 +61,7 @@ body {
   display: flex;
   justify-content: start;
   flex-direction: column;
+  overflow: hidden;
 }
 
 h1 {
