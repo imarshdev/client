@@ -9,10 +9,12 @@ export default function CurrentRide() {
   const [inputFocused, setInputFocused] = useState(false);
   const [autoComplete, setAutocomplete] = useState(false);
   const screenHeight = window.innerHeight;
-  const verticalOffset = screenHeight * 1
+  const verticalOffset = screenHeight * 1;
   const focused = () => {
-    setInputFocused(true);
     setAutocomplete(true);
+  };
+  const goup = () => {
+    setInputFocused(true);
   };
   const unFocused = () => {
     setInputFocused(false);
@@ -30,7 +32,7 @@ export default function CurrentRide() {
         alignItems: "center",
         justifyContent: "start",
         boxSizing: "border-box",
-        padding: "10px 10px 30px 10px",
+        padding: "30px 10px",
       }}
     >
       <p>Map</p>
@@ -47,6 +49,7 @@ export default function CurrentRide() {
               boxSizing: "border-box",
             }}
             onFocus={focused}
+            onChange={goup}
             onBlur={unFocused}
           />
         }
@@ -56,7 +59,7 @@ export default function CurrentRide() {
         snapPoints={({ maxHeight }) =>
           inputFocused
             ? [maxHeight - maxHeight / 10]
-            : [maxHeight / 2, maxHeight / 4, maxHeight - maxHeight / 10]
+            : [maxHeight / 2, maxHeight - maxHeight / 10]
         }
         open={true}
         style={{ boxSizing: "border-box", padding: "10px" }}
