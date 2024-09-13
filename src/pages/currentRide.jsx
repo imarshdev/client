@@ -16,7 +16,7 @@ export default function CurrentRide() {
     const map = new mapboxgl.Map({
       container: "map",
       style: "mapbox://styles/mapbox/streets-v11?logo=false",
-      zoom: 12,
+      zoom: 15,
     });
 
     // Add marker for current location
@@ -26,7 +26,7 @@ export default function CurrentRide() {
         const latitude = position.coords.latitude;
 
         map.setCenter([longitude, latitude]);
-        map.setZoom(12);
+        map.setZoom(15);
 
         const marker = new mapboxgl.Marker()
           .setLngLat([longitude, latitude])
