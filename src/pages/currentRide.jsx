@@ -9,9 +9,7 @@ export default function CurrentRide() {
   const [inputFocused, setInputFocused] = useState(false);
   const [autoComplete, setAutocomplete] = useState(false);
   const focused = () => {
-    setTimeout(() => {
-      setInputFocused(true);
-    }, 500);
+    setInputFocused(true);
     setAutocomplete(true);
   };
   const unFocused = () => {
@@ -20,6 +18,7 @@ export default function CurrentRide() {
   };
   return (
     <KeyboardAvoidingView
+      behavior="height"
       style={{
         width: "100vw",
         height: "100vh",
