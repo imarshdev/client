@@ -241,8 +241,11 @@ const RiderMarker = () => {
           borderRadius: "50%",
         }}
       >
-        <img src={ridericon} style={{ width: "40px" }} />
+        <img src={ridericon} style={{width: '20px'}} />
       </div>
+      <span style={{ fontSize: "12px", color: "#333", textAlign: "center" }}>
+        Marker Text
+      </span>
     </div>
   );
 };
