@@ -23,8 +23,6 @@ export default function CurrentRide() {
   const currentride = () => {
     navigate("/");
   };
-
-
   useEffect(() => {
     const intervalId = setInterval(() => {
       axios
@@ -42,22 +40,35 @@ export default function CurrentRide() {
       clearInterval(intervalId);
     };
   }, []);
-
   useEffect(() => {
     const map = new mapboxgl.Map({
       container: "map",
       style: "mapbox://styles/mapbox/streets-v11?logo=false",
       zoom: 15,
     });
+
     setMap(map);
+
+    // Add markers for each location
+    data.forEach((location) => {
+      if (location.location) {
+        const markerElement = document.createElement("div");
+        ReactDOM.render(<RiderMarker />, markerElement);
+        const marker = new mapboxgl.Marker(markerElement)
+          .setLngLat([location.location.longitude, location.location.latitude])
+          .addTo(map);
+      }
+    });
 
     // Add marker for current location
     navigator.geolocation.getCurrentPosition(
       (position) => {
         const longitude = position.coords.longitude;
         const latitude = position.coords.latitude;
+
         map.setCenter([longitude, latitude]);
         map.setZoom(15);
+
         const marker = new mapboxgl.Marker()
           .setLngLat([longitude, latitude])
           .addTo(map);
@@ -65,37 +76,15 @@ export default function CurrentRide() {
       (error) => {
         console.error("Error getting location:", error);
       },
-      { enableHighAccuracy: true }
+      {
+        enableHighAccuracy: true,
+      }
     );
-
 
     return () => {
       map.remove();
     };
-  }, []);
-
-  useEffect(() => {
-    if (map && data) {
-      // Remove existing markers
-      markers.forEach((marker) => marker.remove());
-      setMarkers([]);
-
-      // Add markers for each location
-      data.forEach((location) => {
-        if (location.location) {
-          const markerElement = document.createElement("div");
-          ReactDOM.render(<RiderMarker />, markerElement);
-          const marker = new mapboxgl.Marker(markerElement)
-            .setLngLat([
-              location.location.longitude,
-              location.location.latitude,
-            ])
-            .addTo(map);
-          setMarkers((prevMarkers) => [...prevMarkers, marker]);
-        }
-      });
-    }
-  }, [data, map]);
+  }, [data]);
 
   const screenHeight = window.innerHeight;
   const verticalOffset = screenHeight * 1;
@@ -136,7 +125,6 @@ export default function CurrentRide() {
             {step ? (
               <>
                 <input
-                  id="pac-input"
                   type="text"
                   placeholder="Where to ?"
                   style={{
