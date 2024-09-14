@@ -8,6 +8,7 @@ import { MdAdd, MdWork } from "react-icons/md";
 import { KeyboardAvoidingView, TouchableOpacity } from "react-native-web";
 import { useNavigate } from "react-router-dom";
 import { IoIosArrowBack } from "react-icons/io";
+import axios from "axios";
 
 mapboxgl.accessToken =
   "pk.eyJ1IjoiaW1hcnNoIiwiYSI6ImNtMDZiZDB2azB4eDUyanM0YnVhN3FtZzYifQ.gU1K02oIfZLWJRGwnjGgCg";
@@ -16,7 +17,7 @@ export default function CurrentRide() {
   const [step, setStep] = useState(false);
   const [inputFocused, setInputFocused] = useState(false);
   const [autoComplete, setAutocomplete] = useState(false);
-  const [map, setMap] = useState(null)
+  const [map, setMap] = useState(null);
   const [data, setData] = useState([]);
   const navigate = useNavigate();
   const currentride = () => {
@@ -28,6 +29,7 @@ export default function CurrentRide() {
         .get("https://walamin-server.onrender.com/all-locations")
         .then((response) => {
           setData(response.data);
+          console.log(response.data);
         })
         .catch((error) => {
           console.error(error);
@@ -83,7 +85,6 @@ export default function CurrentRide() {
       map.remove();
     };
   }, []);
-
 
   const screenHeight = window.innerHeight;
   const verticalOffset = screenHeight * 1;
