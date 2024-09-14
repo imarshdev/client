@@ -143,7 +143,7 @@ function Home() {
             </TouchableOpacity>
 
             <TouchableOpacity id="service_item">
-              <Link id="allLocations">
+              <Link to="/allLocations" id="link_item">
                 <FaServicestack size={34} color="limegreen" />
                 <p style={{ fontSize: 12 }}>All Services</p>{" "}
               </Link>
