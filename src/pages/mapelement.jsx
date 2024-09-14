@@ -29,6 +29,8 @@ export default function MapElement() {
   const [message, setMessage] = useState("");
   const [username, setUsername] = useState("");
   const [token, setToken] = useState("");
+  const [step, setStep] = useState(false);
+  const [inputFocused, setInputFocused] = useState(false);
   const navigate = useNavigate();
   const back = () => {
     navigate("/");
@@ -96,7 +98,7 @@ export default function MapElement() {
       });
       setMap(mapInstance);
 
-      const input = document.getElementById("pac-input-2");
+      const input = document.getElementById("input");
       const autocompleteInstance = new google.maps.places.Autocomplete(input);
       autocompleteInstance.bindTo("bounds", mapInstance);
       setAutocomplete(autocompleteInstance);
@@ -194,13 +196,89 @@ export default function MapElement() {
       { enableHighAccuracy: true }
     );
   };
+  const screenHeight = window.innerHeight;
+  const verticalOffset = screenHeight * 1;
+  const goup = () => {
+    setInputFocused(true);
+    setStep(true);
+  };
+  const focused = () => {
+    setAutocomplete(true);
+  };
+  const unFocused = () => {
+    setInputFocused(false);
+    setAutocomplete(false);
+    setStep(false);
+  };
   return (
     <div>
-      <div id="map" style={{ height: "100vh", width: "100vw" }} />
+      <div id="map" style={{ height: "60vh", width: "100vw" }} />
       <TouchableOpacity id="back" onPress={back}>
         <IoIosArrowBack size={24} />
       </TouchableOpacity>
-      <BottomSheet open={open} blocking={false} snapPoints={snapPoints}>
+
+      <BottomSheet
+        open={open}
+        blocking={false}
+        keyboardVerticalOffset={verticalOffset}
+        behavior="height"
+        snapPoints={({ maxHeight }) =>
+          inputFocused ? [maxHeight - maxHeight / 10] : [maxHeight / 2]
+        }
+        skipInitialTransition={true}
+        expandOnContentDrag={true}
+        header={
+          <>
+            {step ? (
+              <>
+                <input
+                  type="text"
+                  id="input"
+                  placeholder="Where to ?"
+                  style={{
+                    width: "74%",
+                    height: "1.5rem",
+                    padding: "0 10px",
+                    boxSizing: "border-box",
+                  }}
+                  onFocus={focused}
+                  onChange={goup}
+                  onBlur={unFocused}
+                />
+                <TouchableOpacity
+                  onPress={unFocused}
+                  style={{
+                    width: "20%",
+                    display: "flex",
+                    alighItems: "center",
+                    justifyContent: "center",
+                    backgroundColor: "lightgray",
+                    borderRadius: "10px",
+                  }}
+                >
+                  <p>Cancel</p>
+                </TouchableOpacity>
+              </>
+            ) : (
+              <TouchableOpacity
+                onPress={goup}
+                style={{
+                  width: "100%",
+                  height: "3rem",
+                  boxSizing: "border-box",
+                  display: "flex",
+                  alighItems: "center",
+                  justifyContent: "center",
+                  backgroundColor: "limegreen",
+                  borderRadius: "10px",
+                }}
+              >
+                <p style={{ color: "#fff" }}>Click to Enter Destination</p>
+              </TouchableOpacity>
+            )}
+          </>
+        }
+      >
         <div
           style={{
             width: "100vw",
@@ -208,21 +286,6 @@ export default function MapElement() {
             padding: "20px 20px 40px 20px",
           }}
         >
-          <p>Where To?</p>
-          <div style={{ borderBottom: "solid 0.5px black" }}>
-            <input
-              onFocus={() => setIsExpanded(true)}
-              style={{ width: "100%" }}
-              id="pac-input-2"
-              type="text"
-              placeholder="Search for a place"
-            />
-            {loadingSuggestions && (
-              <div style={{ padding: "20px" }}>
-                <FallingLines width="100px" />
-              </div>
-            )}
-          </div>
           {number === 2.5 && (
             <>
               {loaded ? (
