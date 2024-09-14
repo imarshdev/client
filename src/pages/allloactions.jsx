@@ -20,10 +20,7 @@ const AllLocations = () => {
       }
     };
 
-    const intervalId = setInterval(fetchAllLocations, 5000);
     fetchAllLocations(); // Initial fetch
-
-    return () => clearInterval(intervalId);
   }, []);
 
   if (loading) {
