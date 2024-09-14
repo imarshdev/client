@@ -24,9 +24,8 @@ function Home() {
   const [currentTimeString, setCurrentTimeString] = useState(new Date());
   const navigate = useNavigate();
 
-useEffect(() => {
 
-}, [user.isLoggedIn, navigate]);
+  useEffect(() => {}, [user.isLoggedIn, navigate]);
 
   useEffect(() => {
     const currentTime = new Date().getHours();
@@ -88,14 +87,14 @@ useEffect(() => {
         <div className="mid_details">
           <div className="mid_details_upper">
             <TouchableOpacity id="service_item">
-              <Link to="/map2" id="link_item">
+              <Link to="/currentRide" id="link_item">
                 <img src={delivery} style={{ width: "36px" }} />
                 <p style={{ fontSize: 12 }}>Delivery</p>{" "}
               </Link>
             </TouchableOpacity>
 
             <TouchableOpacity id="service_item">
-              <Link to="/map2" id="link_item">
+              <Link to="/currentRide" id="link_item">
                 <img src={ride} style={{ width: "34px" }} />
                 <p style={{ fontSize: 12 }}>Order Ride</p>
               </Link>
@@ -144,7 +143,7 @@ useEffect(() => {
             </TouchableOpacity>
 
             <TouchableOpacity id="service_item">
-              <Link id="link_item">
+              <Link id="allLocations">
                 <FaServicestack size={34} color="limegreen" />
                 <p style={{ fontSize: 12 }}>All Services</p>{" "}
               </Link>

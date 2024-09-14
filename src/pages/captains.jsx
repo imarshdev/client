@@ -16,9 +16,7 @@ export default function CapDash() {
   const [data, setData] = useState("");
   const [dataExpress, setDataExpress] = useState("");
 
-  const currentRide = () => {
-    navigate("/currentRide");
-  };
+
   const handleAcceptRide = (username, rideIndex) => {
     const phoneNumber = dataExpress[username].contact;
     const rideId = `${dataExpress[username].expressRides[rideIndex].origin}${dataExpress[username].expressRides[rideIndex].timestamp}`;

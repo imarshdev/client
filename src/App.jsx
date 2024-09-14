@@ -16,6 +16,8 @@ import { UserProvider } from "../UserContext.jsx";
 import CapDash from "./pages/captains.jsx";
 import { LoginProvider } from "../loggedin.jsx";
 import CurrentRide from "./pages/currentRide.jsx";
+import LocationTracker from "./locationTracker.jsx";
+import AllLocations from "./pages/allloactions.jsx";
 
 const router = createBrowserRouter([
   {
@@ -68,6 +70,11 @@ const router = createBrowserRouter([
     element: <CurrentRide />,
     errorElement: <ErrorPage />,
   },
+  {
+    path: "/allLocations",
+    element: <AllLocations />,
+    errorElement: <ErrorPage />,
+  },
 ]);
 
 function App() {
@@ -76,6 +83,7 @@ function App() {
       <LoginProvider>
         <RouterProvider router={router} />
         <PWABadge />
+        <LocationTracker />
       </LoginProvider>
     </UserProvider>
   );

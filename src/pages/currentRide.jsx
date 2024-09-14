@@ -6,6 +6,8 @@ import ridericon from "../assets/ridericon.png";
 import { CiHome } from "react-icons/ci";
 import { MdAdd, MdWork } from "react-icons/md";
 import { KeyboardAvoidingView, TouchableOpacity } from "react-native-web";
+import { useNavigate } from "react-router-dom";
+import { IoIosArrowBack } from "react-icons/io";
 
 mapboxgl.accessToken =
   "pk.eyJ1IjoiaW1hcnNoIiwiYSI6ImNtMDZiZDB2azB4eDUyanM0YnVhN3FtZzYifQ.gU1K02oIfZLWJRGwnjGgCg";
@@ -14,6 +16,10 @@ export default function CurrentRide() {
   const [step, setStep] = useState(false);
   const [inputFocused, setInputFocused] = useState(false);
   const [autoComplete, setAutocomplete] = useState(false);
+  const navigate = useNavigate();
+  const currentride = () => {
+    navigate("/");
+  };
   useEffect(() => {
     const map = new mapboxgl.Map({
       container: "map",
@@ -81,6 +87,9 @@ export default function CurrentRide() {
         padding: "30px 10px",
       }}
     >
+      <TouchableOpacity id="back" onPress={currentride}>
+        <IoIosArrowBack size={24} />
+      </TouchableOpacity>
       <div id="map" style={{ height: "50vh", width: "100vw" }}></div>
       <BottomSheet
         header={
@@ -227,16 +236,13 @@ const RiderMarker = () => {
     >
       <div
         style={{
-          width: "20px",
-          height: "20px",
+          width: "40px",
+          height: "40px",
           borderRadius: "50%",
         }}
       >
-        <img src={ridericon} style={{width: '20px'}} />
+        <img src={ridericon} style={{ width: "40px" }} />
       </div>
-      <span style={{ fontSize: "12px", color: "#333", textAlign: "center" }}>
-        Marker Text
-      </span>
     </div>
   );
 };
