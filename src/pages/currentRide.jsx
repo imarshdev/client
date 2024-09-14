@@ -16,10 +16,28 @@ export default function CurrentRide() {
   const [step, setStep] = useState(false);
   const [inputFocused, setInputFocused] = useState(false);
   const [autoComplete, setAutocomplete] = useState(false);
+  const [map, setMap] = useState(null)
+  const [data, setData] = useState([]);
   const navigate = useNavigate();
   const currentride = () => {
     navigate("/");
   };
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      axios
+        .get("https://walamin-server.onrender.com/all-locations")
+        .then((response) => {
+          setData(response.data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }, 5000); // 5000 milliseconds = 5 seconds
+
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, []);
   useEffect(() => {
     const map = new mapboxgl.Map({
       container: "map",
@@ -27,11 +45,18 @@ export default function CurrentRide() {
       zoom: 15,
     });
 
-    const markerElement = document.createElement("div");
-    ReactDOM.render(<RiderMarker />, markerElement);
-    const marker = new mapboxgl.Marker(markerElement)
-      .setLngLat([32.5973, 0.3272])
-      .addTo(map);
+    setMap(map);
+
+    // Add markers for each location
+    data.forEach((location) => {
+      if (location.location) {
+        const markerElement = document.createElement("div");
+        ReactDOM.render(<RiderMarker />, markerElement);
+        const marker = new mapboxgl.Marker(markerElement)
+          .setLngLat([location.location.longitude, location.location.latitude])
+          .addTo(map);
+      }
+    });
 
     // Add marker for current location
     navigator.geolocation.getCurrentPosition(
@@ -58,6 +83,8 @@ export default function CurrentRide() {
       map.remove();
     };
   }, []);
+
+
   const screenHeight = window.innerHeight;
   const verticalOffset = screenHeight * 1;
   const focused = () => {
@@ -241,7 +268,7 @@ const RiderMarker = () => {
           borderRadius: "50%",
         }}
       >
-        <img src={ridericon} style={{width: '40px'}} />
+        <img src={ridericon} style={{ width: "40px" }} />
       </div>
     </div>
   );
