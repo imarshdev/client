@@ -23,6 +23,8 @@ export default function CurrentRide() {
   const currentride = () => {
     navigate("/");
   };
+
+
   useEffect(() => {
     const intervalId = setInterval(() => {
       axios
@@ -34,41 +36,28 @@ export default function CurrentRide() {
         .catch((error) => {
           console.error(error);
         });
-    }, 5000); // 5000 milliseconds = 5 seconds
+    }, 30000); // 30000 milliseconds = 30 seconds
 
     return () => {
       clearInterval(intervalId);
     };
   }, []);
+
   useEffect(() => {
     const map = new mapboxgl.Map({
       container: "map",
       style: "mapbox://styles/mapbox/streets-v11?logo=false",
       zoom: 15,
     });
-
     setMap(map);
-
-    // Add markers for each location
-    data.forEach((location) => {
-      if (location.location) {
-        const markerElement = document.createElement("div");
-        ReactDOM.render(<RiderMarker />, markerElement);
-        const marker = new mapboxgl.Marker(markerElement)
-          .setLngLat([location.location.longitude, location.location.latitude])
-          .addTo(map);
-      }
-    });
 
     // Add marker for current location
     navigator.geolocation.getCurrentPosition(
       (position) => {
         const longitude = position.coords.longitude;
         const latitude = position.coords.latitude;
-
         map.setCenter([longitude, latitude]);
         map.setZoom(15);
-
         const marker = new mapboxgl.Marker()
           .setLngLat([longitude, latitude])
           .addTo(map);
@@ -76,15 +65,54 @@ export default function CurrentRide() {
       (error) => {
         console.error("Error getting location:", error);
       },
-      {
-        enableHighAccuracy: true,
-      }
+      { enableHighAccuracy: true }
     );
+
+    // Initialize Google Maps Autocomplete
+    const input = document.getElementById("pac-input");
+    const autocomplete = new google.maps.places.Autocomplete(input);
+    autocomplete.bindTo("bounds", map);
+    autocomplete.addListener("place_changed", () => {
+      const place = autocomplete.getPlace();
+      if (!place.geometry) {
+        console.log("No details available for the input: '" + place.name + "'");
+        return;
+      }
+      const marker = new mapboxgl.Marker()
+        .setLngLat([
+          place.geometry.location.lng(),
+          place.geometry.location.lat(),
+        ])
+        .addTo(map);
+    });
 
     return () => {
       map.remove();
     };
-  }, [data]);
+  }, []);
+
+  useEffect(() => {
+    if (map && data) {
+      // Remove existing markers
+      markers.forEach((marker) => marker.remove());
+      setMarkers([]);
+
+      // Add markers for each location
+      data.forEach((location) => {
+        if (location.location) {
+          const markerElement = document.createElement("div");
+          ReactDOM.render(<RiderMarker />, markerElement);
+          const marker = new mapboxgl.Marker(markerElement)
+            .setLngLat([
+              location.location.longitude,
+              location.location.latitude,
+            ])
+            .addTo(map);
+          setMarkers((prevMarkers) => [...prevMarkers, marker]);
+        }
+      });
+    }
+  }, [data, map]);
 
   const screenHeight = window.innerHeight;
   const verticalOffset = screenHeight * 1;
@@ -125,6 +153,7 @@ export default function CurrentRide() {
             {step ? (
               <>
                 <input
+                  id="pac-input"
                   type="text"
                   placeholder="Where to ?"
                   style={{
