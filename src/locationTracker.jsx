@@ -4,6 +4,7 @@ import { UserContext } from "../UserContext";
 
 export default function LocationTracker() {
   const { user } = useContext(UserContext);
+  const [location, setLocation] = useState(null);
 
   useEffect(() => {
     if (!user) {
@@ -15,29 +16,34 @@ export default function LocationTracker() {
       navigator.geolocation.getCurrentPosition((position) => {
         const lng = position.coords.longitude;
         const lat = position.coords.latitude;
-
-        const sendLocations = async () => {
-          try {
-            const response = await axios.post(
-              "https://walamin-server.onrender.com/location",
-              {
-                username: user.Username,
-                token: user.Token,
-                latitude: lat,
-                longitude: lng,
-              }
-            );
-            console.log(response.data);
-          } catch (error) {
-            console.error(error);
-          }
-        };
-
-        sendLocations();
+        setLocation({ latitude: lat, longitude: lng });
       });
     };
 
-    getLocation();
+    const sendLocation = async () => {
+      if (!location) return;
+      try {
+        const response = await axios.post(
+          "https://walamin-server.onrender.com/location",
+          {
+            username: user.Username,
+            token: user.Token,
+            latitude: location.latitude,
+            longitude: location.longitude,
+          }
+        );
+        console.log(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    const intervalId = setInterval(() => {
+      getLocation();
+      sendLocation();
+    }, 20000); // 20 seconds
+
+    return () => clearInterval(intervalId);
   }, [user]);
 
   return null;
