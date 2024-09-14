@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { BottomSheet } from "react-spring-bottom-sheet";
+import ReactDOM from "react-dom";
 import "../css/ride.css";
+import ridericon from "../assets/ridericon.png";
 import { CiHome } from "react-icons/ci";
 import { MdAdd, MdWork } from "react-icons/md";
 import { KeyboardAvoidingView, TouchableOpacity } from "react-native-web";
@@ -18,6 +20,12 @@ export default function CurrentRide() {
       style: "mapbox://styles/mapbox/streets-v11?logo=false",
       zoom: 12,
     });
+
+    const markerElement = document.createElement("div");
+    ReactDOM.render(<RiderMarker />, markerElement);
+    const marker = new mapboxgl.Marker(markerElement)
+      .setLngLat([32.5973, 0.3272])
+      .addTo(map);
 
     // Add marker for current location
     navigator.geolocation.getCurrentPosition(
@@ -207,3 +215,28 @@ export default function CurrentRide() {
     </KeyboardAvoidingView>
   );
 }
+
+const RiderMarker = () => {
+  return (
+    <div
+      style={{
+        position: "absolute",
+        transform: "translate(-50%, -50%)",
+        pointerEvents: "none",
+      }}
+    >
+      <div
+        style={{
+          width: "20px",
+          height: "20px",
+          borderRadius: "50%",
+        }}
+      >
+        <img src={ridericon} style={{width: '20px'}} />
+      </div>
+      <span style={{ fontSize: "12px", color: "#333", textAlign: "center" }}>
+        Marker Text
+      </span>
+    </div>
+  );
+};
