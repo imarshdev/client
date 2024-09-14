@@ -1,54 +1,48 @@
 import { useContext, useEffect, useState } from "react";
-import axios from "axios";
 import { UserContext } from "../UserContext";
 
-const sendLocationToBackend = async (location) => {
+export default function LocationTracker() {
   const { user } = useContext(UserContext);
-
-  try {
-    const response = await axios.post(
-      "https://walamin-server.onrender.com/location",
-      {
-        username: user.Username, // Replace with the actual username
-        token: user.Token,
-        latitude: location.latitude,
-        longitude: location.longitude,
-      }
-    );
-    console.log(response.data);
-  } catch (error) {
-    console.error(error);
-  }
-};
-
-
-const LocationTracker = () => {
+  const [token, setToken] = useState();
+  const [username, setUsername] = useState();
+  const [longitude, setLongitude] = useState();
+  const [latitude, setLatitude] = useState();
   useEffect(() => {
-    const getLocation = async () => {
+    navigator.geolocation.getCurrentPosition((position) => {
+      const lng = position.coords.longitude;
+      const lat = position.coords.latitude;
+      setUsername(user.Username);
+      setToken(user.Token);
+      setLatitude(lat);
+      setLongitude(lng);
+      console.log(username);
+      console.log(token);
+      console.log(latitude);
+      console.log(longitude);
+    });
+    const sendLocations = async () => {
       try {
-        navigator.geolocation.getCurrentPosition(
-          (position) => {
-            const location = {
-              latitude: position.coords.latitude,
-              longitude: position.coords.longitude,
-            };
-            sendLocationToBackend(location);
-          },
-          (error) => {
-            console.error(error);
-          },
-          { timeout: 10000 }
+        const response = await axios.post(
+          "https://walamin-server.onrender.com/location",
+          {
+            username,
+            token,
+            latitude,
+            longitude,
+          }
         );
+        console.log("success");
       } catch (error) {
-        console.error(error);
+        if (error.response) {
+          setMessage(error.response.data.message);
+        } else {
+          setResult(3);
+          setMessage(
+            "An error occurred, Please try again."
+          );
+        }
       }
     };
-
-    const intervalId = setInterval(getLocation, 5000);
-    return () => clearInterval(intervalId);
-  }, []);
-
+  });
   return null;
-};
-
-export default LocationTracker;
+}

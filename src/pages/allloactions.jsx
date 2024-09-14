@@ -39,9 +39,13 @@ const AllLocations = () => {
       <h1>All Locations</h1>
       {locations.map((location) => (
         <div key={location.username}>
-          <p>Username: {location.username}</p>
-          <p>Latitude: {location.location.latitude}</p>
-          <p>Longitude: {location.location.longitude}</p>
+          {location.location && (
+            <>
+              <p>Username: {location.username}</p>
+              <p>Latitude: {location.location.latitude}</p>
+              <p>Longitude: {location.location.longitude}</p>
+            </>
+          )}
         </div>
       ))}
     </div>
