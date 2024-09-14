@@ -44,11 +44,6 @@ export default function CurrentRide() {
   }, []);
 
   useEffect(() => {
-   const script = document.createElement("script");
-    script.src = `https://maps.gomaps.pro/maps/api/js?key=AlzaSyLrk1KXy32iTkKpsbR1J1USZWKd4lE5oud&libraries=geometry,places&callback=initMap`;
-    script.async = true;
-    script.defer = true;
-    document.head.appendChild(script);
     const map = new mapboxgl.Map({
       container: "map",
       style: "mapbox://styles/mapbox/streets-v11?logo=false",
@@ -73,23 +68,6 @@ export default function CurrentRide() {
       { enableHighAccuracy: true }
     );
 
-    // Initialize Google Maps Autocomplete
-    const input = document.getElementById("pac-input");
-    const autocomplete = new google.maps.places.Autocomplete(input);
-    autocomplete.bindTo("bounds", map);
-    autocomplete.addListener("place_changed", () => {
-      const place = autocomplete.getPlace();
-      if (!place.geometry) {
-        console.log("No details available for the input: '" + place.name + "'");
-        return;
-      }
-      const marker = new mapboxgl.Marker()
-        .setLngLat([
-          place.geometry.location.lng(),
-          place.geometry.location.lat(),
-        ])
-        .addTo(map);
-    });
 
     return () => {
       map.remove();
