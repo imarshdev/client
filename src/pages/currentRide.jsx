@@ -84,7 +84,7 @@ export default function CurrentRide() {
     return () => {
       map.remove();
     };
-  }, []);
+  }, [data]);
 
   const screenHeight = window.innerHeight;
   const verticalOffset = screenHeight * 1;
