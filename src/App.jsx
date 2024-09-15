@@ -76,7 +76,7 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
   },
   {
-    path: "/map",
+    path: "/mapride",
     element: <MapRide/>
   },
 ]);

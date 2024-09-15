@@ -18,7 +18,7 @@ export default function CapDash() {
 
   const handleAcceptRide = (username, rideIndex) => {
     const rideData = dataExpress[username].expressRides[rideIndex];
-    navigate("/map", { state: rideData });
+    navigate("/mapride", { state: rideData });
     axios
       .patch("https://walamin-server.onrender.com/accept-ride", {
         username,
