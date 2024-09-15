@@ -372,18 +372,18 @@ export function MapRide() {
       const geocoder = new google.maps.Geocoder();
       geocoder.geocode({ address: rideData.origin }, (results, status) => {
         if (status === "OK") {
-          setOriginLat(results[0].geometry.location.lat);
-          setOriginLng(results[0].geometry.location.lng);
-          console.log(results[0].geometry.location.lat);
-          console.log(results[0].geometry.location.lng);
+          setOriginLat(results[0].geometry.location.lat());
+          setOriginLng(results[0].geometry.location.lng());
+          console.log(results[0].geometry.location.lat());
+          console.log(results[0].geometry.location.lng());
         }
       });
       geocoder.geocode({ address: rideData.destination }, (results, status) => {
         if (status === "OK") {
-          setDestinationLat(results[0].geometry.location.lat);
-          setDestinationLng(results[0].geometry.location.lng);
-          console.log(results[0].geometry.location.lat);
-          console.log(results[0].geometry.location.lng);
+          setDestinationLat(results[0].geometry.location.lat());
+          setDestinationLng(results[0].geometry.location.lng());
+          console.log(results[0].geometry.location.lat());
+          console.log(results[0].geometry.location.lng());
         }
       });
     };
