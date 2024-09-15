@@ -128,20 +128,20 @@ export default function MapElement() {
         title: "hello World!",
       });
 
+      new google.maps.Marker({
+        map: mapInstance,
+        position: { lat: 0.4162, lng: 33.5811 },
+        title: "hello World!",
+      });
+
       data.forEach((user) => {
-        if (
-          user.location &&
-          user.location.latitude &&
-          user.location.longitude
-        ) {
-          new google.maps.Marker({
-            map: mapInstance,
-            position: {
-              lat: user.location.latitude,
-              lng: user.location.longitude,
-            },
-          });
-        }
+        new google.maps.Marker({
+          map: mapInstance,
+          position: {
+            lat: user.location.latitude,
+            lng: user.location.longitude,
+          },
+        });
       });
 
       const input = document.getElementById("input");
