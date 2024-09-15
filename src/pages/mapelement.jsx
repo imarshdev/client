@@ -110,8 +110,8 @@ export default function MapElement() {
       const marker = new window.google.maps.Marker({
         position: userLocation,
         map: mapInstance,
-        icon: ridericon
-      })
+        icon: ridericon,
+      });
 
       const input = document.getElementById("input");
       const autocompleteInstance = new google.maps.places.Autocomplete(input);
