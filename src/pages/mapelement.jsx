@@ -130,6 +130,12 @@ export default function MapElement() {
 
       new google.maps.Marker({
         map: mapInstance,
+        position: { lat: 0.3162, lng: 32.5811 },
+        title: "hello World!",
+      });
+
+      new google.maps.Marker({
+        map: mapInstance,
         position: { lat: 0.4162, lng: 33.5811 },
         title: "hello World!",
       });
@@ -141,7 +147,9 @@ export default function MapElement() {
             lat: user.location.latitude,
             lng: user.location.longitude,
           },
+          title: location.name,
         });
+         console.log(marker);
       });
 
       const input = document.getElementById("input");
