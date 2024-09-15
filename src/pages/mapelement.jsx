@@ -111,7 +111,7 @@ export default function MapElement() {
           );
           return;
         }
-        setIsExpanded(false);
+        setStep(null)
         setSendRide(false);
         setDestination(place.formatted_address);
         setDestinationName(place.name);
@@ -259,6 +259,8 @@ export default function MapElement() {
                   <p>Cancel</p>
                 </TouchableOpacity>
               </>
+            ) : step === null ? (
+              <p>null</p>
             ) : (
               <TouchableOpacity
                 onPress={goup}
@@ -286,6 +288,13 @@ export default function MapElement() {
             padding: "20px 20px 40px 20px",
           }}
         >
+          <div>
+            {loadingSuggestions && (
+              <div style={{ padding: "20px" }}>
+                <FallingLines width="100px" />
+              </div>
+            )}
+          </div>
           {number === 2.5 && (
             <>
               {loaded ? (
