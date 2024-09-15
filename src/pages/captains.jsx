@@ -351,46 +351,23 @@ export function MapRide() {
   const [destinationCoordinates, setDestinationCoordinates] = useState({});
 
   useEffect(() => {
-    const geocoder = new google.maps.Geocoder();
-    geocoder.geocode({ address: rideData.origin }, (results, status) => {
-      if (status === "OK") {
-        setOriginCoordinates(results[0].geometry.location);
-      }
-    });
-    geocoder.geocode({ address: rideData.destination }, (results, status) => {
-      if (status === "OK") {
-        setDestinationCoordinates(results[0].geometry.location);
-      }
-    });
-  }, [rideData.origin, rideData.destination]);
-  useEffect(() => {
     const script = document.createElement("script");
     script.src = `https://maps.gomaps.pro/maps/api/js?key=AlzaSyLrk1KXy32iTkKpsbR1J1USZWKd4lE5oud&libraries=geometry,places&callback=initMap`;
     script.async = true;
     script.defer = true;
     document.head.appendChild(script);
+
     window.initMap = () => {
-      if (originCoordinates && destinationCoordinates) {
-        const mapInstance = new google.maps.Map(mapElement, {
-          center: originCoordinates,
-          zoom: 15,
-          mapTypeId: google.maps.MapTypeId.ROADMAP,
-          streetViewControl: false,
-          mapTypeControl: false,
-          fullscreenControl: false,
-        });
-        new google.maps.Marker({
-          position: originCoordinates,
-          map: mapInstance,
-          label: "O",
-        });
-        new google.maps.Polyline({
-          path: [originCoordinates, destinationCoordinates],
-          map: mapInstance,
-        });
-      }
+      const mapInstance = new google.maps.Map(mapElement, {
+        center: {lat: 0.3162, lng: 32.5811},
+        zoom: 15,
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        streetViewControl: false,
+        mapTypeControl: false,
+        fullscreenControl: false,
+      });
     };
-  }, [originCoordinates, destinationCoordinates]);
+  });
   return (
     <div>
       <div id="mapElement" style={{ height: "50vh", width: "100%" }} />
