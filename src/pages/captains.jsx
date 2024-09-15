@@ -398,28 +398,43 @@ export function MapRide() {
         }
       });
 
-      // Create polyline from user location to origin (gray)
-      const polyline1 = new google.maps.Polyline({
-        path: [
-          { lat: userLat, lng: userLng },
-          { lat: originLat, lng: originLng },
-        ],
-        map: mapInstance,
-        strokeColor: "#808080", // Gray
-        strokeOpacity: 0.8,
-        strokeWeight: 3,
+      const directionsService = new google.maps.DirectionsService();
+      const directionsRenderer = new google.maps.DirectionsRenderer({
+        map: mapInstance, // Set the map instance here
       });
 
-      // Create polyline from origin to destination (limegreen)
-      const polyline2 = new google.maps.Polyline({
-        path: [
-          { lat: originLat, lng: originLng },
-          { lat: destinationLat, lng: destinationLng },
-        ],
-        map: mapInstance,
-        strokeColor: "#32CD32", // Limegreen
-        strokeOpacity: 0.8,
-        strokeWeight: 3,
+      // Define request for directions
+      const request = {
+        origin: { lat: userLat, lng: userLng },
+        destination: { lat: originLat, lng: originLng },
+        travelMode: google.maps.TravelMode.DRIVING,
+      };
+
+      // Get directions from user to origin
+      directionsService.route(request, (result, status) => {
+        if (status === google.maps.DirectionsStatus.OK) {
+          directionsRenderer.setDirections(result);
+        }
+      });
+
+      // Define request for directions from origin to destination
+      const request2 = {
+        origin: { lat: originLat, lng: originLng },
+        destination: { lat: destinationLat, lng: destinationLng },
+        travelMode: google.maps.TravelMode.DRIVING,
+      };
+
+      // Get directions from origin to destination
+      directionsService.route(request2, (result, status) => {
+        if (status === google.maps.DirectionsStatus.OK) {
+          const directionsRenderer2 = new google.maps.DirectionsRenderer({
+            map: mapInstance,
+            directions: result,
+            polylineOptions: {
+              strokeColor: "#32CD32", // Limegreen
+            },
+          });
+        }
       });
     };
   });
@@ -434,13 +449,21 @@ export function MapRide() {
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
-          textAlign: 'start'
         }}
       >
         <h2>Ride Details</h2>
-        <p>Origin: {rideData.origin}</p>
-        <p>Destination: {rideData.destination}</p>
-        <p>Cost: {rideData.cost}</p>
+        <label>
+          <p>Origin: </p>
+          <span>{rideData.origin}</span>
+        </label>
+        <label>
+          <p>Destination: </p>
+          <span>{rideData.destination}</span>
+        </label>
+        <label>
+          <p>Cost: </p>
+          <span>{rideData.cost}</span>
+        </label>
       </div>
     </div>
   );
