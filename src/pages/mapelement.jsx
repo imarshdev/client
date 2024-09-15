@@ -19,7 +19,6 @@ export default function MapElement() {
   const [map, setMap] = useState(null);
   const [origin, setOrigin] = useState("");
   const [autocomplete, setAutocomplete] = useState(null);
-  const [userLocation, setUserLocation] = useState(null);
   const [destination, setDestination] = useState(null);
   const [destinationName, setDestinationName] = useState("");
   const [directionsRenderer, setDirectionsRenderer] = useState(null);
@@ -30,6 +29,7 @@ export default function MapElement() {
   const [message, setMessage] = useState("");
   const [username, setUsername] = useState("");
   const [token, setToken] = useState("");
+  const [data, setData] = useState([]);
   const [step, setStep] = useState(false);
   const [inputFocused, setInputFocused] = useState(false);
   const navigate = useNavigate();
@@ -45,6 +45,23 @@ export default function MapElement() {
   const snapPoints = ({ maxHeight, minHeight }) => {
     return isExpanded ? [maxHeight / 1] : [minHeight];
   };
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      axios
+        .get("https://walamin-server.onrender.com/all-locations")
+        .then((response) => {
+          setData(response.data);
+          console.log(response.data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }, 30000); // 30000 milliseconds = 30 seconds
+
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, []);
   useEffect(() => {
     setUsername(user.Username);
     setToken(user.Token);
@@ -108,7 +125,19 @@ export default function MapElement() {
       new google.maps.Marker({
         map: mapInstance,
         position: { lat: 0.3162, lng: 32.5811 },
-        title: "hello World!"
+        title: "hello World!",
+      });
+
+      data.forEach((location) => {
+        if (location.location) {
+          new google.maps.Marker({
+            map: mapInstance,
+            position: {
+              lat: location.location.latitude,
+              lng: location.location.longitude,
+            },
+          });
+        }
       })
 
       const input = document.getElementById("input");
