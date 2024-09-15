@@ -170,17 +170,6 @@ export default function MapElement() {
         console.log(marker);
       });
 
-      kampalaCoordinates.forEach((coordinate) => {
-        const marker = new google.maps.Marker({
-          map: mapInstance,
-          position: coordinate,
-          icon: {
-            url: ridericon,
-            scaledSize: new google.maps.Size(50, 50),
-          },
-        });
-      });
-
       const input = document.getElementById("input");
       const autocompleteInstance = new google.maps.places.Autocomplete(input);
       autocompleteInstance.bindTo("bounds", mapInstance);
