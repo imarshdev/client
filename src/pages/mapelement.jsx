@@ -69,15 +69,24 @@ export default function MapElement() {
         console.log(response.data);
 
         if (Array.isArray(response.data)) {
-          const newData = response.data.map((item) => ({
-            lat: item.location.latitude,
-            lng: item.location.longitude,
-            name: item.name,
-          }));
+          const newData = response.data.map((item) => {
+            if (item.location) {
+              return {
+                lat: item.location.latitude,
+                lng: item.location.longitude,
+                name: item.username,
+              };
+            } else {
+              return null;
+            }
+          });
 
-          // Check if newData is different from simplifiedData
-          if (JSON.stringify(newData) !== JSON.stringify(simplifiedData)) {
-            setSimplifiedData(newData);
+          // Filter out null values
+          const filteredData = newData.filter((item) => item !== null);
+
+          // Check if filteredData is different from simplifiedData
+          if (JSON.stringify(filteredData) !== JSON.stringify(simplifiedData)) {
+            setSimplifiedData(filteredData);
             console.log(simplifiedData);
           }
         }
