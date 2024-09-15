@@ -66,15 +66,22 @@ export default function MapElement() {
         const response = await axios.get(
           "https://walamin-server.onrender.com/all-locations"
         );
-        const newData = response.data.map((item) => ({
-          lat: item.location.latitude,
-          lng: item.location.longitude,
-          name: item.name,
-        }));
-        if (newData.some((item) => !simplifiedData.includes(item))) {
-          setSimplifiedData(newData);
-          console.log(simplifiedData);
+        console.log(response.data);
+
+        if (Array.isArray(response.data)) {
+          const newData = response.data.map((item) => ({
+            lat: item.location.latitude,
+            lng: item.location.longitude,
+            name: item.name,
+          }));
+
+          // Check if newData is different from simplifiedData
+          if (JSON.stringify(newData) !== JSON.stringify(simplifiedData)) {
+            setSimplifiedData(newData);
+            console.log(simplifiedData);
+          }
         }
+
         setData(response.data);
         console.log(data);
       } catch (error) {
