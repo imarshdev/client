@@ -18,6 +18,7 @@ import { LoginProvider } from "../loggedin.jsx";
 import CurrentRide from "./pages/currentRide.jsx";
 import LocationTracker from "./locationTracker.jsx";
 import AllLocations from "./pages/allloactions.jsx";
+import LoadGoogleMaps from "./loadmap.jsx";
 
 const router = createBrowserRouter([
   {
@@ -88,6 +89,7 @@ function App() {
         <RouterProvider router={router} />
         <PWABadge />
         <LocationTracker />
+        <LoadGoogleMaps />
       </LoginProvider>
     </UserProvider>
   );
