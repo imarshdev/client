@@ -348,8 +348,10 @@ export default function CapDash() {
 export function MapRide() {
   const location = useLocation();
   const rideData = location.state;
-  const [originCoordinates, setOriginCoordinates] = useState({});
-  const [destinationCoordinates, setDestinationCoordinates] = useState({});
+  const [originLat, setOriginLat] = useState({});
+  const [originLng, setOriginLng] = useState({});
+  const [destinationLat, setDestinationLat] = useState({});
+  const [destinationLng, setDestinationLng] = useState({});
 
   useEffect(() => {
     const script = document.createElement("script");
@@ -370,14 +372,18 @@ export function MapRide() {
       const geocoder = new google.maps.Geocoder();
       geocoder.geocode({ address: rideData.origin }, (results, status) => {
         if (status === "OK") {
-          setOriginCoordinates(results[0].geometry.location);
-          console.log(results[0].geometry.location);
+          setOriginLat(results[0].geometry.location.lat);
+          setOriginLng(results[0].geometry.location.lng);
+          console.log(results[0].geometry.location.lat);
+          console.log(results[0].geometry.location.lng);
         }
       });
       geocoder.geocode({ address: rideData.destination }, (results, status) => {
         if (status === "OK") {
-          setDestinationCoordinates(results[0].geometry.location);
-          console.log(results[0].geometry.location);
+          setDestinationLat(results[0].geometry.location.lat);
+          setDestinationLng(results[0].geometry.location.lng);
+          console.log(results[0].geometry.location.lat);
+          console.log(results[0].geometry.location.lng);
         }
       });
     };
