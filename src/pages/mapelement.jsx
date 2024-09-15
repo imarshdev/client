@@ -107,7 +107,8 @@ export default function MapElement() {
 
       const marker = new google.maps.Marker({
         map: map,
-        position: { lat: 0.3162, lng: 32.5811 }
+        position: { lat: 0.3162, lng: 32.5811 },
+        title: "hello World!"
       })
 
       const input = document.getElementById("input");
