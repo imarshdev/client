@@ -190,7 +190,7 @@ export default function MapElement() {
       });
 
       simplifiedData.forEach((location) => {
-        new google.maps.marker.AdvancedMarkerElement({
+        new google.maps.Marker({
           map: mapInstance,
           position: { lat: location.lat, lng: location.lng },
           title: location.name,
