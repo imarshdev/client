@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import "../css/map.css";
+import ridericon from "../assets/ridericon.png";
 import { BottomSheet } from "react-spring-bottom-sheet";
 import { TouchableOpacity } from "react-native-web";
 import { IoIosArrowBack } from "react-icons/io";
@@ -33,6 +34,19 @@ export default function MapElement() {
   const [step, setStep] = useState(false);
   const [inputFocused, setInputFocused] = useState(false);
   const navigate = useNavigate();
+
+  const kampalaCoordinates = [
+    { lat: 0.3162, lng: 32.5811 }, // Kampala City Center
+    { lat: 0.3345, lng: 32.6156 }, // Makerere University
+    { lat: 0.2861, lng: 32.5669 }, // Nakasero Market
+    { lat: 0.3083, lng: 32.6039 }, // Kololo Hill
+    { lat: 0.3539, lng: 32.6449 }, // Kyambogo University
+    { lat: 0.2614, lng: 32.5398 }, // Lubowa Hill
+    { lat: 0.2958, lng: 32.5741 }, // Kibuli Hill
+    { lat: 0.3395, lng: 32.6298 }, // Ntinda
+    { lat: 0.2729, lng: 32.5543 }, // Muyenga
+    { lat: 0.3139, lng: 32.5947 }, // Bugolobi
+  ];
   const back = () => {
     navigate("/");
   };
@@ -51,7 +65,7 @@ export default function MapElement() {
         .get("https://walamin-server.onrender.com/all-locations")
         .then((response) => {
           setData(response.data);
-          console.log(response.data);
+          console.log(data);
         })
         .catch((error) => {
           console.error(error);
@@ -130,8 +144,12 @@ export default function MapElement() {
 
       new google.maps.Marker({
         map: mapInstance,
-        position: { lat: 0.3162, lng: 32.5811 },
+        position: { lat: 0.5162, lng: 35.5811 },
         title: "hello World!",
+        icon: {
+          url: ridericon,
+          scaledSize: new google.maps.Size(50, 50), // Size of the icon
+        },
       });
 
       new google.maps.Marker({
@@ -150,6 +168,17 @@ export default function MapElement() {
           title: location.name,
         });
          console.log(marker);
+      });
+
+      kampalaCoordinates.forEach((coordinate) => {
+        const marker = new google.maps.Marker({
+          map: mapInstance,
+          position: coordinate,
+          icon: {
+            url: ridericon,
+            scaledSize: new google.maps.Size(50, 50),
+          },
+        });
       });
 
       const input = document.getElementById("input");
