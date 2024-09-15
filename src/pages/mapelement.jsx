@@ -167,7 +167,7 @@ export default function MapElement() {
           },
           title: location.name,
         });
-         console.log(marker);
+        console.log(marker);
       });
 
       kampalaCoordinates.forEach((coordinate) => {
@@ -212,7 +212,7 @@ export default function MapElement() {
         setLoadingSuggestions(false);
       });
     };
-  }, []);
+  }, [data]);
 
   const getDirections = () => {
     setLoaded(false);
