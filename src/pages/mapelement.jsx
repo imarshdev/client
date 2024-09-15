@@ -87,8 +87,10 @@ export default function MapElement() {
 
           // Check if filteredData is different from simplifiedData
           if (JSON.stringify(filteredData) !== JSON.stringify(simplifiedData)) {
-            setSimplifiedData(filteredData);
-            console.log("Simplified Data",simplifiedData);
+            if (filteredData.length > 0) {
+              setSimplifiedData(filteredData);
+            }
+            console.log("Simplified Data", simplifiedData);
           }
         }
 
@@ -107,6 +109,9 @@ export default function MapElement() {
       clearInterval(intervalId);
     };
   }, []);
+  useEffect(() => {
+    console.log("Simplified Data:", simplifiedData);
+  }, [simplifiedData]);
   useEffect(() => {
     setUsername(user.Username);
     setToken(user.Token);
@@ -232,7 +237,7 @@ export default function MapElement() {
         setLoadingSuggestions(false);
       });
     };
-  }, [simplifiedData]);
+  }, [data]);
 
   const getDirections = () => {
     setLoaded(false);
