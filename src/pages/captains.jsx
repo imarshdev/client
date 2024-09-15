@@ -18,6 +18,7 @@ export default function CapDash() {
 
   const handleAcceptRide = (username, rideIndex) => {
     const rideData = dataExpress[username].expressRides[rideIndex];
+    const rideId = `${rideData.origin}${rideData.timestamp}`; // Define rideId here
     navigate("/mapride", { state: rideData });
     axios
       .patch("https://walamin-server.onrender.com/accept-ride", {
@@ -359,12 +360,25 @@ export function MapRide() {
 
     window.initMap = () => {
       const mapInstance = new google.maps.Map(mapElement, {
-        center: {lat: 0.3162, lng: 32.5811},
+        center: { lat: 0.3162, lng: 32.5811 },
         zoom: 15,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
         streetViewControl: false,
         mapTypeControl: false,
         fullscreenControl: false,
+      });
+      const geocoder = new google.maps.Geocoder();
+      geocoder.geocode({ address: rideData.origin }, (results, status) => {
+        if (status === "OK") {
+          setOriginCoordinates(results[0].geometry.location);
+          console.log(results[0].geometry.location);
+        }
+      });
+      geocoder.geocode({ address: rideData.destination }, (results, status) => {
+        if (status === "OK") {
+          setDestinationCoordinates(results[0].geometry.location);
+          console.log(results[0].geometry.location);
+        }
       });
     };
   });
