@@ -70,6 +70,7 @@ export default function MapElement() {
 
         if (Array.isArray(response.data)) {
           const newData = response.data.map((item) => {
+            console.log("Item:", item);
             if (item.location) {
               return {
                 lat: item.location.latitude,
