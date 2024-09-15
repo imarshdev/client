@@ -88,7 +88,7 @@ export default function MapElement() {
           // Check if filteredData is different from simplifiedData
           if (JSON.stringify(filteredData) !== JSON.stringify(simplifiedData)) {
             setSimplifiedData(filteredData);
-            console.log(simplifiedData);
+            console.log("Simplified Data",simplifiedData);
           }
         }
 
@@ -199,7 +199,6 @@ export default function MapElement() {
             scaledSize: new google.maps.Size(50, 50), // Size of the icon
           },
         });
-        console.log(marker);
       });
 
       const input = document.getElementById("input");
