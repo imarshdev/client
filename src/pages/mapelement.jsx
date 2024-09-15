@@ -128,17 +128,21 @@ export default function MapElement() {
         title: "hello World!",
       });
 
-      data.forEach((location) => {
-        if (location.location) {
+      data.forEach((user) => {
+        if (
+          user.location &&
+          user.location.latitude &&
+          user.location.longitude
+        ) {
           new google.maps.Marker({
             map: mapInstance,
             position: {
-              lat: location.location.latitude,
-              lng: location.location.longitude,
+              lat: user.location.latitude,
+              lng: user.location.longitude,
             },
           });
         }
-      })
+      });
 
       const input = document.getElementById("input");
       const autocompleteInstance = new google.maps.places.Autocomplete(input);
