@@ -347,8 +347,50 @@ export default function CapDash() {
 export function MapRide() {
   const location = useLocation();
   const rideData = location.state;
+  const [originCoordinates, setOriginCoordinates] = useState({});
+  const [destinationCoordinates, setDestinationCoordinates] = useState({});
+
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.src = `https://maps.gomaps.pro/maps/api/js?key=AlzaSyLrk1KXy32iTkKpsbR1J1USZWKd4lE5oud&libraries=geometry,places&callback=initMap`;
+    script.async = true;
+    script.defer = true;
+    document.head.appendChild(script);
+
+    window.initMap = () => {
+      const geocoder = new google.maps.Geocoder();
+      geocoder.geocode({ address: rideData.origin }, (results, status) => {
+        if (status === "OK") {
+          setOriginCoordinates(results[0].geometry.location);
+        }
+      });
+      geocoder.geocode({ address: rideData.destination }, (results, status) => {
+        if (status === "OK") {
+          setDestinationCoordinates(results[0].geometry.location);
+        }
+      });
+      const mapInstance = new google.maps.Map(mapElement, {
+        center: originCoordinates,
+        zoom: 15,
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        streetViewControl: false,
+        mapTypeControl: false,
+        fullscreenControl: false,
+      });
+      new google.maps.Marker({
+        position: originCoordinates,
+        map: mapInstance,
+        label: "O",
+      });
+      new google.maps.Polyline({
+        path: [originCoordinates, destinationCoordinates],
+        map: mapInstance,
+      });
+    };
+  }, [rideData.origin, rideData.destination]);
   return (
     <div>
+      <div id="mapElement" style={{ height: "50vh", width: "100%" }} />
       <h2>Ride Details</h2>
       <p>Origin: {rideData.origin}</p>
       <p>Destination: {rideData.destination}</p>
