@@ -364,6 +364,11 @@ export function MapRide() {
     });
   }, [rideData.origin, rideData.destination]);
   useEffect(() => {
+    const script = document.createElement("script");
+    script.src = `https://maps.gomaps.pro/maps/api/js?key=AlzaSyLrk1KXy32iTkKpsbR1J1USZWKd4lE5oud&libraries=geometry,places&callback=initMap`;
+    script.async = true;
+    script.defer = true;
+    document.head.appendChild(script);
     window.initMap = () => {
       if (originCoordinates && destinationCoordinates) {
         const mapInstance = new google.maps.Map(mapElement, {
