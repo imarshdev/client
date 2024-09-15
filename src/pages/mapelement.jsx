@@ -223,7 +223,7 @@ export default function MapElement() {
         keyboardVerticalOffset={verticalOffset}
         behavior="height"
         snapPoints={({ maxHeight }) =>
-          inputFocused ? [maxHeight - maxHeight / 10] : [maxHeight / 2]
+          inputFocused ? [maxHeight - maxHeight / 10] : [maxHeight / 3]
         }
         skipInitialTransition={true}
         expandOnContentDrag={true}
@@ -260,7 +260,7 @@ export default function MapElement() {
                 </TouchableOpacity>
               </>
             ) : step === null ? (
-              <p>null</p>
+              <p></p>
             ) : (
               <TouchableOpacity
                 onPress={goup}
@@ -319,13 +319,17 @@ export default function MapElement() {
           )}
           <br />
           {sendRide === false && (
-            <TouchableOpacity
-              onPress={start}
-              id="confirm-pickup"
-              style={{ width: "90%" }}
-            >
-              <p> Confirm Location</p>
-            </TouchableOpacity>
+            <>
+              <p>{origin}</p>
+              <br />
+              <TouchableOpacity
+                onPress={start}
+                id="confirm-pickup"
+                style={{ width: "90%" }}
+              >
+                <p> Confirm Location</p>
+              </TouchableOpacity>
+            </>
           )}
           {sendRide === true && (
             <>
