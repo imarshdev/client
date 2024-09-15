@@ -105,6 +105,11 @@ export default function MapElement() {
       });
       setMap(mapInstance);
 
+      const marker = new google.maps.Marker({
+        map: map,
+        position: { lat: 0.3162, lng: 32.5811 }
+      })
+
       const input = document.getElementById("input");
       const autocompleteInstance = new google.maps.places.Autocomplete(input);
       autocompleteInstance.bindTo("bounds", mapInstance);
