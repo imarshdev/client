@@ -352,8 +352,16 @@ export function MapRide() {
   const [originLng, setOriginLng] = useState({});
   const [destinationLat, setDestinationLat] = useState({});
   const [destinationLng, setDestinationLng] = useState({});
+  const [userLat, setUserLat] = useState({});
+  const [userLng, setUserLng] = useState({});
 
   useEffect(() => {
+    // Get user's current location
+    navigator.geolocation.getCurrentPosition((position) => {
+      setUserLat(position.coords.latitude);
+      setUserLng(position.coords.longitude);
+    });
+
     const script = document.createElement("script");
     script.src = `https://maps.gomaps.pro/maps/api/js?key=AlzaSyLrk1KXy32iTkKpsbR1J1USZWKd4lE5oud&libraries=geometry,places&callback=initMap`;
     script.async = true;
@@ -361,9 +369,12 @@ export function MapRide() {
     document.head.appendChild(script);
 
     window.initMap = () => {
+      // Calculate the center of the map
+      const centerLat = (userLat + originLat + destinationLat) / 3;
+      const centerLng = (userLng + originLng + destinationLng) / 3;
       const mapInstance = new google.maps.Map(mapElement, {
-        center: { lat: 0.3162, lng: 32.5811 },
-        zoom: 15,
+        center: { lat: centerLat, lng: centerLng },
+        zoom: 10,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
         streetViewControl: false,
         mapTypeControl: false,
@@ -386,15 +397,51 @@ export function MapRide() {
           console.log(results[0].geometry.location.lng());
         }
       });
+
+      // Create polyline from user location to origin (gray)
+      const polyline1 = new google.maps.Polyline({
+        path: [
+          { lat: userLat, lng: userLng },
+          { lat: originLat, lng: originLng },
+        ],
+        map: mapInstance,
+        strokeColor: "#808080", // Gray
+        strokeOpacity: 0.8,
+        strokeWeight: 3,
+      });
+
+      // Create polyline from origin to destination (limegreen)
+      const polyline2 = new google.maps.Polyline({
+        path: [
+          { lat: originLat, lng: originLng },
+          { lat: destinationLat, lng: destinationLng },
+        ],
+        map: mapInstance,
+        strokeColor: "#32CD32", // Limegreen
+        strokeOpacity: 0.8,
+        strokeWeight: 3,
+      });
     };
   });
   return (
     <div>
       <div id="mapElement" style={{ height: "50vh", width: "100%" }} />
-      <h2>Ride Details</h2>
-      <p>Origin: {rideData.origin}</p>
-      <p>Destination: {rideData.destination}</p>
-      <p>Cost: {rideData.cost}</p>
+      <div
+        style={{
+          width: "100%",
+          height: "50vh",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          textAlign: 'start'
+        }}
+      >
+        <h2>Ride Details</h2>
+        <p>Origin: {rideData.origin}</p>
+        <p>Destination: {rideData.destination}</p>
+        <p>Cost: {rideData.cost}</p>
+      </div>
     </div>
   );
 }
