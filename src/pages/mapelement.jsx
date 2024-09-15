@@ -69,9 +69,10 @@ export default function MapElement() {
         console.log(response.data);
 
         if (Array.isArray(response.data)) {
+          const allowedNames = ["Marsh", "Marsh mansur"]; // Replace with your array of allowed names
           const newData = response.data.map((item) => {
             console.log("Item:", item);
-            if (item.location) {
+            if (item.location && allowedNames.includes(item.username)) {
               return {
                 lat: item.location.latitude,
                 lng: item.location.longitude,
@@ -161,80 +162,70 @@ export default function MapElement() {
     document.head.appendChild(script);
 
     window.initMap = () => {
-      const mapElement = document.getElementById("map");
-      const mapInstance = new google.maps.Map(mapElement, {
-        center: { lat: 0.3163, lng: 32.5811 },
-        zoom: 15,
-        mapTypeId: google.maps.MapTypeId.ROADMAP,
-        streetViewControl: false,
-        mapTypeControl: false,
-        fullscreenControl: false,
-      });
-      setMap(mapInstance);
+      navigator.geolocation.getCurrentPosition((position) => {
+        const latitude = position.coords.latitude;
+        const longitude = position.coords.longitude;
+        const mapElement = document.getElementById("map");
+        const mapInstance = new google.maps.Map(mapElement, {
+          center: { lat: latitude, lng: longitude },
+          zoom: 15,
+          mapTypeId: google.maps.MapTypeId.ROADMAP,
+          streetViewControl: false,
+          mapTypeControl: false,
+          fullscreenControl: false,
+        });
+        setMap(mapInstance);
 
-      new google.maps.Marker({
-        map: mapInstance,
-        position: { lat: 0.3162, lng: 32.5811 },
-        title: "hello World!",
-      });
 
-      new google.maps.Marker({
-        map: mapInstance,
-        position: { lat: 0.5162, lng: 35.5811 },
-        title: "hello World!",
-        icon: {
-          url: ridericon,
-          scaledSize: new google.maps.Size(50, 50), // Size of the icon
-        },
-      });
-
-      new google.maps.Marker({
-        map: mapInstance,
-        position: { lat: 0.4162, lng: 33.5811 },
-        title: "hello World!",
-      });
-
-      simplifiedData.forEach((location) => {
         new google.maps.Marker({
           map: mapInstance,
-          position: { lat: location.lat, lng: location.lng },
-          title: location.name,
-          icon: {
-            url: ridericon,
-            scaledSize: new google.maps.Size(50, 50), // Size of the icon
-          },
+          position: { lat: latitude, lng: longitude },
+          title: "hello World!",
         });
-      });
 
-      const input = document.getElementById("input");
-      const autocompleteInstance = new google.maps.places.Autocomplete(input);
-      autocompleteInstance.bindTo("bounds", mapInstance);
-      setAutocomplete(autocompleteInstance);
-
-      autocompleteInstance.addListener("place_changed", () => {
-        const place = autocompleteInstance.getPlace();
-        if (!place.geometry) {
-          console.log(
-            "No details available for the input: '" + place.name + "'"
-          );
-          return;
-        }
-        setStep(null);
-        setSendRide(false);
-        setDestination(place.formatted_address);
-        setDestinationName(place.name);
-        console.log("Selected place updated:", place);
-        if (place.geometry.viewport) {
-          mapInstance.fitBounds(place.geometry.viewport);
-        } else {
-          mapInstance.setCenter(place.geometry.location);
-          mapInstance.setZoom(17);
-        }
-        new google.maps.Marker({
-          position: place.geometry.location,
-          map: mapInstance,
+        simplifiedData.forEach((location) => {
+          new google.maps.Marker({
+            map: mapInstance,
+            position: { lat: location.lat, lng: location.lng },
+            title: location.name,
+            icon: {
+              url: ridericon,
+              scaledSize: new google.maps.Size(50, 50), // Size of the icon
+            },
+          });
         });
-        setLoadingSuggestions(false);
+
+
+        const input = document.getElementById("input");
+        const autocompleteInstance = new google.maps.places.Autocomplete(input);
+        autocompleteInstance.bindTo("bounds", mapInstance);
+        setAutocomplete(autocompleteInstance);
+
+        autocompleteInstance.addListener("place_changed", () => {
+          const place = autocompleteInstance.getPlace();
+          if (!place.geometry) {
+            console.log(
+              "No details available for the input: '" + place.name + "'"
+            );
+            return;
+          }
+          setStep(null);
+          setSendRide(false);
+          setDestination(place.formatted_address);
+          setDestinationName(place.name);
+          console.log("Selected place updated:", place);
+          if (place.geometry.viewport) {
+            mapInstance.fitBounds(place.geometry.viewport);
+          } else {
+            mapInstance.setCenter(place.geometry.location);
+            mapInstance.setZoom(17);
+          }
+          new google.maps.Marker({
+            position: place.geometry.location,
+            map: mapInstance,
+          });
+          setLoadingSuggestions(false);
+        });
       });
     };
   }, [data]);
