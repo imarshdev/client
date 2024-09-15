@@ -105,8 +105,8 @@ export default function MapElement() {
       });
       setMap(mapInstance);
 
-      const marker = new google.maps.Marker({
-        map: map,
+      new google.maps.Marker({
+        map: mapInstance,
         position: { lat: 0.3162, lng: 32.5811 },
         title: "hello World!"
       })
