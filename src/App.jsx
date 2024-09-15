@@ -13,7 +13,7 @@ import Map from "./pages/map.jsx";
 import MapElement from "./pages/mapelement.jsx";
 import Schedule from "./pages/schedule.jsx";
 import { UserProvider } from "../UserContext.jsx";
-import CapDash from "./pages/captains.jsx";
+import CapDash, { MapRide } from "./pages/captains.jsx";
 import { LoginProvider } from "../loggedin.jsx";
 import CurrentRide from "./pages/currentRide.jsx";
 import LocationTracker from "./locationTracker.jsx";
@@ -74,6 +74,10 @@ const router = createBrowserRouter([
     path: "/allLocations",
     element: <AllLocations />,
     errorElement: <ErrorPage />,
+  },
+  {
+    path: "/map",
+    element: <MapRide/>
   },
 ]);
 

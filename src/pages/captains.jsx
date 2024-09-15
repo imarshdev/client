@@ -8,7 +8,7 @@ import { CiCreditCard1, CiLocationOn, CiTimer } from "react-icons/ci";
 import { MdAccessTime, MdStart } from "react-icons/md";
 import { IoCallOutline } from "react-icons/io5";
 import { IoIosArrowBack, IoMdPricetags } from "react-icons/io";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export default function CapDash() {
   const [declinedRides, setDeclinedRides] = useState({});
@@ -16,10 +16,9 @@ export default function CapDash() {
   const [data, setData] = useState("");
   const [dataExpress, setDataExpress] = useState("");
 
-
   const handleAcceptRide = (username, rideIndex) => {
-    const phoneNumber = dataExpress[username].contact;
-    const rideId = `${dataExpress[username].expressRides[rideIndex].origin}${dataExpress[username].expressRides[rideIndex].timestamp}`;
+    const rideData = dataExpress[username].expressRides[rideIndex];
+    navigate("/map", { state: rideData });
     axios
       .patch("https://walamin-server.onrender.com/accept-ride", {
         username,
@@ -31,7 +30,6 @@ export default function CapDash() {
       .catch((error) => {
         console.error(error);
       });
-    window.location.href = `tel:${phoneNumber}`;
   };
   const handleDeclineRide = (username, rideIndex) => {
     const declinedRide = dataExpress[username].expressRides[rideIndex];
@@ -277,7 +275,10 @@ export default function CapDash() {
         {page === "delivery" && (
           <>
             <p>Deliver</p>
-            <button style={{backgroundColor: 'limegreen'}} onClick={currentRide}>
+            <button
+              style={{ backgroundColor: "limegreen" }}
+              onClick={currentRide}
+            >
               <p>Go to current ride</p>
             </button>
           </>
@@ -339,6 +340,19 @@ export default function CapDash() {
           </span>
         </TouchableOpacity>
       </div>
+    </div>
+  );
+}
+
+export function MapRide() {
+  const location = useLocation();
+  const rideData = location.state;
+  return (
+    <div>
+      <h2>Ride Details</h2>
+      <p>Origin: {rideData.origin}</p>
+      <p>Destination: {rideData.destination}</p>
+      <p>Cost: {rideData.cost}</p>
     </div>
   );
 }
