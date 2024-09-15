@@ -117,7 +117,6 @@ export default function CurrentRide() {
       <TouchableOpacity id="back" onPress={currentride}>
         <IoIosArrowBack size={24} />
       </TouchableOpacity>
-      <p>{place}</p>
       <div id="map" style={{ height: "50vh", width: "100vw" }}></div>
       <BottomSheet
         header={

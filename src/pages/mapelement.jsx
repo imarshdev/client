@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import "../css/map.css";
-import ridericon from "../assets/ridericon.png";
 import { BottomSheet } from "react-spring-bottom-sheet";
 import { TouchableOpacity } from "react-native-web";
 import { IoIosArrowBack } from "react-icons/io";
@@ -85,7 +84,6 @@ export default function MapElement() {
     navigator.geolocation.getCurrentPosition((position) => {
       const latitude = position.coords.latitude;
       const longitude = position.coords.longitude;
-      setUserLocation({ latitude, longitude });
     });
   });
   useEffect(() => {
@@ -98,7 +96,7 @@ export default function MapElement() {
     window.initMap = () => {
       const mapElement = document.getElementById("map");
       const mapInstance = new google.maps.Map(mapElement, {
-        center: userLocation,
+        center: { lat: 0.3163, lng: 32.5811 },
         zoom: 15,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
         streetViewControl: false,
@@ -106,12 +104,6 @@ export default function MapElement() {
         fullscreenControl: false,
       });
       setMap(mapInstance);
-
-      const marker = new window.google.maps.Marker({
-        position: userLocation,
-        map: mapInstance,
-        icon: ridericon,
-      });
 
       const input = document.getElementById("input");
       const autocompleteInstance = new google.maps.places.Autocomplete(input);
