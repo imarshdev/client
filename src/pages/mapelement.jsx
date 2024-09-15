@@ -34,6 +34,7 @@ export default function MapElement() {
   const [step, setStep] = useState(false);
   const [inputFocused, setInputFocused] = useState(false);
   const navigate = useNavigate();
+  const [simplifiedData, setSimplifiedData] = useState([]);
 
   const kampalaCoordinates = [
     { lat: 0.3162, lng: 32.5811 }, // Kampala City Center
@@ -60,17 +61,30 @@ export default function MapElement() {
     return isExpanded ? [maxHeight / 1] : [minHeight];
   };
   useEffect(() => {
-    const intervalId = setInterval(() => {
-      axios
-        .get("https://walamin-server.onrender.com/all-locations")
-        .then((response) => {
-          setData(response.data);
-          console.log(data);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    }, 30000); // 30000 milliseconds = 30 seconds
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          "https://walamin-server.onrender.com/all-locations"
+        );
+        const newData = response.data.map((item) => ({
+          lat: item.location.latitude,
+          lng: item.location.longitude,
+          name: item.name,
+        }));
+        if (newData.some((item) => !simplifiedData.includes(item))) {
+          setSimplifiedData(newData);
+          console.log(simplifiedData);
+        }
+        setData(response.data);
+        console.log(data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData(); // Call fetchData immediately
+
+    const intervalId = setInterval(fetchData, 30000); // Fetch every 30 seconds
 
     return () => {
       clearInterval(intervalId);
@@ -158,14 +172,15 @@ export default function MapElement() {
         title: "hello World!",
       });
 
-      data.forEach((user) => {
-        new google.maps.Marker({
+      simplifiedData.forEach((location) => {
+        new google.maps.marker.AdvancedMarkerElement({
           map: mapInstance,
-          position: {
-            lat: user.location.latitude,
-            lng: user.location.longitude,
-          },
+          position: { lat: location.lat, lng: location.lng },
           title: location.name,
+          icon: {
+            url: ridericon,
+            scaledSize: new google.maps.Size(50, 50), // Size of the icon
+          },
         });
         console.log(marker);
       });
@@ -201,7 +216,7 @@ export default function MapElement() {
         setLoadingSuggestions(false);
       });
     };
-  }, [data]);
+  }, [simplifiedData]);
 
   const getDirections = () => {
     setLoaded(false);
