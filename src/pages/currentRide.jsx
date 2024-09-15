@@ -17,10 +17,8 @@ export default function CurrentRide() {
   const [step, setStep] = useState(false);
   const [inputFocused, setInputFocused] = useState(false);
   const [autoComplete, setAutocomplete] = useState(false);
-  const [place, setPlace] = useState("");
   const [map, setMap] = useState(null);
   const [data, setData] = useState([]);
-  const inputRef = useRef(null);
   const navigate = useNavigate();
   const currentride = () => {
     navigate("/");
@@ -87,21 +85,6 @@ export default function CurrentRide() {
       map.remove();
     };
   }, [data]);
-  useEffect(() => {
-    const script = document.createElement("script");
-    script.src = `https://maps.gomaps.pro/maps/api/js?key=AlzaSyLrk1KXy32iTkKpsbR1J1USZWKd4lE5oud&libraries=geometry,places&callback=initMap`;
-    script.async = true;
-    script.defer = true;
-    document.head.appendChild(script);
-
-    const autocomplete = new google.maps.places.Autocomplete(inputRef.current);
-
-    autoComplete.addListener("place_changed", () => {
-      const place = autoComplete.getPlace();
-      console.log(place);
-      setPlace(place.name);
-    });
-  });
   const screenHeight = window.innerHeight;
   const verticalOffset = screenHeight * 1;
   const focused = () => {

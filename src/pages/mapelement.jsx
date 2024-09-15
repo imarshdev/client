@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import "../css/map.css";
+import ridericon from "../assets/ridericon.png";
 import { BottomSheet } from "react-spring-bottom-sheet";
 import { TouchableOpacity } from "react-native-web";
 import { IoIosArrowBack } from "react-icons/io";
@@ -19,6 +20,7 @@ export default function MapElement() {
   const [map, setMap] = useState(null);
   const [origin, setOrigin] = useState("");
   const [autocomplete, setAutocomplete] = useState(null);
+  const [userLocation, setUserLocation] = useState(null);
   const [destination, setDestination] = useState(null);
   const [destinationName, setDestinationName] = useState("");
   const [directionsRenderer, setDirectionsRenderer] = useState(null);
@@ -80,6 +82,13 @@ export default function MapElement() {
     }
   };
   useEffect(() => {
+    navigator.geolocation.getCurrentPosition((position) => {
+      const latitude = position.coords.latitude;
+      const longitude = position.coords.longitude;
+      setUserLocation({ latitude, longitude });
+    });
+  });
+  useEffect(() => {
     const script = document.createElement("script");
     script.src = `https://maps.gomaps.pro/maps/api/js?key=AlzaSyLrk1KXy32iTkKpsbR1J1USZWKd4lE5oud&libraries=geometry,places&callback=initMap`;
     script.async = true;
@@ -89,14 +98,20 @@ export default function MapElement() {
     window.initMap = () => {
       const mapElement = document.getElementById("map");
       const mapInstance = new google.maps.Map(mapElement, {
-        center: { lat: 0.3163, lng: 32.5811 },
-        zoom: 13,
+        center: userLocation,
+        zoom: 15,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
         streetViewControl: false,
         mapTypeControl: false,
         fullscreenControl: false,
       });
       setMap(mapInstance);
+
+      const marker = new window.google.maps.Marker({
+        position: userLocation,
+        map: mapInstance,
+        icon: ridericon
+      })
 
       const input = document.getElementById("input");
       const autocompleteInstance = new google.maps.places.Autocomplete(input);
@@ -111,7 +126,7 @@ export default function MapElement() {
           );
           return;
         }
-        setStep(null)
+        setStep(null);
         setSendRide(false);
         setDestination(place.formatted_address);
         setDestinationName(place.name);
@@ -212,7 +227,7 @@ export default function MapElement() {
   };
   return (
     <div>
-      <div id="map" style={{ height: "60vh", width: "100vw" }} />
+      <div id="map" style={{ height: "65vh", width: "100vw" }} />
       <TouchableOpacity id="back" onPress={back}>
         <IoIosArrowBack size={24} />
       </TouchableOpacity>
@@ -223,7 +238,7 @@ export default function MapElement() {
         keyboardVerticalOffset={verticalOffset}
         behavior="height"
         snapPoints={({ maxHeight }) =>
-          inputFocused ? [maxHeight - maxHeight / 10] : [maxHeight / 3]
+          inputFocused ? [maxHeight - maxHeight / 10] : [maxHeight / 2.5]
         }
         skipInitialTransition={true}
         expandOnContentDrag={true}
