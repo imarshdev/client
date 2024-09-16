@@ -23,7 +23,13 @@ export default function CapDash() {
   const handleAcceptRide = (username, rideIndex) => {
     const rideData = dataExpress[username].expressRides[rideIndex];
     const rideId = `${rideData.origin}${rideData.timestamp}`; // Define rideId here
-    navigate("/mapride", { state: rideData });
+    navigate("/mapride", {
+      state: {
+        username,
+        contact: dataExpress[username].contact,
+        rideData,
+      },
+    });
     axios
       .patch("https://walamin-server.onrender.com/accept-ride", {
         username,
@@ -351,7 +357,7 @@ export default function CapDash() {
 
 export function MapRide() {
   const location = useLocation();
-  const rideData = location.state;
+  const { username, contact, rideData } = location.state;
   const [originLat, setOriginLat] = useState({});
   const [originLng, setOriginLng] = useState({});
   const [destinationLat, setDestinationLat] = useState({});
@@ -469,7 +475,7 @@ export function MapRide() {
           borderRadius: "10px 10px 0 0 ",
         }}
       >
-        <h2>Username: {rideData.username}</h2>
+        <h2>Username: {username}</h2>
         <>
           <p style={{ fontSize: "14px" }}>Origin: </p>
           <span>{rideData.origin}</span>
@@ -500,7 +506,7 @@ export function MapRide() {
               backgroundColor: "limegreen",
               borderRadius: "5px",
             }}
-            onPress={() => window.open(`tel:${rideData.contact}`, "_self")}
+            onPress={() => window.open(`tel:${contact}`, "_self")}
           >
             <span style={{ color: "#fff" }}>call user</span>
           </TouchableOpacity>
