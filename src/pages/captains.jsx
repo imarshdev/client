@@ -439,7 +439,7 @@ export function MapRide() {
     };
   });
   return (
-    <div>
+    <div style={{width: "100vw"}}>
       <div id="mapElement" style={{ height: "50vh", width: "100%" }} />
       <div
         style={{
@@ -449,6 +449,8 @@ export function MapRide() {
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
+          boxSizing: 'border-box',
+          padding: '20px'
         }}
       >
         <h2>Ride Details</h2>
