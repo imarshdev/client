@@ -123,7 +123,7 @@ export default function MapElement() {
   const bookRide = async () => {
     setResult(2);
     console.log("Origin:", origin);
-    console.log("Destination:", destinationName);
+    console.log("Destination:", destination);
     try {
       const response = await axios.post(
         "https://walamin-server.onrender.com/rides/express",
@@ -131,7 +131,7 @@ export default function MapElement() {
           username,
           token,
           origin: origin,
-          destination: destinationName,
+          destination: destination,
           cost,
         }
       );
@@ -148,12 +148,6 @@ export default function MapElement() {
       }
     }
   };
-  useEffect(() => {
-    navigator.geolocation.getCurrentPosition((position) => {
-      const latitude = position.coords.latitude;
-      const longitude = position.coords.longitude;
-    });
-  });
   useEffect(() => {
     const script = document.createElement("script");
     script.src = `https://maps.gomaps.pro/maps/api/js?key=AlzaSyLrk1KXy32iTkKpsbR1J1USZWKd4lE5oud&libraries=geometry,places&callback=initMap`;
