@@ -29,6 +29,7 @@ import { Sidebar } from "primereact/sidebar";
 import { UserContext } from "../../UserContext";
 import { Password } from "primereact/password";
 import axios from "axios";
+import { Dialog } from "primereact/dialog";
 
 export default function Account() {
   const { user } = useContext(UserContext);
@@ -69,7 +70,7 @@ export default function Account() {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (code === secretCode) {
-    navigate("/captain-dash")
+      navigate("/captain-dash");
     } else {
       setErrorMessage("Contact us to become a Captain");
     }
@@ -155,7 +156,14 @@ export default function Account() {
             }}
           >
             <h2>Enter Captain's PassCode</h2>
-            <div style={{width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+            <div
+              style={{
+                width: "100%",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
               <div id="input-container" style={{ width: "80%" }}>
                 <input
                   type="number"
@@ -498,9 +506,113 @@ function CardsAndAccounts() {
 }
 
 function DeleteAccount() {
+  const [isVisible, setIsVisivle] = useState(false);
+  const { user, setUser } = useContext(UserContext);
+  const navigate = useNavigate()
+  const deleteAccount = () => {
+    setUser({ isLoggedIn: false });
+    navigate("/signin");
+    setIsVisivle(false);
+  };
   return (
-    <div className="mid_details">
-      <p> Delete Account</p>
+    <div
+      className="mid_details"
+      style={{
+        height: "90vh",
+        justifyContent: "space-between",
+        display: "flex",
+        flexDirection: "column",
+      }}
+    >
+      <h2> Delete Account</h2>
+      <p>Username: {user.Username}</p>
+      <div
+        style={{
+          width: "100%",
+          display: "flex",
+          justifyContent: "space-between",
+        }}
+      >
+        <TouchableOpacity
+          style={{
+            width: "45%",
+            height: "3rem",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            backgroundColor: "limegreen",
+            borderRadius: "5px",
+          }}
+        >
+          <span style={{ color: "#fff" }}>Edit Account</span>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={{
+            width: "45%",
+            height: "3rem",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            backgroundColor: "#fff",
+            borderRadius: "5px",
+            border: "solid 0.1px red",
+          }}
+          onPress={() => setIsVisivle(true)}
+        >
+          Delete Account
+        </TouchableOpacity>
+      </div>
+      <Dialog
+        visible={isVisible}
+        modal
+        onHide={() => {
+          if (!visible) return;
+          setVisible(false);
+        }}
+        style={{
+          width: "90%",
+          height: "25vh",
+          backgroundColor: "#fff",
+          boxShadow: "0 5px 10px rgba(160, 163, 189, 0.801)",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          borderRadius: "30px",
+        }}
+      >
+        <br />
+        <TouchableOpacity
+          style={{
+            width: "60vw",
+            height: "3rem",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            backgroundColor: "limegreen",
+            borderRadius: "5px",
+            padding: "10px 20px",
+          }}
+          onPress={() => setIsVisivle(false)}
+        >
+          <p style={{ margin: "10px", color: "#fff" }}>Keep account</p>
+        </TouchableOpacity>
+        <br />
+        <TouchableOpacity
+          style={{
+            width: "60vw",
+            height: "3rem",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            backgroundColor: "orange",
+            borderRadius: "5px",
+            padding: "10px 20px",
+          }}
+          onPress={deleteAccount}
+        >
+          <p style={{ margin: "10px", color: "#fff" }}>Delete Account</p>
+        </TouchableOpacity>
+      </Dialog>
     </div>
   );
 }

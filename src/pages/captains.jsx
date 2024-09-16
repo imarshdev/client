@@ -362,6 +362,10 @@ export function MapRide() {
   const dismis = () => {
     setOpen(false);
   };
+  const navigate = useNavigate();
+  const back = () => {
+    navigate("/captain-dash");
+  };
   useEffect(() => {
     // Get user's current location
     navigator.geolocation.getCurrentPosition((position) => {
@@ -447,6 +451,9 @@ export function MapRide() {
   });
   return (
     <div style={{ width: "100vw" }}>
+      <TouchableOpacity id="back" onPress={back}>
+        <IoIosArrowBack size={24} />
+      </TouchableOpacity>
       <div id="mapElement" style={{ height: "55vh", width: "100%" }} />
       <div
         style={{

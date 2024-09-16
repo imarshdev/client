@@ -24,8 +24,11 @@ function Home() {
   const [currentTimeString, setCurrentTimeString] = useState(new Date());
   const navigate = useNavigate();
 
-
-  useEffect(() => {}, [user.isLoggedIn, navigate]);
+  useEffect(() => {
+    if (!user.isLoggedIn) {
+      navigate("/signin", { replace: true });
+    }
+  }, [user.isLoggedIn, navigate]);
 
   useEffect(() => {
     const currentTime = new Date().getHours();
