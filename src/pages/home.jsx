@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { FaHome, FaServicestack } from "react-icons/fa";
-import { MdAccountBalanceWallet, MdDining } from "react-icons/md";
+import { MdAccountBalanceWallet, MdDining, MdSchedule } from "react-icons/md";
 import { GiFullMotorcycleHelmet } from "react-icons/gi";
 import { FaUserAstronaut } from "react-icons/fa";
 import "../css/home.css";
@@ -16,7 +16,7 @@ import shopping from "../assets/shopping.svg";
 import axios from "axios";
 import { UserContext } from "../../UserContext";
 import { RiAuctionLine } from "react-icons/ri";
-import { LoginContext } from "../../loggedin";
+import { CiDeliveryTruck } from "react-icons/ci";
 
 function Home() {
   const { user } = useContext(UserContext);
@@ -91,22 +91,26 @@ function Home() {
           <div className="mid_details_upper">
             <TouchableOpacity id="service_item">
               <Link to="/map2" id="link_item">
-                <img src={delivery} style={{ width: "36px" }} />
-                <p style={{ fontSize: 12 }}>Delivery</p>{" "}
+                <CiDeliveryTruck size={34} color="#ffc107" />
+                <p style={{ fontSize: 12, color: "#333333" }}>
+                  Delivery Services
+                </p>
               </Link>
             </TouchableOpacity>
 
             <TouchableOpacity id="service_item">
               <Link to="/currentRide" id="link_item">
-                <img src={ride} style={{ width: "34px" }} />
-                <p style={{ fontSize: 12 }}>Order Ride</p>
+                <GiFullMotorcycleHelmet size={34} color="#0097a7" />
+                <p style={{ fontSize: 12, color: "#1a1d23" }}>Express Ride</p>
               </Link>
             </TouchableOpacity>
 
             <TouchableOpacity id="service_item">
               <Link to="/agree" id="link_item">
-                <img src={schedule} style={{ width: "34px" }} />
-                <p style={{ fontSize: 12 }}>Schedule ride</p>{" "}
+                <MdSchedule size={34} color="4caf50" />
+                <p style={{ fontSize: 12, color: "#333333" }}>
+                  Schedule ride
+                </p>
               </Link>
             </TouchableOpacity>
 

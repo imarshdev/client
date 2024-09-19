@@ -14,7 +14,6 @@ import MapElement from "./pages/mapelement.jsx";
 import Schedule from "./pages/schedule.jsx";
 import { UserProvider } from "../UserContext.jsx";
 import CapDash, { MapRide } from "./pages/captains.jsx";
-import { LoginProvider } from "../loggedin.jsx";
 import CurrentRide from "./pages/currentRide.jsx";
 import LocationTracker from "./locationTracker.jsx";
 import AllLocations from "./pages/allloactions.jsx";
@@ -85,12 +84,10 @@ const router = createBrowserRouter([
 function App() {
   return (
     <UserProvider>
-      <LoginProvider>
         <RouterProvider router={router} />
         <PWABadge />
         <LocationTracker />
         <LoadGoogleMaps />
-      </LoginProvider>
     </UserProvider>
   );
 }

@@ -1,3 +1,4 @@
+/* aahh css, this is index.css, a bunch of this classes i dont even know what they do */
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -62,6 +63,7 @@ body {
   justify-content: start;
   flex-direction: column;
 }
+/* this never actually worked out */
 body.keyboard-active{
   overflow: hidden;
 }

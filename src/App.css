@@ -17,6 +17,9 @@ h3, li {
   font-family: sans;
   color: darkgreen;
 }
+p{
+  color: darkgreen;
+}
 .card {
   padding: 2em;
 }

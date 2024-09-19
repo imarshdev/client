@@ -5,10 +5,8 @@ import "../css/signin.css";
 import { useState, useContext } from "react";
 import { BottomSheet } from "react-spring-bottom-sheet";
 import { UserContext } from "../../UserContext";
-import { LoginContext } from "../../loggedin";
 function SignIn() {
   const { user, setUser } = useContext(UserContext);
-  const { setIsLoggedIn } = useContext(LoginContext);
   const [open, setOpen] = useState(false);
   const [username, setUsername] = useState("");
   const [token, setToken] = useState("");
@@ -102,7 +100,6 @@ export default SignIn;
 
 export function SignUP() {
   const { user, setUser } = useContext(UserContext);
-  const { setIsLoggedIn } = useContext(LoginContext);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [username, setUsername] = useState("");

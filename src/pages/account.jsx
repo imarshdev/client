@@ -1,16 +1,29 @@
-import React, { useState, useContext, useEffect, useLayoutEffect } from "react";
+/* 
+welcome to the first chunk of very long complex code that even i don't understand.
+i'll try my best to explain this so i wont get lost when i come back
+*/
+
+// first, a bunch of to-dos, to not forget
+// to do
+/* 
+  ~ add a logout button
+  ~ edit user details
+  ~ animations and sounds 
+*/
+
+
+import React, { useState, useContext, useEffect, useLayoutEffect } from "react"; // importing stuff
 import { TouchableOpacity } from "react-native-web";
-import "../css/home.css";
+import "../css/home.css"; // importing css
 import { useSwipeable } from "react-swipeable";
+// a bunch of icons imported from react-icons and i really wish i could use these without all these import statemants
 import {
-  FaAngleLeft,
   FaAngleRight,
   FaCreditCard,
   FaHome,
-  FaServicestack,
   FaStickyNote,
 } from "react-icons/fa";
-import { IoCaretBackSharp, IoPhonePortraitOutline } from "react-icons/io5";
+import { IoPhonePortraitOutline } from "react-icons/io5";
 import { LuHelpCircle } from "react-icons/lu";
 import {
   MdAccessTime,
@@ -27,57 +40,63 @@ import { FiUser } from "react-icons/fi";
 import { Link, useNavigate } from "react-router-dom";
 import { Sidebar } from "primereact/sidebar";
 import { UserContext } from "../../UserContext";
-import { Password } from "primereact/password";
-import axios from "axios";
-import { Dialog } from "primereact/dialog";
+import axios from "axios"; // axios for backend calls
+import { Dialog } from "primereact/dialog"; // idk what this is but i think its for confirming deleting the account.
 
 export default function Account() {
-  const { user } = useContext(UserContext);
+  const { user } = useContext(UserContext); // import user for authentication
+
+  // oh god, all these handlers, bear with me.... im new and im figuring myself out
+  // also, i literally don't know any other way to do it
   const handlers = useSwipeable({
-    onSwipedRight: () => setVisible(false),
+    onSwipedRight: () => setVisible(false), // personal information hander
   });
   const handlers2 = useSwipeable({
-    onSwipedRight: () => setVisible2(false),
+    onSwipedRight: () => setVisible2(false), // Cards And Accounts handler
   });
   const handlers3 = useSwipeable({
-    onSwipedRight: () => setVisible3(false),
+    onSwipedRight: () => setVisible3(false), // Saved locations handler
   });
   const handlers4 = useSwipeable({
-    onSwipedRight: () => setVisible4(false),
+    onSwipedRight: () => setVisible4(false), // scheduled rides handler
   });
   const handlers5 = useSwipeable({
-    onSwipedRight: () => setVisible5(false),
+    onSwipedRight: () => setVisible5(false), // delete account handler
   });
   const handlers6 = useSwipeable({
-    onSwipedRight: () => setVisible6(false),
+    onSwipedRight: () => setVisible6(false), // captain's dash signin page handler
   });
-  const [visible, setVisible] = useState(false);
-  const [visible2, setVisible2] = useState(false);
-  const [visible3, setVisible3] = useState(false);
-  const [visible4, setVisible4] = useState(false);
-  const [visible5, setVisible5] = useState(false);
-  const [visible6, setVisible6] = useState(false);
+  const [visible, setVisible] = useState(false); // personal information
+  const [visible2, setVisible2] = useState(false); // Cards And Accounts
+  const [visible3, setVisible3] = useState(false); // Saved locations
+  const [visible4, setVisible4] = useState(false); // scheduled rides
+  const [visible5, setVisible5] = useState(false); // delete account
+  const [visible6, setVisible6] = useState(false); // this one is the captain's dash signin page
 
+  // this is the erroe code thing, not sure what error though
   const [errorMessage, setErrorMessage] = useState("");
-  const [code, setCode] = useState("");
+  const [code, setCode] = useState(""); // this is a code, kind of like an entry pin
   const navigate = useNavigate();
-  const secretCode = "1234";
+  const secretCode = "123456789"; // pin value....
 
   const handleCodeChange = (event) => {
-    setCode(event.target.value);
+    setCode(event.target.value); // setting code
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
     if (code === secretCode) {
-      navigate("/captain-dash");
+      navigate("/captain-dash"); // allow captain through to captains page if code matches
     } else {
-      setErrorMessage("Contact us to become a Captain");
+      setErrorMessage("Contact us to become a Captain"); // you aint a capt yet !!!!
     }
   };
 
+  // vualla, the main component-ish
   return (
+    // i use classname for all containers, but it gives shiity issues sometimes
     <main className="home">
+      {/* first side-bar for personal information */}
       <Sidebar
         visible={visible}
         position="right"
@@ -86,10 +105,12 @@ export default function Account() {
         style={{ backgroundColor: "#fff" }}
       >
         <div {...handlers} style={{ width: "100%", height: "100%" }}>
-          <PersonalInformation />
+          <PersonalInformation />{" "}
+          {/* personal information component that is defined somewhere down there */}
         </div>
       </Sidebar>
 
+      {/* second side-bar for cards and accounts, I'm most definately gonna remove this, but i fear removing stuff */}
       <Sidebar
         visible={visible2}
         position="right"
@@ -98,10 +119,12 @@ export default function Account() {
         style={{ backgroundColor: "#fff" }}
       >
         <div {...handlers2} style={{ width: "100%", height: "100%" }}>
-          <CardsAndAccounts />
+          <CardsAndAccounts />{" "}
+          {/* cards and accounts container which is also defined somewhere down there */}
         </div>
       </Sidebar>
 
+      {/* thirs side-bar for saved locations, this one is just a completely unnecessary page honestly, we wil save locations on the map page */}
       <Sidebar
         visible={visible3}
         position="right"
@@ -110,10 +133,11 @@ export default function Account() {
         style={{ backgroundColor: "#fff" }}
       >
         <div {...handlers3} style={{ width: "100%", height: "100%" }}>
-          <Saved />
+          <Saved /> {/* yes, also down there*/}
         </div>
       </Sidebar>
 
+      {/* as you might tell, im tired so, scheduled rides here.... */}
       <Sidebar
         visible={visible4}
         position="right"
@@ -122,10 +146,11 @@ export default function Account() {
         style={{ backgroundColor: "#fff" }}
       >
         <div {...handlers4} style={{ width: "100%", height: "100%" }}>
-          <ScheduledRides />
+          <ScheduledRides /> {/* go down, go to town... doja cat */}
         </div>
       </Sidebar>
 
+      {/* delete your account */}
       <Sidebar
         visible={visible5}
         position="right"
@@ -134,10 +159,11 @@ export default function Account() {
         style={{ backgroundColor: "#fff" }}
       >
         <div {...handlers5} style={{ width: "100%", height: "100%" }}>
-          <DeleteAccount />
+          <DeleteAccount /> {/* ....! */}
         </div>
       </Sidebar>
 
+      {/* oh, this one is a become a captain sign in */}
       <Sidebar
         visible={visible6}
         position="right"
@@ -155,6 +181,7 @@ export default function Account() {
               alignItems: "center",
             }}
           >
+            {/* enter code */}
             <h2>Enter Captain's PassCode</h2>
             <div
               style={{
@@ -164,6 +191,7 @@ export default function Account() {
                 alignItems: "center",
               }}
             >
+              {/* code input thing */}
               <div id="input-container" style={{ width: "80%" }}>
                 <input
                   type="number"
@@ -174,6 +202,7 @@ export default function Account() {
                   onChange={handleCodeChange}
                 />
               </div>
+              {/* ohhh, so this is the error state, for when someone thinks they are a captain and they aren't */}
               {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
             </div>
             <TouchableOpacity
@@ -201,7 +230,11 @@ export default function Account() {
         </div>
       </Sidebar>
 
+      {/* now that the side-bars are done, welcome to the account page */}
+
       <div className="top" style={{ height: "15vh" }}>
+        {" "}
+        {/* top is is a global container too*/}
         <div
           className="topper"
           style={{
@@ -212,6 +245,7 @@ export default function Account() {
           }}
         >
           <span>
+            {/* display the current user name and details and stuff */}
             <span>Username: {user.Username}</span>
             <br />
             <span style={{ fontSize: 12, padding: 0 }}>0767116290</span>
@@ -219,16 +253,18 @@ export default function Account() {
           <div>
             <TouchableOpacity>
               <div onClick={() => setVisible5(true)}>
-                <RiListSettingsLine size={20} />
+                <RiListSettingsLine size={20} /> {/* this is for those leaving us, it opens delete account side-bar */}
               </div>
             </TouchableOpacity>
           </div>
         </div>
       </div>
+      {/* mid-details */}
       <div className="mid_details" style={{ height: "75vh" }}>
         <br />
         <p style={{ textAlign: "start", fontWeight: "bolder" }}>Your account</p>
 
+        {/* these are just touchables to open respective side-bars */}
         <TouchableOpacity id="account_item">
           <div id="inner_account_item" onClick={() => setVisible(true)}>
             <div style={{ display: "flex", alignItems: "center" }}>
@@ -302,6 +338,9 @@ export default function Account() {
           </div>
         </TouchableOpacity>
       </div>
+
+
+      {/* this bottom drawer is for the navigator */}
       <div className="bottom_drawer">
         <Navigator />
       </div>
@@ -309,9 +348,13 @@ export default function Account() {
   );
 }
 
+
+
+// and this is the navigator, nothing much to it accept navigation...
 export function Navigator() {
   return (
     <div className="navigator">
+      {/* go home */}
       <TouchableOpacity>
         <Link to="/">
           <span className="icon_button">
@@ -321,6 +364,7 @@ export function Navigator() {
         </Link>
       </TouchableOpacity>
 
+      {/* go to wallet */}
       <TouchableOpacity>
         <Link to="/wallet">
           <span className="icon_button">
@@ -330,6 +374,7 @@ export function Navigator() {
         </Link>
       </TouchableOpacity>
 
+      {/* go to profile */}
       <TouchableOpacity>
         <Link to="/account">
           <span className="icon_button">
@@ -342,12 +387,17 @@ export function Navigator() {
   );
 }
 
+
+// then the scheduled rides component.. this one fetches the current user's rides from the database and displays them
+// it does this every time the side-bar is opened, meaning any new rides in the database will come too.....
+// it uses the username and token to ensure the right user......
 function ScheduledRides() {
   const { user } = useContext(UserContext);
   const [token, setToken] = useState("");
   const [username, setUsername] = useState("");
   const [data, setData] = useState(null);
 
+  // using useEffect so that it can atleast re-fetch incase of new data
   useEffect(() => {
     try {
       setUsername(user.Username);
@@ -373,29 +423,35 @@ function ScheduledRides() {
     console.log(data);
   }, [data]);
 
+  // and now we render that data into components......
   return (
     <div
       className="mid_details"
       style={{ height: "90vh", justifyContent: "center" }}
     >
+      {/* map the data to create respective scheduled rides */}
       <p style={{ textAlign: "start" }}>Scheduled Rides</p>
       {data ? (
         data.map((ride, index) => (
           <div className="scheduled_ride" key={index}>
             <span style={{ fontSize: 18 }}>{ride.rideCategory}</span>
             <span>
+              {/* well, yeah, self explaining */}
               <CiLocationOn style={{ marginRight: "10px" }} />
               {ride.pickupLocation} - {ride.dropoffLocation}
             </span>
             <span>
+              {/* well, yeah, self explaining */}
               <MdAccessTime style={{ marginRight: "10px" }} />
               {ride.rideDate} - {ride.rideTime} pm
             </span>
             <span>
+              {/* well, yeah, self explaining */}
               <CiCreditCard1 style={{ marginRight: "10px" }} />
               {ride.rideStatus}
             </span>
             <TouchableOpacity id="action">
+              {/* well, yeah, self explaining.... also, i need to work on this functionality asap */}
               <span>Edit</span>
             </TouchableOpacity>
           </div>
@@ -404,23 +460,32 @@ function ScheduledRides() {
         <p>Loading...</p>
       )}
     </div>
+    // and that's it.......
   );
 }
 
+
+// aarrrghhh personal information.....
+
 function PersonalInformation() {
+  // same thing use the user state for safetly and stuff....
+  // this time we use the username and token to fetch all other user information from the database userSchema
   const { user } = useContext(UserContext);
-  const [fullname, setfullname] = useState("");
+  const [fullname, setfullname] = useState(""); // setting full name, although clearly i haven't even used this anywhere... lol
   const [data, setData] = useState("");
   const [token, setToken] = useState("");
   const [username, setUsername] = useState("");
+
+
   useEffect(() => {
+    // getting all the user details
     try {
       setUsername(user.Username);
       setToken(user.Token);
       if (username && token) {
         axios
           .get("https://walamin-server.onrender.com/user/details", {
-            params: { username, token },
+            params: { username, token }, // pass the username and token for obvous reasons
           })
           .then((response) => {
             setData(response.data);
@@ -439,8 +504,10 @@ function PersonalInformation() {
     setfullname(data.firstName);
   }, [data]);
   return (
+    // display the user info
     <div className="mid_details" style={{ height: "90vh" }}>
       <p>Personal Information</p>
+      {/* this is the name, user will have the ability to perform edits */}
       <TouchableOpacity id="personal_item">
         <div style={{ display: "flex", alignItems: "center" }}>
           <LiaIdCardSolid size={30} style={{ marginRight: "15px" }} />
@@ -460,6 +527,7 @@ function PersonalInformation() {
         <MdKeyboardDoubleArrowRight />
       </TouchableOpacity>
 
+      {/* phone number */}
       <TouchableOpacity id="personal_item">
         <div style={{ display: "flex", alignItems: "center" }}>
           <IoPhonePortraitOutline size={30} style={{ marginRight: "15px" }} />
@@ -473,13 +541,14 @@ function PersonalInformation() {
         <MdKeyboardDoubleArrowRight />
       </TouchableOpacity>
 
+      {/* and email, we dont have email in userSchema so we have to work on this, turn it into contact or something, or just remove it */}
       <TouchableOpacity id="personal_item">
         <div style={{ display: "flex", alignItems: "center" }}>
           <MdOutlineEmail size={30} style={{ marginRight: "15px" }} />
           <span style={{ padding: 0 }}>
             Email <br />
             <span style={{ fontSize: "12px", padding: 0 }}>
-              forevermarsh004@gmail.com
+              example@gmail.com
             </span>
           </span>
         </div>
@@ -489,6 +558,7 @@ function PersonalInformation() {
   );
 }
 
+// saved locations, and like we said, we'll remove this insha-allah
 function Saved() {
   return (
     <div className="mid_details" style={{ height: "90vh" }}>
@@ -497,6 +567,7 @@ function Saved() {
   );
 }
 
+// cards and accounts are very not necessary yet
 function CardsAndAccounts() {
   return (
     <div className="mid_details" style={{ height: "90vh" }}>
@@ -505,15 +576,17 @@ function CardsAndAccounts() {
   );
 }
 
+// delete account side-bar 
 function DeleteAccount() {
   const [isVisible, setIsVisivle] = useState(false);
   const { user, setUser } = useContext(UserContext);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const deleteAccount = () => {
-    setUser({ isLoggedIn: false });
-    navigate("/signin");
+    setUser({ isLoggedIn: false }); // when the user logs out, the isLoggedIn state is turned false, meaning the only page that'll be working is signin
+    navigate("/signin"); // indeed go to signin
     setIsVisivle(false);
   };
+  // component 
   return (
     <div
       className="mid_details"
@@ -525,6 +598,7 @@ function DeleteAccount() {
       }}
     >
       <h2> Delete Account</h2>
+      {/* display username to be deleted */}
       <p>Username: {user.Username}</p>
       <div
         style={{
@@ -533,6 +607,7 @@ function DeleteAccount() {
           justifyContent: "space-between",
         }}
       >
+        {/* first, user might want to change details only */}
         <TouchableOpacity
           style={{
             width: "45%",
@@ -546,6 +621,7 @@ function DeleteAccount() {
         >
           <span style={{ color: "#fff" }}>Edit Account</span>
         </TouchableOpacity>
+        {/* this is for when user for sure wants to delete their account */}
         <TouchableOpacity
           style={{
             width: "45%",
@@ -562,6 +638,8 @@ function DeleteAccount() {
           Delete Account
         </TouchableOpacity>
       </div>
+      {/* i should probably add a logout button too */}
+      {/* anyway this is the dialog box, its for them to comfirm because, you might have second thoughts */}
       <Dialog
         visible={isVisible}
         modal
@@ -594,9 +672,11 @@ function DeleteAccount() {
           }}
           onPress={() => setIsVisivle(false)}
         >
+          {/* hopefully they keep the account */}
           <p style={{ margin: "10px", color: "#fff" }}>Keep account</p>
         </TouchableOpacity>
         <br />
+        {/* bye then..... */}
         <TouchableOpacity
           style={{
             width: "60vw",
@@ -616,3 +696,6 @@ function DeleteAccount() {
     </div>
   );
 }
+
+
+// alright, that's a wrap for the account page.... for now

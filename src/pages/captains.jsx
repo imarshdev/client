@@ -1,3 +1,15 @@
+/* 
+  this is the captains dashboard, i packed alot of messy unreadable code here, 
+  frankly because if i'm the only one that understands it, you can't fire me👀
+*/
+// but first, as usual, some to-dos to ease the process
+/*
+  ~ map directions for capt using map box
+  ~ completed ride interface for captain, and user
+  ~ animations and sounds to keep the app lively
+  ~ real time location updates during rides !!!!
+*/
+// now we import stuff
 import React, { useEffect, useState, useRef } from "react";
 import { ScrollView, TouchableOpacity } from "react-native-web";
 import ride from "../assets/ride.svg";
@@ -11,19 +23,22 @@ import { IoIosArrowBack, IoMdPricetags } from "react-icons/io";
 import { useLocation, useNavigate } from "react-router-dom";
 import { BottomSheet } from "react-spring-bottom-sheet";
 
+// this is the mapbox access token
 mapboxgl.accessToken =
   "pk.eyJ1IjoiaW1hcnNoIiwiYSI6ImNtMDZiZDB2azB4eDUyanM0YnVhN3FtZzYifQ.gU1K02oIfZLWJRGwnjGgCg";
 
+// captain component
 export default function CapDash() {
-  const [declinedRides, setDeclinedRides] = useState({});
-  const [page, setPage] = useState("scheduled");
-  const [data, setData] = useState("");
+  const [declinedRides, setDeclinedRides] = useState({}); // this is for making sure declined rides dont get re-rendered
+  const [page, setPage] = useState("scheduled"); 
+  const [data, setData] = useState(""); // this is the data got from the backend, "rides"
   const [dataExpress, setDataExpress] = useState("");
 
-  const handleAcceptRide = (username, rideIndex) => {
-    const rideData = dataExpress[username].expressRides[rideIndex];
+  // when a rider accepts a ride
+  const handleAcceptRide = (username, rideIndex) => { // passing username and rideIndex so we can access then in the current ride component
+    const rideData = dataExpress[username].expressRides[rideIndex]; // storing ridedata in a constant to be used as it is passed
     const rideId = `${rideData.origin}${rideData.timestamp}`; // Define rideId here
-    navigate("/mapride", {
+    navigate("/mapride", { //navigate to mapride component together with the respective usersname, contact and ridedata
       state: {
         username,
         contact: dataExpress[username].contact,
@@ -31,7 +46,7 @@ export default function CapDash() {
       },
     });
     axios
-      .patch("https://walamin-server.onrender.com/accept-ride", {
+      .patch("https://walamin-server.onrender.com/accept-ride", { // this is for patching the accepted ride, so that no other users can get an already accepted ride
         username,
         rideId,
       })
@@ -42,15 +57,17 @@ export default function CapDash() {
         console.error(error);
       });
   };
-  const handleDeclineRide = (username, rideIndex) => {
-    const declinedRide = dataExpress[username].expressRides[rideIndex];
-    const rideId = `${declinedRide.origin}${declinedRide.timestamp}`;
-    setDeclinedRides((prevDeclinedRides) => {
+  // here we handle what happens when a rider declines a ride
+  const handleDeclineRide = (username, rideIndex) => { // we pass username and rideIndex ofcourse
+    const declinedRide = dataExpress[username].expressRides[rideIndex]; // store declined ride in a variable
+    const rideId = `${declinedRide.origin}${declinedRide.timestamp}`; // define the ride id
+    setDeclinedRides((prevDeclinedRides) => { // now here, we set the declined rides array, we store every ride a rider declines
       const updatedDeclinedRides = { ...prevDeclinedRides };
       updatedDeclinedRides[username] = [
         ...(updatedDeclinedRides[username] || []),
         rideId,
       ];
+      // store this array in the local storage
       localStorage.setItem(
         "declinedRides",
         JSON.stringify(updatedDeclinedRides)
@@ -58,14 +75,17 @@ export default function CapDash() {
       return updatedDeclinedRides;
     });
   };
+  // every time, we have to check, if the declined rides exist, we replace with an updated one, then if they don't, then we set 
   useEffect(() => {
     const storedDeclinedRides = localStorage.getItem("declinedRides");
     if (storedDeclinedRides) {
       setDeclinedRides(JSON.parse(storedDeclinedRides));
     }
   }, []);
+
+  // here we fetch all rides, scheduled rides
   useEffect(() => {
-    const intervalId = setInterval(() => {
+    const intervalId = setInterval(() => { // using an interval to make sure we fetch new rides too
       axios
         .get("https://walamin-server.onrender.com/all-rides")
         .then((response) => {
@@ -74,15 +94,16 @@ export default function CapDash() {
         .catch((error) => {
           console.error(error);
         });
-    }, 20000); // 20000 milliseconds = 20 seconds
+    }, 20000); // 20000 milliseconds = 20 seconds interval
 
     return () => {
       clearInterval(intervalId);
     };
   }, []);
 
+  // then here we fetch all express rides 
   useEffect(() => {
-    const intervalId = setInterval(() => {
+    const intervalId = setInterval(() => { // also in intervals to cater for new data
       axios
         .get("https://walamin-server.onrender.com/all-express-rides")
         .then((response) => {
@@ -91,28 +112,35 @@ export default function CapDash() {
         .catch((error) => {
           console.error(error);
         });
-    }, 5000); // 5000 milliseconds = 5 seconds
+    }, 5000); // 5000 milliseconds = 5 seconds interval
 
     return () => {
       clearInterval(intervalId);
     };
   }, []);
 
+  // this is to log the data, to make sure it exists before being used.... you dont want to render null data
   useEffect(() => {
     console.log(data);
     console.log(dataExpress);
   }, [data, dataExpress]);
 
+  // we trancate text because the containers for displaying scheduled ride can be small sometimes so locations are trancated
   function truncateText(text, maxLength) {
     return text.length > maxLength
       ? `${text.substring(0, maxLength)}...`
       : text;
   }
+
+  // navigate back to home function....
   const navigate = useNavigate();
   const back = () => {
     navigate("/");
   };
+
+  // and the component
   return (
+    // component container div
     <div
       style={{
         width: "100vw",
@@ -125,6 +153,7 @@ export default function CapDash() {
         padding: "30px 10px",
       }}
     >
+      {/* going back to home page */}
       <TouchableOpacity id="back" onPress={back}>
         <IoIosArrowBack size={24} />
       </TouchableOpacity>
@@ -139,6 +168,7 @@ export default function CapDash() {
           padding: "20px 0px",
         }}
       >
+        {/* this is for scheduled rides area, to display scheduled rides, so riders can attend to clients */}
         {page === "scheduled" && (
           <ScrollView
             style={{
@@ -148,6 +178,7 @@ export default function CapDash() {
               padding: "20px 0px",
             }}
           >
+            {/* mapping the rides */}
             {data &&
               Object.keys(data).map((username, index) => (
                 <div key={index}>
@@ -176,6 +207,7 @@ export default function CapDash() {
               ))}
           </ScrollView>
         )}
+        {/* this is for express rides, those that are to happen immediately */}
         {page === "express" && (
           <ScrollView
             style={{
@@ -185,6 +217,7 @@ export default function CapDash() {
               padding: "20px 0px",
             }}
           >
+            {/* same, we map them, might be complicated mapping, ask me (MARSH...) */}
             {dataExpress &&
               Object.keys(dataExpress).map((username, index) => (
                 <div key={index}>
@@ -238,6 +271,7 @@ export default function CapDash() {
                             alignItems: "center",
                           }}
                         >
+                          {/* button for accepting */}
                           <TouchableOpacity
                             style={{
                               right: 0,
@@ -257,6 +291,7 @@ export default function CapDash() {
                           >
                             <span>Accept</span>
                           </TouchableOpacity>
+                          {/* button for declining..... */}
                           <TouchableOpacity
                             style={{
                               left: 0,
@@ -283,18 +318,14 @@ export default function CapDash() {
               ))}
           </ScrollView>
         )}
+        {/* this is for delivery services, riders to pick up stuff and drop them off at locations */}
         {page === "delivery" && (
           <>
             <p>Deliver</p>
-            <button
-              style={{ backgroundColor: "limegreen" }}
-              onClick={currentRide}
-            >
-              <p>Go to current ride</p>
-            </button>
           </>
         )}
       </div>
+      {/* this is like the bottom navigation thing, to mmove between screens, scheduled, express and delivery */}
       <div
         style={{
           width: "90%",
@@ -355,6 +386,8 @@ export default function CapDash() {
   );
 }
 
+
+//  welcome to the map ride function, here we show the map to the current rider to a respective ride.....
 export function MapRide() {
   const location = useLocation();
   const { username, contact, rideData } = location.state;
@@ -365,9 +398,11 @@ export function MapRide() {
   const [userLat, setUserLat] = useState({});
   const [userLng, setUserLng] = useState({});
   const [open, setOpen] = useState(false);
+  // dismiss the bottom sheet
   const dismis = () => {
     setOpen(false);
   };
+  // go back to captains das
   const navigate = useNavigate();
   const back = () => {
     navigate("/captain-dash");
@@ -379,6 +414,7 @@ export function MapRide() {
       setUserLng(position.coords.longitude);
     });
 
+    // google maps thing.
     const script = document.createElement("script");
     script.src = `https://maps.gomaps.pro/maps/api/js?key=AlzaSyLrk1KXy32iTkKpsbR1J1USZWKd4lE5oud&libraries=geometry,places&callback=initMap`;
     script.async = true;
@@ -397,6 +433,7 @@ export function MapRide() {
         mapTypeControl: false,
         fullscreenControl: false,
       });
+      // geocoder to get location lat and lng
       const geocoder = new google.maps.Geocoder();
       geocoder.geocode({ address: rideData.origin }, (results, status) => {
         if (status === "OK") {
@@ -406,6 +443,7 @@ export function MapRide() {
           console.log(results[0].geometry.location.lng());
         }
       });
+      // geocoder to get location lat and lng
       geocoder.geocode({ address: rideData.destination }, (results, status) => {
         if (status === "OK") {
           setDestinationLat(results[0].geometry.location.lat());
@@ -415,6 +453,7 @@ export function MapRide() {
         }
       });
 
+      // getting directions 
       const directionsService = new google.maps.DirectionsService();
       const directionsRenderer = new google.maps.DirectionsRenderer({
         map: mapInstance, // Set the map instance here
@@ -455,6 +494,7 @@ export function MapRide() {
       });
     };
   });
+  // component
   return (
     <div style={{ width: "100vw" }}>
       <TouchableOpacity id="back" onPress={back}>
