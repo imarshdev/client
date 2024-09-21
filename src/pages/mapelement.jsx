@@ -1,3 +1,7 @@
+// oh god this is alot, ill probably put comments on this one tomorrow
+// well, tomorrow is today, so yeah
+
+// first we import stuff
 import React, { useContext, useEffect, useRef, useState } from "react";
 import "../css/map.css";
 import ridericon from "../assets/ridericon.png";
@@ -9,6 +13,7 @@ import { UserContext } from "../../UserContext";
 import axios from "axios";
 import { FallingLines } from "react-loader-spinner";
 
+// map element component
 export default function MapElement() {
   const [result, setResult] = useState(1);
   const [loadingSuggestions, setLoadingSuggestions] = useState(false);
@@ -36,6 +41,7 @@ export default function MapElement() {
   const navigate = useNavigate();
   const [simplifiedData, setSimplifiedData] = useState([]);
 
+  // so this was a trial, setting random coordinates to check is the rider icons show on the map
   const kampalaCoordinates = [
     { lat: 0.3162, lng: 32.5811 }, // Kampala City Center
     { lat: 0.3345, lng: 32.6156 }, // Makerere University
@@ -48,18 +54,23 @@ export default function MapElement() {
     { lat: 0.2729, lng: 32.5543 }, // Muyenga
     { lat: 0.3139, lng: 32.5947 }, // Bugolobi
   ];
+  // back to home page
   const back = () => {
     navigate("/");
   };
+  // starting, idk what it's starting
+  // it's probably after the user has selected the destination and now we are getting the directions to that destination
   const start = () => {
     setNumber(2.5);
     if (!destination) return;
     getDirections();
     setSendRide(true);
   };
+  // we probably never used this because its gray, if you are an intern, i've probably asked you to delete useless stuff from the code, this is it
   const snapPoints = ({ maxHeight, minHeight }) => {
     return isExpanded ? [maxHeight / 1] : [minHeight];
   };
+  // here we fetch all locations, of the riders, technically, we are fetching all the locations of all users and filtering out the registered riders, fron a riders array
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -67,9 +78,10 @@ export default function MapElement() {
           "https://walamin-server.onrender.com/all-locations"
         );
         console.log(response.data);
-
+        // here we check if the locations are there, and if the username exists in rhe allowed names array
         if (Array.isArray(response.data)) {
-          const allowedNames = ["Marsh", "Marsh mansur"]; // Replace with your array of allowed names
+          // for every new rider we register, their username must be added here......
+          const allowedNames = ["Marsh", "Marsh mansur"];
           const newData = response.data.map((item) => {
             console.log("Item:", item);
             if (item.location && allowedNames.includes(item.username)) {
@@ -110,9 +122,13 @@ export default function MapElement() {
       clearInterval(intervalId);
     };
   }, []);
+  // i dont know what this does, please find out....
+  // oh wait, it just logs simplified data... lol
   useEffect(() => {
     console.log("Simplified Data:", simplifiedData);
   }, [simplifiedData]);
+
+  // here we log stuff, just to make sure they exist..
   useEffect(() => {
     setUsername(user.Username);
     setToken(user.Token);
@@ -120,10 +136,13 @@ export default function MapElement() {
     console.log("Token:", token);
     console.log("cost:", cost);
   });
+
+  // this one is for booking a ride
   const bookRide = async () => {
     setResult(2);
     console.log("Origin:", origin);
     console.log("Destination:", destination);
+    // we make a post request with orgin, destination, username and token to store a ride in the database
     try {
       const response = await axios.post(
         "https://walamin-server.onrender.com/rides/express",
@@ -148,6 +167,10 @@ export default function MapElement() {
       }
     }
   };
+  // this is the map element......
+  // oh god, im not even halfway commenting
+  // see you tomorow 
+  // commenting code is actually soo boring, here is a tip, comment while you write the code, not after
   useEffect(() => {
     const script = document.createElement("script");
     script.src = `https://maps.gomaps.pro/maps/api/js?key=AlzaSyLrk1KXy32iTkKpsbR1J1USZWKd4lE5oud&libraries=geometry,places&callback=initMap`;
@@ -170,7 +193,6 @@ export default function MapElement() {
         });
         setMap(mapInstance);
 
-
         new google.maps.Marker({
           map: mapInstance,
           position: { lat: latitude, lng: longitude },
@@ -188,7 +210,6 @@ export default function MapElement() {
             },
           });
         });
-
 
         const input = document.getElementById("input");
         const autocompleteInstance = new google.maps.places.Autocomplete(input);

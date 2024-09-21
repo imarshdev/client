@@ -8,6 +8,8 @@
   ~ completed ride interface for captain, and user
   ~ animations and sounds to keep the app lively
   ~ real time location updates during rides !!!!
+  ~ when rider clicks start ride, bottom sheet apears for user, showing current ride status
+  ~ add the ability to add stops 
 */
 // now we import stuff
 import React, { useEffect, useState, useRef } from "react";
@@ -426,7 +428,7 @@ export function MapRide() {
       const centerLat = (userLat + originLat + destinationLat) / 3;
       const centerLng = (userLng + originLng + destinationLng) / 3;
       const mapInstance = new google.maps.Map(mapElement, {
-        center: { lat: centerLat, lng: centerLng },
+        center: { lat: centerLat, lng: centerLng }, // we do this so that the center of the map is dependant on the route of the current ride
         zoom: 10,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
         streetViewControl: false,
@@ -497,10 +499,13 @@ export function MapRide() {
   // component
   return (
     <div style={{ width: "100vw" }}>
+      {/* back arrow thing, to dashboard */}
       <TouchableOpacity id="back" onPress={back}>
         <IoIosArrowBack size={24} />
       </TouchableOpacity>
+      {/* map element */}
       <div id="mapElement" style={{ height: "55vh", width: "100%" }} />
+      {/* bottom div with ride information */}
       <div
         style={{
           width: "100%",
@@ -536,6 +541,7 @@ export function MapRide() {
             justifyContent: "space-between",
           }}
         >
+          {/* button to call user, uses the contact to make a call to respective user */}
           <TouchableOpacity
             style={{
               width: "45%",
@@ -550,6 +556,7 @@ export function MapRide() {
           >
             <span style={{ color: "#fff" }}>call user</span>
           </TouchableOpacity>
+          {/* start ride button, starts the ride.. */}
           <TouchableOpacity
             style={{
               width: "45%",
@@ -567,12 +574,14 @@ export function MapRide() {
           </TouchableOpacity>
         </div>
       </div>
+      {/* this is the bottom sheet that'll show the directions and routing guidance to the rider */}
       <BottomSheet
         open={open}
         snapPoints={({ maxHeight }) => [maxHeight]}
         onDismiss={dismis}
         header={<p>On Trip</p>}
       >
+        {/* div */}
         <div
           style={{
             width: "100%",
@@ -583,6 +592,7 @@ export function MapRide() {
           }}
         >
           <p>Ongoing</p>
+          {/* ongoing component */}
           <Ongoing setOpen={setOpen} open={open} />
         </div>
       </BottomSheet>
@@ -590,12 +600,15 @@ export function MapRide() {
   );
 }
 
+// component to store the mapbox directions map instance
 const Ongoing = ({ setOpen, open }) => {
   const [map, setMap] = useState(null);
   const mapContainerRef = useRef(null);
   useEffect(() => {
+    // im not sure i remember what this does but its something to do with checking is the map has been loaded in the parent container, before carrying anything ouot
     if (!mapContainerRef.current) return;
 
+    // make the map
     const map = new mapboxgl.Map({
       container: mapContainerRef.current,
       style: "mapbox://styles/mapbox/streets-v11?logo=false",
@@ -625,6 +638,7 @@ const Ongoing = ({ setOpen, open }) => {
       map.remove();
     };
   }, []);
+  // div.... duh
   return (
     <>
       <div
@@ -641,6 +655,7 @@ const Ongoing = ({ setOpen, open }) => {
           justifyContent: "space-between",
         }}
       >
+        {/* first button to add a stop, mot yet functional */}
         <TouchableOpacity
           style={{
             width: "45%",
@@ -655,6 +670,7 @@ const Ongoing = ({ setOpen, open }) => {
         >
           <span>Add Stop</span>
         </TouchableOpacity>
+        {/* button to end ride, this can be at the end of the ride, or just ended midRide */}
         <TouchableOpacity
           style={{
             width: "45%",

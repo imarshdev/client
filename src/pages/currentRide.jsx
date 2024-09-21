@@ -9,6 +9,7 @@ import { KeyboardAvoidingView, TouchableOpacity } from "react-native-web";
 import { useNavigate } from "react-router-dom";
 import { IoIosArrowBack } from "react-icons/io";
 import axios from "axios";
+import { Autocomplete } from "@react-google-maps/api";
 
 mapboxgl.accessToken =
   "pk.eyJ1IjoiaW1hcnNoIiwiYSI6ImNtMDZiZDB2azB4eDUyanM0YnVhN3FtZzYifQ.gU1K02oIfZLWJRGwnjGgCg";
@@ -117,25 +118,27 @@ export default function CurrentRide() {
       <TouchableOpacity id="back" onPress={currentride}>
         <IoIosArrowBack size={24} />
       </TouchableOpacity>
-      <div id="map" style={{ height: "50vh", width: "100vw" }}></div>
+      <div id="map" style={{ height: "55vh", width: "100vw" }}></div>
       <BottomSheet
         header={
           <>
             {step ? (
               <>
-                <input
-                  type="text"
-                  placeholder="Where to ?"
-                  style={{
-                    width: "74%",
-                    height: "1.5rem",
-                    padding: "0 10px",
-                    boxSizing: "border-box",
-                  }}
-                  onFocus={focused}
-                  onChange={goup}
-                  onBlur={unFocused}
-                />
+                <Autocomplete>
+                  <input
+                    type="text"
+                    placeholder="Where to ?"
+                    style={{
+                      width: "72vw",
+                      height: "1.5rem",
+                      padding: "0 10px",
+                      boxSizing: "border-box",
+                    }}
+                    onFocus={focused}
+                    onChange={goup}
+                    onBlur={unFocused}
+                  />
+                </Autocomplete>
                 <TouchableOpacity
                   onPress={unFocused}
                   style={{
