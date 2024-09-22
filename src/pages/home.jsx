@@ -34,7 +34,7 @@ function Home() {
   // logging in sets the isloggedin state to true, globally
   // i should probably add this to every page
   useEffect(() => {
-    if (!user.isLoggedIn) {
+    if (user.isLoggedIn) {
       navigate("/signin", { replace: true });
     }
   }, [user.isLoggedIn, navigate]);
@@ -107,7 +107,7 @@ function Home() {
         <div className="mid_details">
           <div className="mid_details_upper">
             {/* delivery button */}
-            <TouchableOpacity id="service_item">
+            <TouchableOpacity id="service_item" style={{ marginTop: "10px" }}>
               <Link to="/map2" id="link_item">
                 <CiDeliveryTruck size={34} color="#ffc107" />
                 <p style={{ fontSize: 12, color: "#333333" }}>
@@ -125,17 +125,15 @@ function Home() {
             </TouchableOpacity>
 
             {/* schedule ride button */}
-            <TouchableOpacity id="service_item">
+            <TouchableOpacity id="service_item" style={{ marginTop: "10px" }}>
               <Link to="/agree" id="link_item">
                 <MdSchedule size={34} color="4caf50" />
-                <p style={{ fontSize: 12, color: "#333333" }}>
-                  Schedule ride
-                </p>
+                <p style={{ fontSize: 12, color: "#333333" }}>Schedule ride</p>
               </Link>
             </TouchableOpacity>
 
             {/* dine button */}
-            <TouchableOpacity id="service_item">
+            <TouchableOpacity id="service_item" style={{ marginTop: "10px" }}>
               <Link id="link_item">
                 <img src={dine} style={{ width: "34px" }} />
                 <p style={{ fontSize: 12 }}>Dine</p>{" "}
@@ -151,7 +149,7 @@ function Home() {
             </TouchableOpacity>
 
             {/* auction house button */}
-            <TouchableOpacity id="service_item">
+            <TouchableOpacity id="service_item" style={{ marginTop: "10px" }}>
               <Link id="link_item">
                 <RiAuctionLine size={34} color="limegreen" />
                 <p style={{ fontSize: 12 }}>Auction House</p>{" "}
@@ -159,7 +157,7 @@ function Home() {
             </TouchableOpacity>
 
             {/* send money button */}
-            <TouchableOpacity id="service_item">
+            <TouchableOpacity id="service_item" style={{ marginTop: "10px" }}>
               <Link id="link_item">
                 <img src={send} style={{ width: "34px" }} />
                 <p style={{ fontSize: 12 }}>Send Money</p>{" "}
@@ -175,7 +173,7 @@ function Home() {
             </TouchableOpacity>
 
             {/* button to all services page */}
-            <TouchableOpacity id="service_item">
+            <TouchableOpacity id="service_item" style={{ marginTop: "10px" }}>
               <Link to="/allLocations" id="link_item">
                 <FaServicestack size={34} color="limegreen" />
                 <p style={{ fontSize: 12 }}>All Services</p>{" "}

@@ -18,6 +18,7 @@ import CurrentRide from "./pages/currentRide.jsx";
 import LocationTracker from "./locationTracker.jsx";
 import AllLocations from "./pages/allloactions.jsx";
 import LoadGoogleMaps from "./loadmap.jsx";
+import RideApp, { ReceiveRide } from "../orderRide.jsx";
 
 const router = createBrowserRouter([
   {
@@ -77,17 +78,25 @@ const router = createBrowserRouter([
   },
   {
     path: "/mapride",
-    element: <MapRide/>
+    element: <MapRide />,
+  },
+  {
+    path: "/rideApp",
+    element: <RideApp />,
+  },
+  {
+    path: "/recieveRide",
+    element: <ReceiveRide />,
   },
 ]);
 
 function App() {
   return (
     <UserProvider>
-        <RouterProvider router={router} />
-        <PWABadge />
-        <LocationTracker />
-        <LoadGoogleMaps />
+      <RouterProvider router={router} />
+      <PWABadge />
+      <LocationTracker />
+      <LoadGoogleMaps />
     </UserProvider>
   );
 }

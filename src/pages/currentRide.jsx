@@ -15,12 +15,20 @@ mapboxgl.accessToken =
   "pk.eyJ1IjoiaW1hcnNoIiwiYSI6ImNtMDZiZDB2azB4eDUyanM0YnVhN3FtZzYifQ.gU1K02oIfZLWJRGwnjGgCg";
 
 export default function CurrentRide() {
+  const [destinationLat, setDestinationLat] = useState({});
+  const [destinationLng, setDestinationLng] = useState({});
+  const [distance, setDistance] = useState(null);
+  const [duration, setDuration] = useState(null);
+  const [destination, setDestination] = useState();
+  const [userLocation, setUserLocation] = useState();
+  const [directions, setDirections] = useState(null);
   const [step, setStep] = useState(false);
-  const [inputFocused, setInputFocused] = useState(false);
+  const [inputFocused, setInputFocused] = useState(null);
   const [autoComplete, setAutocomplete] = useState(false);
   const [map, setMap] = useState(null);
   const [data, setData] = useState([]);
   const navigate = useNavigate();
+  const destinationRef = useRef();
   const currentride = () => {
     navigate("/");
   };
@@ -50,6 +58,58 @@ export default function CurrentRide() {
 
     setMap(map);
 
+    // Add the Mapbox Directions control
+    const directions = new window.MapboxDirections({
+      accessToken: window.mapboxgl.accessToken,
+      unit: "metric",
+      profile: "mapbox/walking",
+      alternatives: false,
+      geometries: "geojson",
+      controls: { instructions: false, inputs: false },
+      flyTo: true,
+    });
+
+    map.addControl(directions);
+    setDirections(directions);
+
+    directions.on("route", (e) => {
+      const route = e.route[0].geometry.coordinates;
+      const routeObject = e.route[0];
+      setDistance(routeObject.distance);
+      setDuration(routeObject.duration);
+      console.log(distance);
+      console.log(duration);
+
+      // Add the route as a GeoJSON source
+      map.addSource("route", {
+        type: "geojson",
+        data: {
+          type: "Feature",
+          properties: {},
+          geometry: {
+            type: "LineString",
+            coordinates: route,
+          },
+        },
+      });
+
+      // Add a line layer to visualize the route
+      map.addLayer({
+        id: "route",
+        type: "line",
+        source: "route",
+        layout: {
+          "line-cap": "round",
+          "line-join": "round",
+          "line-width": 6,
+        },
+        paint: {
+          "line-color": "#888",
+          "line-opacity": 0.75,
+        },
+      });
+    });
+
     // Add markers for each location
     data.forEach((location) => {
       if (location.location) {
@@ -66,6 +126,8 @@ export default function CurrentRide() {
       (position) => {
         const longitude = position.coords.longitude;
         const latitude = position.coords.latitude;
+
+        setUserLocation([longitude, latitude]);
 
         map.setCenter([longitude, latitude]);
         map.setZoom(15);
@@ -96,10 +158,35 @@ export default function CurrentRide() {
     setStep(true);
   };
   const unFocused = () => {
-    setInputFocused(false);
-    setAutocomplete(false);
-    setStep(false);
+    if (!userLocation || !destination) return;
+    map.setCenter(userLocation);
+    if (directions) {
+      directions.setOrigin(userLocation); // Uganda Parliament coordinates
+      directions.setDestination([destinationLng, destinationLat]); // Forest Mall coordinates
+    }
+    map.setZoom(13);
   };
+  const blurred = () => {
+    setInputFocused(false);
+    const geocoder = new google.maps.Geocoder();
+    geocoder.geocode(
+      { address: destinationRef.current.value },
+      (results, status) => {
+        if (status === "OK") {
+          console.log(results[0].geometry.location.lat());
+          console.log(results[0].geometry.location.lng());
+          setDestinationLat(results[0].geometry.location.lat());
+          setDestinationLng(results[0].geometry.location.lng());
+        }
+      }
+    );
+    setDestination(destinationRef.current.value);
+  };
+  useEffect(() => {
+    if (location) {
+      console.log(destination);
+    }
+  });
   return (
     <KeyboardAvoidingView
       keyboardVerticalOffset={verticalOffset}
@@ -118,7 +205,13 @@ export default function CurrentRide() {
       <TouchableOpacity id="back" onPress={currentride}>
         <IoIosArrowBack size={24} />
       </TouchableOpacity>
-      <div id="map" style={{ height: "55vh", width: "100vw" }}></div>
+      <div
+        id="map"
+        style={{
+          height: "80vh",
+          width: "100vw",
+        }}
+      ></div>
       <BottomSheet
         header={
           <>
@@ -130,13 +223,14 @@ export default function CurrentRide() {
                     placeholder="Where to ?"
                     style={{
                       width: "72vw",
-                      height: "1.5rem",
+                      height: "0.5rem",
                       padding: "0 10px",
                       boxSizing: "border-box",
                     }}
                     onFocus={focused}
                     onChange={goup}
-                    onBlur={unFocused}
+                    onBlur={blurred}
+                    ref={destinationRef}
                   />
                 </Autocomplete>
                 <TouchableOpacity
@@ -146,11 +240,11 @@ export default function CurrentRide() {
                     display: "flex",
                     alighItems: "center",
                     justifyContent: "center",
-                    backgroundColor: "lightgray",
+                    backgroundColor: "limegreen",
                     borderRadius: "10px",
                   }}
                 >
-                  <p>Cancel</p>
+                  <p>Go</p>
                 </TouchableOpacity>
               </>
             ) : (
@@ -176,13 +270,35 @@ export default function CurrentRide() {
         expandOnContentDrag={true}
         blocking={false}
         snapPoints={({ maxHeight }) =>
-          inputFocused ? [maxHeight - maxHeight / 10] : [maxHeight / 2]
+          inputFocused
+            ? [maxHeight - maxHeight / 10]
+            : inputFocused === false
+            ? [maxHeight / 3.6]
+            : [maxHeight / 2]
         }
         open={true}
         style={{ boxSizing: "border-box", padding: "10px" }}
       >
         {autoComplete ? (
-          <p></p>
+          <p>
+            {inputFocused === false ? (
+              <>
+                <p>Distance: {(distance / 1000).toFixed(2)} km</p>{" "}
+                {/* Convert to km */}
+                <p>Duration: {(duration / 60).toFixed(2)} mins</p>{" "}
+                {/* Convert to mins */}
+                <p>Cost: {(distance / 1).toFixed(0)} shs</p>
+                <TouchableOpacity id="confirm-pickup">
+                  <p>Order</p>
+                </TouchableOpacity>
+                <TouchableOpacity id="cancel-pickup">
+                  <p>Cancel</p>
+                </TouchableOpacity>
+              </>
+            ) : (
+              <></>
+            )}
+          </p>
         ) : (
           <>
             <div style={{ width: "100%" }}>

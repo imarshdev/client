@@ -12,9 +12,20 @@ import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../UserContext";
 import axios from "axios";
 import { FallingLines } from "react-loader-spinner";
+import { io } from "socket.io-client";
+import { Autocomplete } from "@react-google-maps/api";
+// socket thing
+const socket = io("https://walamin-server.onrender.com");
 
 // map element component
 export default function MapElement() {
+  const [rideDetails, setRideDetails] = useState({
+    username: "",
+    token: "",
+    origin: "",
+    destination: "",
+    cost: "",
+  });
   const [result, setResult] = useState(1);
   const [loadingSuggestions, setLoadingSuggestions] = useState(false);
   const [loaded, setLoaded] = useState(false);
@@ -116,7 +127,7 @@ export default function MapElement() {
 
     fetchData(); // Call fetchData immediately
 
-    const intervalId = setInterval(fetchData, 30000); // Fetch every 30 seconds
+    const intervalId = setInterval(fetchData, 90000); // Fetch every 90 seconds
 
     return () => {
       clearInterval(intervalId);
@@ -142,8 +153,24 @@ export default function MapElement() {
     setResult(2);
     console.log("Origin:", origin);
     console.log("Destination:", destination);
+    setRideDetails({
+      ...rideDetails,
+      username: username,
+      token: token,
+      origin: origin,
+      destination: destination,
+      cost: cost,
+    });
     // we make a post request with orgin, destination, username and token to store a ride in the database
     try {
+      socket.emit("orderRide", rideDetails);
+      setRideDetails({
+        username: "",
+        token: "",
+        origin: "",
+        destination: "",
+        cost: "",
+      });
       const response = await axios.post(
         "https://walamin-server.onrender.com/rides/express",
         {
@@ -169,22 +196,24 @@ export default function MapElement() {
   };
   // this is the map element......
   // oh god, im not even halfway commenting
-  // see you tomorow 
+  // see you tomorow
   // commenting code is actually soo boring, here is a tip, comment while you write the code, not after
   useEffect(() => {
-    const script = document.createElement("script");
+    const script = document.createElement("script"); // here we append the gomaps/googlemaps script to the head
     script.src = `https://maps.gomaps.pro/maps/api/js?key=AlzaSyLrk1KXy32iTkKpsbR1J1USZWKd4lE5oud&libraries=geometry,places&callback=initMap`;
     script.async = true;
     script.defer = true;
     document.head.appendChild(script);
 
     window.initMap = () => {
+      // we initialize the map
       navigator.geolocation.getCurrentPosition((position) => {
         const latitude = position.coords.latitude;
-        const longitude = position.coords.longitude;
+        const longitude = position.coords.longitude; // get the user current location
         const mapElement = document.getElementById("map");
         const mapInstance = new google.maps.Map(mapElement, {
-          center: { lat: latitude, lng: longitude },
+          // create the mapinstance
+          center: { lat: latitude, lng: longitude }, // center is user current location
           zoom: 15,
           mapTypeId: google.maps.MapTypeId.ROADMAP,
           streetViewControl: false,
@@ -194,12 +223,14 @@ export default function MapElement() {
         setMap(mapInstance);
 
         new google.maps.Marker({
+          // here we also add a marker to the current user position
           map: mapInstance,
           position: { lat: latitude, lng: longitude },
           title: "hello World!",
         });
 
         simplifiedData.forEach((location) => {
+          // we map throught all the riders, filtered, and show a marker for all
           new google.maps.Marker({
             map: mapInstance,
             position: { lat: location.lat, lng: location.lng },
@@ -211,7 +242,7 @@ export default function MapElement() {
           });
         });
 
-        const input = document.getElementById("input");
+        const input = document.getElementById("input"); // this is the autocomplete instance
         const autocompleteInstance = new google.maps.places.Autocomplete(input);
         autocompleteInstance.bindTo("bounds", mapInstance);
         setAutocomplete(autocompleteInstance);
@@ -345,20 +376,22 @@ export default function MapElement() {
           <>
             {step ? (
               <>
-                <input
-                  type="text"
-                  id="input"
-                  placeholder="Where to ?"
-                  style={{
-                    width: "74%",
-                    height: "1.5rem",
-                    padding: "0 10px",
-                    boxSizing: "border-box",
-                  }}
-                  onFocus={focused}
-                  onChange={goup}
-                  onBlur={unFocused}
-                />
+                <Autocomplete>
+                  <input
+                    type="text"
+                    id="input"
+                    placeholder="Where to ?"
+                    style={{
+                      width: "74%",
+                      height: "1.5rem",
+                      padding: "0 10px",
+                      boxSizing: "border-box",
+                    }}
+                    onFocus={focused}
+                    onChange={goup}
+                    onBlur={unFocused}
+                  />
+                </Autocomplete>
                 <TouchableOpacity
                   onPress={unFocused}
                   style={{
@@ -397,7 +430,7 @@ export default function MapElement() {
       >
         <div
           style={{
-            width: "100vw",
+            width: "100%",
             boxSizing: "border-box",
             padding: "20px 20px 40px 20px",
           }}
@@ -405,7 +438,7 @@ export default function MapElement() {
           <div>
             {loadingSuggestions && (
               <div style={{ padding: "20px" }}>
-                <FallingLines width="100px" />
+                <FallingLines height="10rem" />
               </div>
             )}
           </div>
