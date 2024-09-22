@@ -273,7 +273,7 @@ export default function CurrentRide() {
           inputFocused
             ? [maxHeight - maxHeight / 10]
             : inputFocused === false
-            ? [maxHeight / 3.6]
+            ? [maxHeight / 3.3]
             : [maxHeight / 2]
         }
         open={true}

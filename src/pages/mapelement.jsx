@@ -52,6 +52,8 @@ export default function MapElement() {
   const navigate = useNavigate();
   const [simplifiedData, setSimplifiedData] = useState([]);
 
+  const destinationRef = useRef();
+
   // so this was a trial, setting random coordinates to check is the rider icons show on the map
   const kampalaCoordinates = [
     { lat: 0.3162, lng: 32.5811 }, // Kampala City Center
@@ -153,24 +155,8 @@ export default function MapElement() {
     setResult(2);
     console.log("Origin:", origin);
     console.log("Destination:", destination);
-    setRideDetails({
-      ...rideDetails,
-      username: username,
-      token: token,
-      origin: origin,
-      destination: destination,
-      cost: cost,
-    });
     // we make a post request with orgin, destination, username and token to store a ride in the database
     try {
-      socket.emit("orderRide", rideDetails);
-      setRideDetails({
-        username: "",
-        token: "",
-        origin: "",
-        destination: "",
-        cost: "",
-      });
       const response = await axios.post(
         "https://walamin-server.onrender.com/rides/express",
         {
@@ -257,7 +243,6 @@ export default function MapElement() {
           }
           setStep(null);
           setSendRide(false);
-          setDestination(place.formatted_address);
           setDestinationName(place.name);
           console.log("Selected place updated:", place);
           if (place.geometry.viewport) {
@@ -353,7 +338,15 @@ export default function MapElement() {
   const unFocused = () => {
     setInputFocused(false);
     setAutocomplete(false);
-    setStep(false);
+    setStep(true);
+  };
+  const nextStep = () => {
+    setSendRide(false);
+    setDestination(destinationRef.current.value);
+    new google.maps.Marker({
+      position: destination,
+      map: map,
+    });
   };
   return (
     <div>
@@ -382,7 +375,7 @@ export default function MapElement() {
                     id="input"
                     placeholder="Where to ?"
                     style={{
-                      width: "74%",
+                      width: "72vw",
                       height: "1.5rem",
                       padding: "0 10px",
                       boxSizing: "border-box",
@@ -390,10 +383,11 @@ export default function MapElement() {
                     onFocus={focused}
                     onChange={goup}
                     onBlur={unFocused}
+                    ref={destinationRef}
                   />
                 </Autocomplete>
                 <TouchableOpacity
-                  onPress={unFocused}
+                  onPress={nextStep}
                   style={{
                     width: "20%",
                     display: "flex",
@@ -403,7 +397,7 @@ export default function MapElement() {
                     borderRadius: "10px",
                   }}
                 >
-                  <p>Cancel</p>
+                  <p>Next</p>
                 </TouchableOpacity>
               </>
             ) : step === null ? (
