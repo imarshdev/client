@@ -11,7 +11,7 @@
 
 // import stuff
 import { useEffect, useState, useRef } from "react";
-import { TouchableOpacity } from "react-native-web";
+import { ScrollView, TouchableOpacity } from "react-native-web";
 import { Link, useNavigate } from "react-router-dom";
 import ride from "../assets/ride.svg";
 import delivery from "../assets/delivery.svg";
@@ -23,10 +23,18 @@ import shopping from "../assets/shopping.svg";
 import { RiAuctionLine, RiListSettingsLine } from "react-icons/ri";
 import { IoIosArrowBack } from "react-icons/io";
 import { FiAlertCircle } from "react-icons/fi";
-import { MdEvent, MdMovie, MdPayments, MdPedalBike, MdSchedule } from "react-icons/md";
+import {
+  MdEvent,
+  MdMovie,
+  MdPayments,
+  MdPedalBike,
+  MdSchedule,
+  MdTour,
+} from "react-icons/md";
 import { TiTicket } from "react-icons/ti";
-import { GiFullMotorcycleHelmet, GiMedicalPack } from "react-icons/gi";
+import { GiFullMotorcycleHelmet, GiHouse, GiMedicalPack } from "react-icons/gi";
 import { CiDeliveryTruck } from "react-icons/ci";
+import { FaSuitcase } from "react-icons/fa";
 
 // nothing special, just the same touchableopacity over and over
 const AllLocations = () => {
@@ -47,13 +55,16 @@ const AllLocations = () => {
     >
       <div
         style={{
-          width: "100%",
+          width: "95%",
           height: "10%",
           backgroundColor: "limegreen",
           borderRadius: "10px",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
+          position: "fixed",
+          zIndex: 99999,
+          top: "10px",
         }}
       >
         <TouchableOpacity
@@ -81,9 +92,17 @@ const AllLocations = () => {
           <RiListSettingsLine color="white" size={24} />
         </TouchableOpacity>
       </div>
+
       <div
         className="mid_details_upper"
-        style={{ width: "100%", height: "65%", display: 'flex', justifyContent: "space-between", alignItems: 'start'}}
+        style={{
+          width: "100%",
+          height: "65%",
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "start",
+          marginTop: "13vh",
+        }}
       >
         <p style={{ width: "100%", margin: 10 }}>Walamin Services</p>
 
@@ -179,6 +198,101 @@ const AllLocations = () => {
         </TouchableOpacity>
 
         <p style={{ width: "100%", margin: 10 }}>24 Hour Services</p>
+
+        {/* send money button */}
+        <TouchableOpacity
+          id="service_item"
+          style={{ marginTop: "20px", padding: "10px" }}
+        >
+          <Link id="link_item">
+            <MdEvent size={34} color="8e24aa" />
+            <p style={{ fontSize: 12, color: "" }}>Events</p>{" "}
+          </Link>
+        </TouchableOpacity>
+
+        <TouchableOpacity id="service_item" style={{ padding: "10px" }}>
+          <Link id="link_item">
+            <GiMedicalPack size={34} color="#6495ed" />
+            <p style={{ fontSize: 12, color: "#330000" }}>
+              Medicare & Pharmaceuticals
+            </p>{" "}
+          </Link>
+        </TouchableOpacity>
+
+        {/* withdrawal button */}
+        <TouchableOpacity
+          id="service_item"
+          style={{ marginTop: "20px", padding: "10px" }}
+        >
+          <Link id="link_item">
+            <RiAuctionLine size={34} color="#ffd700" />
+            <p style={{ fontSize: 12, color: "#663300" }}>Auction House</p>{" "}
+          </Link>
+        </TouchableOpacity>
+
+        <p style={{ width: "100%", margin: 10 }}>More !!</p>
+
+        {/* send money button */}
+        <TouchableOpacity
+          id="service_item"
+          style={{ marginTop: "20px", padding: "10px" }}
+        >
+          <Link id="link_item">
+            <MdTour size={34} color="#f08080" />
+            <p style={{ fontSize: 12, color: "" }}>Tourism</p>{" "}
+          </Link>
+        </TouchableOpacity>
+
+        <TouchableOpacity id="service_item" style={{ padding: "10px" }}>
+          <Link id="link_item">
+            <FaSuitcase size={34} color="#c0c0c0" />
+            <p style={{ fontSize: 12, color: "#330000" }}>Jobs</p>{" "}
+          </Link>
+        </TouchableOpacity>
+
+        {/* withdrawal button */}
+        <TouchableOpacity
+          id="service_item"
+          style={{ marginTop: "20px", padding: "10px" }}
+        >
+          <Link id="link_item">
+            <GiHouse size={34} color="#98ff98" />
+            <p style={{ fontSize: 12, color: "#663300" }}>
+              Rentals & Houses
+            </p>{" "}
+          </Link>
+        </TouchableOpacity>
+
+        {/* send money button */}
+        <TouchableOpacity
+          id="service_item"
+          style={{ marginTop: "20px", padding: "10px" }}
+        >
+          <Link id="link_item">
+            <MdEvent size={34} color="8e24aa" />
+            <p style={{ fontSize: 12, color: "" }}>Events</p>{" "}
+          </Link>
+        </TouchableOpacity>
+
+        <TouchableOpacity id="service_item" style={{ padding: "10px" }}>
+          <Link id="link_item">
+            <GiMedicalPack size={34} color="#6495ed" />
+            <p style={{ fontSize: 12, color: "#330000" }}>
+              Medicare & Pharmaceuticals
+            </p>{" "}
+          </Link>
+        </TouchableOpacity>
+
+        {/* withdrawal button */}
+        <TouchableOpacity
+          id="service_item"
+          style={{ marginTop: "20px", padding: "10px" }}
+        >
+          <Link id="link_item">
+            <RiAuctionLine size={34} color="#ffd700" />
+            <p style={{ fontSize: 12, color: "#663300" }}>Auction House</p>{" "}
+          </Link>
+        </TouchableOpacity>
 
         {/* send money button */}
         <TouchableOpacity

@@ -77,6 +77,18 @@
   align-items: start;
   flex-wrap: wrap;
 }
+#mid_details_upper {
+  height: 90%;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  flex-wrap: wrap;
+  height: "65%";
+  display: "flex";
+  justify-content: "space-between";
+  align-items: "start";
+}
 #items_wrapper {
   width: 30%;
   min-height: 5vh;
