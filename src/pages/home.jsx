@@ -166,7 +166,7 @@ function Home() {
 
             {/* withdrawal button */}
             <TouchableOpacity id="service_item">
-              <Link id="link_item">
+              <Link to="/recieveRide" id="link_item">
                 <img src={withdraw} style={{ width: "34px" }} />
                 <p style={{ fontSize: 12 }}>Withdraw</p>{" "}
               </Link>

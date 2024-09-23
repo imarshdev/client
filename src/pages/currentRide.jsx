@@ -12,6 +12,12 @@ import axios from "axios";
 import { Autocomplete } from "@react-google-maps/api";
 import { UserContext } from "../../UserContext";
 
+import { io } from "socket.io-client";
+
+const socket = io("https://walamin-server.onrender.com", {
+  withCredentials: true,
+});
+
 mapboxgl.accessToken =
   "pk.eyJ1IjoiaW1hcnNoIiwiYSI6ImNtMDZiZDB2azB4eDUyanM0YnVhN3FtZzYifQ.gU1K02oIfZLWJRGwnjGgCg";
 
@@ -19,11 +25,14 @@ export default function CurrentRide() {
   const { user } = useContext(UserContext);
   const [rideDetails, setRideDetails] = useState({
     username: "",
-    contact: "",
+    token: "",
     userLocation: "",
     destinationName: "",
     cost: "",
+    distance: "",
+    duration: "",
   });
+  const [message, setMessage] = useState("");
   const [destinationLat, setDestinationLat] = useState({});
   const [destinationLng, setDestinationLng] = useState({});
   const [distance, setDistance] = useState(null);
@@ -176,6 +185,9 @@ export default function CurrentRide() {
       map.remove();
     };
   }, [data]);
+  const broadcastRide = () => {
+    socket.emit("orderRide", rideDetails);
+  };
   const screenHeight = window.innerHeight;
   const verticalOffset = screenHeight * 1;
   const focused = () => {
@@ -196,10 +208,12 @@ export default function CurrentRide() {
     setRideDetails({
       ...rideDetails,
       username: user.Username,
-      contact: user.Contact,
-      userLocation: userLocation,
+      token: user.Token,
+      userLocation: formattedAddress,
       destinationName: destination,
       cost: cost,
+      distance: distance,
+      duration: duration,
     });
   };
   const blurred = () => {
@@ -330,7 +344,7 @@ export default function CurrentRide() {
                 <p>Duration: {(duration / 60).toFixed(2)} mins</p>{" "}
                 {/* Convert to mins */}
                 <p>Cost: {(distance / 1).toFixed(0)} shs</p>
-                <TouchableOpacity id="confirm-pickup">
+                <TouchableOpacity id="confirm-pickup" onPress={broadcastRide}>
                   <p>Order</p>
                 </TouchableOpacity>
                 <TouchableOpacity id="cancel-pickup">
