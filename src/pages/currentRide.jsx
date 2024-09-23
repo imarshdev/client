@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { BottomSheet } from "react-spring-bottom-sheet";
 import ReactDOM from "react-dom";
 import "../css/ride.css";
@@ -10,23 +10,34 @@ import { useNavigate } from "react-router-dom";
 import { IoIosArrowBack } from "react-icons/io";
 import axios from "axios";
 import { Autocomplete } from "@react-google-maps/api";
+import { UserContext } from "../../UserContext";
 
 mapboxgl.accessToken =
   "pk.eyJ1IjoiaW1hcnNoIiwiYSI6ImNtMDZiZDB2azB4eDUyanM0YnVhN3FtZzYifQ.gU1K02oIfZLWJRGwnjGgCg";
 
 export default function CurrentRide() {
+  const { user } = useContext(UserContext);
+  const [rideDetails, setRideDetails] = useState({
+    username: "",
+    contact: "",
+    userLocation: "",
+    destinationName: "",
+    cost: "",
+  });
   const [destinationLat, setDestinationLat] = useState({});
   const [destinationLng, setDestinationLng] = useState({});
   const [distance, setDistance] = useState(null);
   const [duration, setDuration] = useState(null);
   const [destination, setDestination] = useState();
   const [userLocation, setUserLocation] = useState();
+  const [formattedAddress, setFormattedAddress] = useState();
   const [directions, setDirections] = useState(null);
   const [step, setStep] = useState(false);
   const [inputFocused, setInputFocused] = useState(null);
   const [autoComplete, setAutocomplete] = useState(false);
   const [map, setMap] = useState(null);
   const [data, setData] = useState([]);
+  const [cost, setCost] = useState();
   const navigate = useNavigate();
   const destinationRef = useRef();
   const currentride = () => {
@@ -43,7 +54,7 @@ export default function CurrentRide() {
         .catch((error) => {
           console.error(error);
         });
-    }, 30000); // 30000 milliseconds = 30 seconds
+    }, 90000); // 90000 milliseconds = 90 seconds
 
     return () => {
       clearInterval(intervalId);
@@ -76,7 +87,9 @@ export default function CurrentRide() {
       const route = e.route[0].geometry.coordinates;
       const routeObject = e.route[0];
       setDistance(routeObject.distance);
+      setCost((routeObject.distance / 1).toFixed(0));
       setDuration(routeObject.duration);
+      console.log(cost);
       console.log(distance);
       console.log(duration);
 
@@ -128,6 +141,21 @@ export default function CurrentRide() {
         const latitude = position.coords.latitude;
 
         setUserLocation([longitude, latitude]);
+        const geocoder = new google.maps.Geocoder();
+        const latLng = new google.maps.LatLng(latitude, longitude);
+        geocoder.geocode({ location: latLng }, (results, status) => {
+          if (status === google.maps.GeocoderStatus.OK) {
+            if (results[0]) {
+              const formattedAddress = results[0].formatted_address;
+              console.log("Formatted Address:", formattedAddress);
+              setFormattedAddress(formattedAddress);
+            } else {
+              console.log("No results found");
+            }
+          } else {
+            console.log("Geocoder failed due to: " + status);
+          }
+        });
 
         map.setCenter([longitude, latitude]);
         map.setZoom(15);
@@ -165,6 +193,14 @@ export default function CurrentRide() {
       directions.setDestination([destinationLng, destinationLat]); // Forest Mall coordinates
     }
     map.setZoom(13);
+    setRideDetails({
+      ...rideDetails,
+      username: user.Username,
+      contact: user.Contact,
+      userLocation: userLocation,
+      destinationName: destination,
+      cost: cost,
+    });
   };
   const blurred = () => {
     setInputFocused(false);
@@ -183,8 +219,14 @@ export default function CurrentRide() {
     setDestination(destinationRef.current.value);
   };
   useEffect(() => {
-    if (location) {
-      console.log(destination);
+    if (location || cost || distance || duration || formattedAddress) {
+      console.log(user.Username);
+      console.log(user.Token);
+      console.log("userLocation: ", formattedAddress);
+      console.log("destination: ", destination);
+      console.log("cost: ", cost);
+      console.log("distance: ", distance);
+      console.log("duration: ", duration);
     }
   });
   return (
