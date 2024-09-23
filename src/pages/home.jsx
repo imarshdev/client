@@ -34,7 +34,7 @@ function Home() {
   // logging in sets the isloggedin state to true, globally
   // i should probably add this to every page
   useEffect(() => {
-    if (user.isLoggedIn) {
+    if (!user.isLoggedIn) {
       navigate("/signin", { replace: true });
     }
   }, [user.isLoggedIn, navigate]);
