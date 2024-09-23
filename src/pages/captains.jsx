@@ -613,8 +613,6 @@ const Ongoing = ({ setOpen, open, destinationLat, destinationLng }) => {
   const [directions, setDirections] = useState();
   const [riderLocationLat, setRiderLocationLat] = useState();
   const [riderLocationLng, setRiderLocationLng] = useState();
-  const [destinationLat, setDestinationLat] = useState({});
-  const [destinationLng, setDestinationLng] = useState({});
   useEffect(() => {
     // im not sure i remember what this does but its something to do with checking is the map has been loaded in the parent container, before carrying anything ouot
     if (!mapContainerRef.current) return;
