@@ -241,7 +241,7 @@ export default function MapElement() {
             );
             return;
           }
-          setStep(null);
+          setStep(true);
           setSendRide(false);
           setDestinationName(place.name);
           console.log("Selected place updated:", place);
