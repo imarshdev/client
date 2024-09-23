@@ -629,7 +629,7 @@ const Ongoing = ({ setOpen, open, destinationLat, destinationLng }) => {
     const directions = new window.MapboxDirections({
       accessToken: window.mapboxgl.accessToken,
       unit: "metric",
-      profile: "mapbox/walking",
+      profile: "mapbox/drivng",
       alternatives: false,
       geometries: "geojson",
       controls: { instructions: true, inputs: false },
@@ -674,7 +674,7 @@ const Ongoing = ({ setOpen, open, destinationLat, destinationLng }) => {
       <div
         ref={mapContainerRef}
         id="map"
-        style={{ width: "100%", height: "60vh" }}
+        style={{ width: "100%", height: "75vh" }}
       ></div>
       <br />
       <br />
