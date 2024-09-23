@@ -336,6 +336,7 @@ export default function MapElement() {
     setAutocomplete(true);
   };
   const unFocused = () => {
+    console.log(destinationRef.current.value);
     setDestination(destinationRef.current.value);
     console.log("destination: ", destination);
     setInputFocused(false);
@@ -462,7 +463,6 @@ export default function MapElement() {
           <br />
           {sendRide === false && (
             <>
-              <p>{origin}</p>
               <br />
               <TouchableOpacity
                 onPress={start}
