@@ -32,15 +32,17 @@ mapboxgl.accessToken =
 // captain component
 export default function CapDash() {
   const [declinedRides, setDeclinedRides] = useState({}); // this is for making sure declined rides dont get re-rendered
-  const [page, setPage] = useState("scheduled"); 
+  const [page, setPage] = useState("scheduled");
   const [data, setData] = useState(""); // this is the data got from the backend, "rides"
   const [dataExpress, setDataExpress] = useState("");
 
   // when a rider accepts a ride
-  const handleAcceptRide = (username, rideIndex) => { // passing username and rideIndex so we can access then in the current ride component
+  const handleAcceptRide = (username, rideIndex) => {
+    // passing username and rideIndex so we can access then in the current ride component
     const rideData = dataExpress[username].expressRides[rideIndex]; // storing ridedata in a constant to be used as it is passed
     const rideId = `${rideData.origin}${rideData.timestamp}`; // Define rideId here
-    navigate("/mapride", { //navigate to mapride component together with the respective usersname, contact and ridedata
+    navigate("/mapride", {
+      //navigate to mapride component together with the respective usersname, contact and ridedata
       state: {
         username,
         contact: dataExpress[username].contact,
@@ -48,7 +50,8 @@ export default function CapDash() {
       },
     });
     axios
-      .patch("https://walamin-server.onrender.com/accept-ride", { // this is for patching the accepted ride, so that no other users can get an already accepted ride
+      .patch("https://walamin-server.onrender.com/accept-ride", {
+        // this is for patching the accepted ride, so that no other users can get an already accepted ride
         username,
         rideId,
       })
@@ -60,10 +63,12 @@ export default function CapDash() {
       });
   };
   // here we handle what happens when a rider declines a ride
-  const handleDeclineRide = (username, rideIndex) => { // we pass username and rideIndex ofcourse
+  const handleDeclineRide = (username, rideIndex) => {
+    // we pass username and rideIndex ofcourse
     const declinedRide = dataExpress[username].expressRides[rideIndex]; // store declined ride in a variable
     const rideId = `${declinedRide.origin}${declinedRide.timestamp}`; // define the ride id
-    setDeclinedRides((prevDeclinedRides) => { // now here, we set the declined rides array, we store every ride a rider declines
+    setDeclinedRides((prevDeclinedRides) => {
+      // now here, we set the declined rides array, we store every ride a rider declines
       const updatedDeclinedRides = { ...prevDeclinedRides };
       updatedDeclinedRides[username] = [
         ...(updatedDeclinedRides[username] || []),
@@ -77,7 +82,7 @@ export default function CapDash() {
       return updatedDeclinedRides;
     });
   };
-  // every time, we have to check, if the declined rides exist, we replace with an updated one, then if they don't, then we set 
+  // every time, we have to check, if the declined rides exist, we replace with an updated one, then if they don't, then we set
   useEffect(() => {
     const storedDeclinedRides = localStorage.getItem("declinedRides");
     if (storedDeclinedRides) {
@@ -87,7 +92,8 @@ export default function CapDash() {
 
   // here we fetch all rides, scheduled rides
   useEffect(() => {
-    const intervalId = setInterval(() => { // using an interval to make sure we fetch new rides too
+    const intervalId = setInterval(() => {
+      // using an interval to make sure we fetch new rides too
       axios
         .get("https://walamin-server.onrender.com/all-rides")
         .then((response) => {
@@ -103,9 +109,10 @@ export default function CapDash() {
     };
   }, []);
 
-  // then here we fetch all express rides 
+  // then here we fetch all express rides
   useEffect(() => {
-    const intervalId = setInterval(() => { // also in intervals to cater for new data
+    const intervalId = setInterval(() => {
+      // also in intervals to cater for new data
       axios
         .get("https://walamin-server.onrender.com/all-express-rides")
         .then((response) => {
@@ -388,7 +395,6 @@ export default function CapDash() {
   );
 }
 
-
 //  welcome to the map ride function, here we show the map to the current rider to a respective ride.....
 export function MapRide() {
   const location = useLocation();
@@ -455,7 +461,7 @@ export function MapRide() {
         }
       });
 
-      // getting directions 
+      // getting directions
       const directionsService = new google.maps.DirectionsService();
       const directionsRenderer = new google.maps.DirectionsRenderer({
         map: mapInstance, // Set the map instance here
@@ -593,7 +599,7 @@ export function MapRide() {
         >
           <p>Ongoing</p>
           {/* ongoing component */}
-          <Ongoing setOpen={setOpen} open={open} />
+          <Ongoing destinationLat={destinationLat} destinationLng={destinationLng} setOpen={setOpen} open={open} />
         </div>
       </BottomSheet>
     </div>
@@ -601,9 +607,14 @@ export function MapRide() {
 }
 
 // component to store the mapbox directions map instance
-const Ongoing = ({ setOpen, open }) => {
+const Ongoing = ({ setOpen, open, destinationLat, destinationLng }) => {
   const [map, setMap] = useState(null);
   const mapContainerRef = useRef(null);
+  const [directions, setDirections] = useState();
+  const [riderLocationLat, setRiderLocationLat] = useState();
+  const [riderLocationLng, setRiderLocationLng] = useState();
+  const [destinationLat, setDestinationLat] = useState({});
+  const [destinationLng, setDestinationLng] = useState({});
   useEffect(() => {
     // im not sure i remember what this does but its something to do with checking is the map has been loaded in the parent container, before carrying anything ouot
     if (!mapContainerRef.current) return;
@@ -617,11 +628,26 @@ const Ongoing = ({ setOpen, open }) => {
 
     setMap(map);
 
+    const directions = new window.MapboxDirections({
+      accessToken: window.mapboxgl.accessToken,
+      unit: "metric",
+      profile: "mapbox/walking",
+      alternatives: false,
+      geometries: "geojson",
+      controls: { instructions: true, inputs: false },
+      flyTo: true,
+    });
+
+    map.addControl(directions);
+    setDirections(directions);
+
     // Add marker for current location
     navigator.geolocation.getCurrentPosition(
       (position) => {
         const longitude = position.coords.longitude;
         const latitude = position.coords.latitude;
+        setRiderLocationLat(latitude);
+        setRiderLocationLng(longitude);
         map.setCenter([longitude, latitude]);
         map.setZoom(15);
         const marker = new mapboxgl.Marker()
@@ -638,6 +664,12 @@ const Ongoing = ({ setOpen, open }) => {
       map.remove();
     };
   }, []);
+  const go = () => {
+    if (directions) {
+      directions.setOrigin([riderLocationLng, riderLocationLat]);
+      directions.setDestination([destinationLng, destinationLat]); 
+    }
+  };
   // div.... duh
   return (
     <>
@@ -657,6 +689,7 @@ const Ongoing = ({ setOpen, open }) => {
       >
         {/* first button to add a stop, mot yet functional */}
         <TouchableOpacity
+          onPress={go}
           style={{
             width: "45%",
             height: "3rem",
@@ -668,7 +701,7 @@ const Ongoing = ({ setOpen, open }) => {
             border: "solid 0.1px limegreen",
           }}
         >
-          <span>Add Stop</span>
+          <span>Go !</span>
         </TouchableOpacity>
         {/* button to end ride, this can be at the end of the ride, or just ended midRide */}
         <TouchableOpacity
