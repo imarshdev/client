@@ -336,13 +336,14 @@ export default function MapElement() {
     setAutocomplete(true);
   };
   const unFocused = () => {
+    setDestination(destinationRef.current.value);
+    console.log("destination: ", destination);
     setInputFocused(false);
     setAutocomplete(false);
     setStep(true);
   };
   const nextStep = () => {
     setSendRide(false);
-    setDestination(destinationRef.current.value);
     new google.maps.Marker({
       position: destination,
       map: map,
